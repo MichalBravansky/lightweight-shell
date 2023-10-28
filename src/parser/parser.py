@@ -5,17 +5,17 @@ from src.parser.ShellListener import ShellListener
 
 from src.commands.echo import EchoCommand
 from src.commands.cd import CdCommand
+from src.commands.argument import Argument
 
 
 class MyShellListener(ShellListener):
     def enterCommand(self, ctx):
         command_name = ctx.COMMAND().getText()
         args = [arg.getText() for arg in ctx.arg()]
-        args_info = []
-        args_info = {"named_arguments": {"n": {"description": "no trailing newline", "value": False}}, "positional_arguments": []}
-
-        args_dict = Argument.convert_arg_list_to_arg_dict(args, args_info)
-        self.execute_command(command_name, args)
+        args_info = {"named_arguments": {"n": Argument(Argument.FLAG, "exclude_trailing_newline", False)}, "positional_arguments": [Argument(Argument.LIST, "echo_text", [])]}
+        Argument.populate_args(args_info, args)
+        Argument.set_keys_to_readable(args_info)
+        self.execute_command(command_name, args_info)
 
     def execute_command(self, command_name, args):
         command_classes = {
@@ -31,28 +31,29 @@ class MyShellListener(ShellListener):
 
 def main():
     # Load the input
-    user_input = input("shell> ")
+    while True:
+        user_input = input("shell> ")
 
-    input_stream = InputStream(user_input)
+        input_stream = InputStream(user_input)
 
-    # Create the lexer
-    lexer = ShellLexer(input_stream)
+        # Create the lexer
+        lexer = ShellLexer(input_stream)
 
-    # Create a stream of tokens
-    token_stream = CommonTokenStream(lexer)
+        # Create a stream of tokens
+        token_stream = CommonTokenStream(lexer)
 
-    # Create the parser
-    parser = ShellParser(token_stream)
+        # Create the parser
+        parser = ShellParser(token_stream)
 
-    # Create a listener
-    listener = MyShellListener()
+        # Create a listener
+        listener = MyShellListener()
 
-    # Build the parse tree
-    tree = parser.commands()
+        # Build the parse tree
+        tree = parser.commands()
 
-    # Walk the parse tree with the listener
-    walker = ParseTreeWalker()
-    walker.walk(listener, tree)
+        # Walk the parse tree with the listener
+        walker = ParseTreeWalker()
+        walker.walk(listener, tree)
 
 if __name__ == '__main__':
     main()
