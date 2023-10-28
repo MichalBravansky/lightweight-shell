@@ -8,6 +8,6 @@ class CD(Command):
         super().__init__("cd", "change directory")
 
     def execute(self, args):
-        os.chdir(self.args[0])
+        os.chdir(args["file_path"])
     
         
