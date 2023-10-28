@@ -5,7 +5,7 @@ import re
 
 class CD(Command):
     def __init__(self):
-        super().__init__("cd", "change directory", ["<directory>"])
+        super().__init__("cd", "change directory")
 
     def execute(self, args):
         os.chdir(self.args[0])
