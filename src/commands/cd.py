@@ -3,7 +3,7 @@ import os
 from os import listdir
 import re
 
-class CD(Command):
+class CdCommand(Command):
     def __init__(self):
         super().__init__("cd", "change directory")
 
