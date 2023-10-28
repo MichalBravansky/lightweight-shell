@@ -13,8 +13,8 @@ def main():
             lexer = ShellLexer(input_stream)
             token_stream = antlr4.CommonTokenStream(lexer)
             parser = ShellParser(token_stream)
-            tree = parser.commandLine()
-            print(tree)
+            tree = parser.commands()
+            print(tree.toStringTree(recog=parser))
             #visitor = ShellVisitorImpl()
             #visitor.visit(tree)
         except KeyboardInterrupt:
