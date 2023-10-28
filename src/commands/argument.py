@@ -9,6 +9,13 @@ class Argument():
         self.arg_name = arg_name
         self.arg_value = arg_value
     
+    @staticmethod
+    def convert_arg_list_to_arg_dict(self, args):
+        arg_dict = defaultdict(str)
+        for arg in args:
+            arg_dict[arg.arg_name] = arg
+        return arg_dict
+        
     def is_arg_value_valid(self):
         if self.arg_type == Argument.INTEGER:
             return self.arg_value.isdigit()

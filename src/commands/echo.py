@@ -9,9 +9,9 @@ class Echo(Command):
 
     def execute(self, args):
         if args['trailing_newline']:
-            print(args['echo_text'])
+            print(args['echo_text'].arg_value)
         else:
-            print(args['echo_text'], end='')
+            print(args['echo_text'].arg_value, end='')
 
     
         
