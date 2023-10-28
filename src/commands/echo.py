@@ -3,7 +3,7 @@ import os
 from os import listdir
 import re
 
-class Echo(Command):
+class EchoCommand(Command):
     def __init__(self):
         super().__init__("echo", "output text to stdout")
 
