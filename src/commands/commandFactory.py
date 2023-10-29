@@ -1,5 +1,6 @@
 from src.commands.echo import EchoCommand
 from src.commands.cd import CdCommand
+from src.commands.pwd import PwdCommand
 
 
 class CommandFactory:
@@ -7,12 +8,14 @@ class CommandFactory:
         self.classes = {
             "echo": EchoCommand,
             "cd": CdCommand,
+            "pwd": PwdCommand,
         }
 
-    def execute_command(self, command_name, args: list):
+    def execute_command(self, command_name, args: list, input=None):
         command_class = self.classes.get(command_name.lower())
         if command_class is None:
             print(f"Unknown command: {command_name}")
+            return
         else:
             command = command_class()
-            return command.execute(args)
+            return command.execute(args, input=input)

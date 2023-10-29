@@ -15,6 +15,10 @@ class ArgumentHandler:
                 "named_args": {},
                 "positional_args": [Argument(Argument.STRING, "cd_path", "/")],
             },
+            "pwd": {
+                "named_args": {},
+                "positional_args": [],
+            },
         }
 
     def assign_arguments(self, command_name, args) -> dict:
