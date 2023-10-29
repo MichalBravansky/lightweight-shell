@@ -1,8 +1,7 @@
 grammar Shell;
 
 // Parser rules
-commands: commandLine ;
-commandLine: command (pipe command)* ;
+commands: command (pipe command)* ;
 command: COMMAND arg* (redirection)? ;
 pipe: '|';
 redirection: ('>' | '>>' | '<') FILE ;

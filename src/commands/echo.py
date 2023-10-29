@@ -8,13 +8,11 @@ class EchoCommand(Command):
         super().__init__("echo", "output text to stdout")
 
     def execute(self, args):
-        named_args = args['named_arguments']
-        positional_args = args['positional_arguments']
-        echo_text = " ".join(args['positional_arguments'][0].value)
-        if named_args['exclude_trailing_newline'].value:
-            print(echo_text, end='')
+        echo_text = " ".join(args['echo_text'].value)
+        if args['exclude_trailing_newline'].value:
+            return echo_text
         else:
-            print(echo_text)
+            return echo_text + "\n"
 
     
         
