@@ -8,10 +8,7 @@ class Command(ABC):
 
     # Assumes that the command has been pre-validated by the parser. 
     @abstractmethod
-    def execute(self, args):
-        process_args()
-        folder = None
-        flag1 = False
+    def execute(self, args, input = None):
         pass
 
     def help(self):
