@@ -62,5 +62,14 @@ class ShellListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ShellParser#quotedArg.
+    def enterQuotedArg(self, ctx:ShellParser.QuotedArgContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#quotedArg.
+    def exitQuotedArg(self, ctx:ShellParser.QuotedArgContext):
+        pass
+
+
 
 del ShellParser

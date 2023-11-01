@@ -39,5 +39,10 @@ class ShellVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ShellParser#quotedArg.
+    def visitQuotedArg(self, ctx:ShellParser.QuotedArgContext):
+        return self.visitChildren(ctx)
+
+
 
 del ShellParser
