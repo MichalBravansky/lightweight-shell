@@ -7,7 +7,10 @@ class CdCommand(Command):
     def __init__(self):
         super().__init__("cd", "change directory")
 
-    def execute(self, args):
-        os.chdir(args["file_path"])
+    def execute(self, args, input = None):
+        if os.path.exists(args["cd_path"].value) and os.path.isdir(args["cd_path"].value):
+            os.chdir(args["cd_path"].value)
+        else:
+            print("Folder not found")
     
         
