@@ -23,20 +23,23 @@ class Argument:
     @staticmethod
     def populate_args(args_info, arg_list):
         i = 0
+        seen_positional_args = False
         while i < len(arg_list):
             arg = arg_list[i]
             if arg.startswith("-"):
                 # It's a named argument or flag
                 arg_name = arg[1:]
-                if arg_name not in args_info["named_args"]:
+                if arg_name not in args_info["named_args"] or seen_positional_args:
                     # Treat as a positional argument for 'echo' like behavior
                     Argument.handle_positional_arg(args_info, arg, i)
+                    seen_positional_args = True
                 else:
                     # It's a valid named argument
                     i = Argument.handle_named_arg(args_info, arg_name, arg_list, i)
             else:
                 # It's a positional argument
                 Argument.handle_positional_arg(args_info, arg, i)
+                seen_positional_args = True
             i += 1
 
         return args_info
