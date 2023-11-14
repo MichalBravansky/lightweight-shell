@@ -19,6 +19,22 @@ class ArgumentHandler:
                 "named_args": {},
                 "positional_args": [],
             },
+            "ls": {
+                "named_args": {},
+                "positional_args": [Argument(Argument.STRING, "directory", ".")],
+            },
+            "cat": {
+                "named_args": {
+                    "b": Argument(Argument.FLAG, "number_nonblank", False),
+                    "n": Argument(Argument.FLAG, "number_output_lines", False),
+                    "s": Argument(Argument.FLAG, "squeeze_blank", False),
+                    "u": Argument(Argument.FLAG, "disable_output_buffering", False),
+                    "v": Argument(Argument.FLAG, "display_non_printing_chars", False),
+                    "e": Argument(Argument.FLAG, "display_non_printing_chars_and_dollar", False),
+                    "t": Argument(Argument.FLAG, "display_non_printing_chars_and_tab", False)
+                },
+                "positional_args": [Argument(Argument.LIST, "files", [])],
+            }
         }
 
     def assign_arguments(self, command_name, args) -> dict:
