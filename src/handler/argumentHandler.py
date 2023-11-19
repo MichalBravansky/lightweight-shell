@@ -34,6 +34,15 @@ class ArgumentHandler:
                     "t": Argument(Argument.FLAG, "display_non_printing_chars_and_tab", False)
                 },
                 "positional_args": [Argument(Argument.LIST, "files", [])],
+            },
+            "head": {
+                "named_args": {
+                    "n": Argument(Argument.INTEGER, "lines", 10),
+                    # "c": Argument(Argument.INTEGER, "bytes", None),
+                    # "q": Argument(Argument.FLAG, "silent", False),
+                    # "v": Argument(Argument.FLAG, "verbose", False)
+                },
+                "positional_args": [Argument(Argument.STRING, "file", None)],
             }
         }
 

@@ -3,6 +3,7 @@ from src.commands.cd import CdCommand
 from src.commands.pwd import PwdCommand
 from src.commands.cat import CatCommand
 from src.commands.ls import LsCommand
+from src.commands.head import HeadCommand
 
 
 class CommandFactory:
@@ -12,7 +13,8 @@ class CommandFactory:
             "cd": CdCommand,
             "pwd": PwdCommand,
             "cat": CatCommand,
-            "ls": LsCommand
+            "ls": LsCommand,
+            "head": HeadCommand
         }
 
     def execute_command(self, command_name, args: list, input=None):
