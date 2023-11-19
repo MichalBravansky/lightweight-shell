@@ -6,6 +6,8 @@ from src.commands.ls import LsCommand
 from src.commands.head import HeadCommand
 from src.commands.tail import TailCommand
 from src.commands.grep import GrepCommand
+from src.commands.uniq import UniqCommand
+from src.commands.sort import SortCommand
 
 
 class CommandFactory:
@@ -20,6 +22,8 @@ class CommandFactory:
             "tail": TailCommand,
             "grep": GrepCommand,
 
+            "uniq": UniqCommand,
+            "sort": SortCommand
         }
 
     def execute_command(self, command_name, args: list, input=None):
