@@ -37,7 +37,7 @@ class ArgumentHandler:
             },
             "head": {
                 "named_args": {
-                    "n": Argument(Argument.INTEGER, "lines", 10),
+                    "n": Argument(Argument.FLAG_WITH_INTEGER, "lines", 10),
                     # "c": Argument(Argument.INTEGER, "bytes", None),
                     # "q": Argument(Argument.FLAG, "silent", False),
                     # "v": Argument(Argument.FLAG, "verbose", False)
