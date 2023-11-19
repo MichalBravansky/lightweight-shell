@@ -24,9 +24,9 @@ class CatCommand(Command):
                         lines = self.display_non_printing_chars_and_dollar(lines)
                     if args['display_non_printing_chars_and_tab'].value:
                         lines = self.display_non_printing_chars_and_tab(lines)
-                    print(''.join(lines))
+                    return ''.join(lines)
             else:
-                print(f"{filename} does not exist")
+                raise FileNotFoundError(f"cat: {filename}: No such file or directory")
 
     def number_non_blank_lines(self, lines):
         return [f"{i+1} {line}" for i, line in enumerate(lines) if line.strip() != '']

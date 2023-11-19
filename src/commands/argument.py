@@ -1,3 +1,4 @@
+from utils.exceptions import UnexpectedArgumentError, MissingValueError, TooManyArgumentsError 
 class Argument:
     INTEGER = 1
     STRING = 2
@@ -39,7 +40,7 @@ class Argument:
                         if i < len(arg_list):
                             args_info["named_args"][arg_name].value = Argument.convert_arg_value(arg_list[i], args_info["named_args"][arg_name].type)
                         else:
-                            print(f"Expected a value for flag {arg}")
+                            raise MissingValueError(arg_name)
                     else:
                         args_info["named_args"][arg_name].value = True
                 elif not seen_positional_args:
@@ -47,7 +48,7 @@ class Argument:
                     Argument.handle_positional_arg(args_info, arg, positional_count)
                     positional_count += 1   
                 else:
-                    print(f"Unexpected flag {arg}")
+                    raise UnexpectedArgumentError(arg_name)
             else:
                 seen_positional_args = True
                 Argument.handle_positional_arg(args_info, arg, positional_count)
@@ -67,8 +68,7 @@ class Argument:
             arg_obj.value = Argument.convert_arg_value(arg_value, arg_obj.type)
             return i + 1  # Increment i to skip the value
         else:
-            print(f"Missing value for argument {arg_name}")
-            return i  # No value provided, don't increment i
+            raise MissingValueError(arg_name)
 
     @staticmethod
     def handle_positional_arg(args_info, arg, i):
@@ -78,7 +78,7 @@ class Argument:
         else:
             # Assume last positional argument is an infinite list
             if len(args_info["positional_args"]) == 0:
-                print(f"Unexpected argument {arg}")
+                raise UnexpectedArgumentError(arg)
             else:
                 arg_obj = args_info["positional_args"][-1]
                 if arg_obj.type == Argument.LIST:
@@ -86,7 +86,7 @@ class Argument:
                         Argument.convert_arg_value(arg, Argument.STRING)
                     )
                 else:
-                    print(f"Unexpected argument {arg}")
+                    raise TooManyArgumentsError(arg)
 
     @staticmethod
     def convert_arg_value(arg_value, arg_type):
