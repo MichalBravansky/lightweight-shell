@@ -34,6 +34,10 @@ class ArgumentHandler:
                     "t": Argument(Argument.FLAG, "display_non_printing_chars_and_tab", False)
                 },
                 "positional_args": [Argument(Argument.LIST, "files", [])],
+            },
+            "grep": {
+                "named_args": {},
+                "positional_args": [Argument(Argument.STRING, "pattern", ""), Argument(Argument.LIST, "files", [])],
             }
         }
 
