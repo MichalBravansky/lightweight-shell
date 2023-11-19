@@ -20,6 +20,11 @@ class CustomVisitor(ShellVisitor):
 
         return Call(command_name, args)
 
+    def visitPipe(self, ctx: ShellParser.PipeContext):
+        calls = [self.visit(command) for command in ctx.command()]
+
+        return Pipe(calls)
+
     def visitQuotedArg(self, ctx: ShellParser.QuotedArgContext):
         if ctx.SINGLE_QUOTED_ARG():
             return ctx.SINGLE_QUOTED_ARG().getText()[1:-1].replace("\\'", "'")

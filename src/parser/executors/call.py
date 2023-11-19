@@ -24,7 +24,7 @@ class Call(Executor):
         super().__init__()
 
         self._command = command
-        self._args = ArgumentHandler().assign_arguments(command, args)
+        self.unprocessed_args = args
 
     def evaluate(self, input: str = None) -> str:
         """
@@ -40,6 +40,13 @@ class Call(Executor):
             str: The output from the executed command.
         """
 
+        if input is not None:
+            new_args = self.unprocessed_args + [input]
+            args = ArgumentHandler().assign_arguments(self.command, new_args)
+        else:
+            args = ArgumentHandler().assign_arguments(self.command, self.unprocessed_args)
+
         return CommandFactory().execute_command(
-            self._command, self._args + [input] if input else self._args
+            self._command, args
         )
+
