@@ -34,7 +34,6 @@ class CustomVisitor(ShellVisitor):
             return ctx.getText()
 
     def visitArg(self, ctx: ShellParser.ArgContext):
-
         if ctx.quotedArg():
             return self.visit(ctx.quotedArg())
 
