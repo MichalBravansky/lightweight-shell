@@ -5,7 +5,7 @@ from src.commands.cat import CatCommand
 from src.commands.ls import LsCommand
 from src.commands.head import HeadCommand
 from src.commands.grep import GrepCommand
-from src.commands.grep import GrepCommand
+from src.commands.tail import TailCommand
 
 
 class CommandFactory:
@@ -18,7 +18,7 @@ class CommandFactory:
             "ls": LsCommand,
             "head": HeadCommand,
             "grep": GrepCommand,
-            "grep": GrepCommand
+            "tail": TailCommand,
         }
 
     def execute_command(self, command_name, args: list, input=None):
