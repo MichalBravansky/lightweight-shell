@@ -1,4 +1,4 @@
-from utils.exceptions import UnexpectedArgumentError, MissingValueError, TooManyArgumentsError 
+from ..utils.exceptions import UnexpectedArgumentError, MissingValueError, TooManyArgumentsError 
 class Argument:
     INTEGER = 1
     STRING = 2
