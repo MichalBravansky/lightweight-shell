@@ -51,6 +51,12 @@ class ArgumentHandler:
                 },
                 "positional_args": [Argument(Argument.STRING, "file", None)],
             },
+            "find": {
+                "named_args": {
+                    "name": Argument(Argument.STRING, "name", None),
+                },
+                "positional_args": [Argument(Argument.STRING, "directory", ".")],
+            }
         }
 
     def assign_arguments(self, command_name, args) -> dict:
