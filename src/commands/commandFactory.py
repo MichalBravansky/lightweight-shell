@@ -4,6 +4,8 @@ from src.commands.pwd import PwdCommand
 from src.commands.cat import CatCommand
 from src.commands.ls import LsCommand
 from src.commands.head import HeadCommand
+from src.commands.grep import GrepCommand
+from src.commands.grep import GrepCommand
 
 
 class CommandFactory:
@@ -14,7 +16,9 @@ class CommandFactory:
             "pwd": PwdCommand,
             "cat": CatCommand,
             "ls": LsCommand,
-            "head": HeadCommand
+            "head": HeadCommand,
+            "grep": GrepCommand,
+            "grep": GrepCommand
         }
 
     def execute_command(self, command_name, args: list, input=None):
