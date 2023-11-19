@@ -2,7 +2,7 @@ from antlr4 import *
 from src.parser.ShellLexer import ShellLexer
 from src.parser.ShellParser import ShellParser
 from src.parser.ShellListener import ShellListener
-
+import glob
 from src.commands.echo import EchoCommand
 from src.commands.cd import CdCommand
 from src.commands.argument import Argument
@@ -19,7 +19,15 @@ class CustomVisitor(ShellVisitor):
 
         args = [self.visit(arg) for arg in ctx.arg()]
 
-        args_info = ArgumentHandler().assign_arguments(command_name, args)
+        # flatten args if they are lists. otherwise leave them as is
+        flattened_args = []
+        for arg in args:
+            if isinstance(arg, list):
+                flattened_args += arg
+            else:
+                flattened_args.append(arg)
+                
+        args_info = ArgumentHandler().assign_arguments(command_name, flattened_args)
 
         return CommandFactory().execute_command(command_name, args_info)
 
@@ -34,11 +42,13 @@ class CustomVisitor(ShellVisitor):
             return ctx.getText()
 
     def visitArg(self, ctx: ShellParser.ArgContext):
-
-        if ctx.quotedArg():
-            return self.visit(ctx.quotedArg())
-
-        return ctx.getText()
+        text = ctx.getText()
+        if '*' in text:
+            matches = glob.glob(text)
+            if matches:
+                # returns a list of args if we are globbing
+                return matches
+        return text
 
 
 def main():
