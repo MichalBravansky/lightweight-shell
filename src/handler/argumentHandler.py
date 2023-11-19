@@ -39,6 +39,10 @@ class ArgumentHandler:
                 "named_args": {},
                 "positional_args": [Argument(Argument.STRING, "pattern", ""), Argument(Argument.LIST, "files", [])],
             },
+            "grep": {
+                "named_args": {},
+                "positional_args": [Argument(Argument.STRING, "pattern", ""), Argument(Argument.LIST, "files", [])],
+            },
             "head": {
                 "named_args": {
                     "n": Argument(Argument.FLAG_WITH_INTEGER, "lines", 10),
