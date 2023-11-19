@@ -8,6 +8,8 @@ from src.commands.tail import TailCommand
 from src.commands.grep import GrepCommand
 from src.commands.uniq import UniqCommand
 from src.commands.sort import SortCommand
+from src.commands.uniq import UniqCommand
+from src.commands.sort import SortCommand
 
 
 class CommandFactory:
@@ -22,6 +24,8 @@ class CommandFactory:
             "tail": TailCommand,
             "grep": GrepCommand,
 
+            "uniq": UniqCommand,
+            "sort": SortCommand
             "uniq": UniqCommand,
             "sort": SortCommand
         }
