@@ -3,8 +3,6 @@ from src.parser.ShellLexer import ShellLexer
 from src.parser.ShellParser import ShellParser
 from src.parser.ShellListener import ShellListener
 import glob
-from src.commands.echo import EchoCommand
-from src.commands.cd import CdCommand
 from src.commands.argument import Argument
 
 from src.parser.ShellVisitor import ShellVisitor
