@@ -9,6 +9,7 @@ class GrepCommand(Command):
         super().__init__("grep", "file pattern search")
 
     def execute(self, args):
+        output = ""
         pattern = re.compile(args["pattern"].value)
         files = args.get("files", [{"value": None}])
         prefix_file_path = len(files) > 1
@@ -20,11 +21,13 @@ class GrepCommand(Command):
                 file = open(file_arg.value, 'r')
                 file_name = (file_arg.value + ": ") if prefix_file_path else ""
             else:
-                print(file_arg.value + ": No such file or directory")
+                raise FileNotFoundError(f"grep: {file_arg.value}: No such file.")
                 continue
             lines = file.readlines()
             for line in lines:
                 if pattern.search(line):
-                    print(file_name + line, end='')
+                    output += file_name + line
+
             if file is not sys.stdin:
                 file.close()
+        return output
