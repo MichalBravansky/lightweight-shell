@@ -1,16 +1,15 @@
 from antlr4 import *
 from src.parser.ShellLexer import ShellLexer
 from src.parser.ShellParser import ShellParser
-from src.parser.ShellListener import ShellListener
+from src.parser.executors import Call, Pipe, Redirect
 
 from src.commands.echo import EchoCommand
 from src.commands.cd import CdCommand
 from src.commands.argument import Argument
-
 from src.parser.ShellVisitor import ShellVisitor
 
-from src.handler.argumentHandler import ArgumentHandler
 from src.commands.commandFactory import CommandFactory
+from src.parser.executors import Call, Pipe, Redirect
 
 
 class CustomVisitor(ShellVisitor):
@@ -19,9 +18,7 @@ class CustomVisitor(ShellVisitor):
 
         args = [self.visit(arg) for arg in ctx.arg()]
 
-        args_info = ArgumentHandler().assign_arguments(command_name, args)
-
-        return CommandFactory().execute_command(command_name, args_info)
+        return Call(command_name, args)
 
     def visitQuotedArg(self, ctx: ShellParser.QuotedArgContext):
         if ctx.SINGLE_QUOTED_ARG():
@@ -34,7 +31,6 @@ class CustomVisitor(ShellVisitor):
             return ctx.getText()
 
     def visitArg(self, ctx: ShellParser.ArgContext):
-
         if ctx.quotedArg():
             return self.visit(ctx.quotedArg())
 
@@ -65,10 +61,12 @@ def main():
 
         # Use the visitor to visit the parse tree
         visitor = CustomVisitor()
-        data = visitor.visit(tree)
+        root = visitor.visit(tree)
 
-        if data:
-            print(data, end="")
+        output = root.evaluate()
+
+        if output:
+            print(output, end="")
 
 
 if __name__ == "__main__":
