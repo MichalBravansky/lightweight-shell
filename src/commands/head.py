@@ -7,17 +7,17 @@ class HeadCommand(Command):
 
     def execute(self, args, input=None):
         if args['lines'].value < 0:
-            return "head: illegal line count -- " + str(args['lines'].value) + "\n"
+            raise ValueError("head: illegal line count -- " + str(args['lines'].value))
+        
         if args['file'].value is None:
             if input is None:
-                return "head: missing file operand\nTry 'head --help' for more information.\n"
+                raise ValueError("head: missing file operand\nTry 'head --help' for more information.")
             lines = input.split('\n')
         else:
             if not os.path.isfile(args['file'].value):
-                return "head: " + args['file'].value + ": No such file or directory\n"
-            file = open(args['file'].value, "r")
-            lines = file.readlines()
-            file.close()
+                raise FileNotFoundError("head: " + args['file'].value + ": No such file or directory")
+            with open(args['file'].value, "r") as file:
+                lines = file.readlines()
         
         if len(lines) < args['lines'].value:
             return "".join(lines)
