@@ -17,7 +17,6 @@ COMMAND: [a-zA-Z_][a-zA-Z_0-9]* ;
 // Complex quote lexer rules
 redirectionType: (REDIRECTION_OVERWRITE | REDIRECTION_APPEND | REDIRECTION_READ);
 
-
 REDIRECTION_OVERWRITE: '>';
 REDIRECTION_APPEND: '>>';
 REDIRECTION_READ: '<';
@@ -27,4 +26,5 @@ SINGLE_QUOTED_ARG: '\'' (~[\n'])+ '\'' ;
 DOUBLE_QUOTED_ARG: '"' (BACKQUOTED_ARG | ((~[`\n"]) | '\\"')+)* '"';
 BACKQUOTED_ARG: '`' (~[\n`])+ '`' ;
 
+FILE: ~[ |<>]+ ;
 WS: [ \t\n\r]+ -> skip ;
