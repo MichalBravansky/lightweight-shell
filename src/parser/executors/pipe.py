@@ -1,4 +1,6 @@
-from src.parser.executors.executor import Executor, Call
+from src.parser.executors.executor import Executor
+from src.parser.executors.call import Call
+
 
 class Pipe(Executor):
     def __init__(self, calls: [Call]) -> None:
@@ -9,5 +11,3 @@ class Pipe(Executor):
         for call in reversed(self.calls):
             input = call.evaluate(input)
         return input
-        
-        

@@ -24,7 +24,7 @@ class Call(Executor):
         super().__init__()
 
         self._command = command
-        self.unprocessed_args = args
+        self._unprocessed_args = args
 
     def evaluate(self, input: str = None) -> str:
         """
@@ -41,12 +41,11 @@ class Call(Executor):
         """
 
         if input is not None:
-            new_args = self.unprocessed_args + [input]
-            args = ArgumentHandler().assign_arguments(self.command, new_args)
+            new_args = self._unprocessed_args + [input]
+            args = ArgumentHandler().assign_arguments(self._command, new_args)
         else:
-            args = ArgumentHandler().assign_arguments(self.command, self.unprocessed_args)
+            args = ArgumentHandler().assign_arguments(
+                self._command, self._unprocessed_args
+            )
 
-        return CommandFactory().execute_command(
-            self._command, args
-        )
-
+        return CommandFactory().execute_command(self._command, args)

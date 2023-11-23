@@ -1,29 +1,29 @@
-from src.parser.executors.executor import Executor, Call
-from src.commands.commandFactory import CommandFactory
+from src.parser.executors.executor import Executor
+from src.parser.executors.call import Call
 import os
 from enum import Enum
+
 
 class RedirectionType(Enum):
     READ = 1
     OVERWRITE = 2
     APPEND = 3
-    
+
+
 class Redirect(Executor):
-
     def __init__(self, call: Call, file_name, redirect_type: RedirectionType) -> None:
-
         super().__init__()
 
         self.call = call
         self.redirect_type = redirect_type
+        self.file_contents = None
+        self.file_name = file_name
 
         if redirect_type == RedirectionType.READ:
             if os.path.isfile(file_name):
                 self.file_contents = open(file_name, "r").read()
             else:
                 raise FileNotFoundError(f"No such file or directory: {file_name}")
-        
-
 
     def evaluate(self, input: str = None) -> str:
         """
@@ -40,8 +40,10 @@ class Redirect(Executor):
         """
         if input:
             call_output = self.call.evaluate(input)
-        else:
+        elif self.file_contents:
             call_output = self.call.evaluate(self.file_contents)
+        else:
+            call_output = self.call.evaluate()
 
         if self.redirect_type == RedirectionType.OVERWRITE:
             open(self.file_name, "w").write(call_output)
@@ -51,5 +53,3 @@ class Redirect(Executor):
             return ""
         elif self.redirect_type == RedirectionType.READ:
             return call_output
-
-        

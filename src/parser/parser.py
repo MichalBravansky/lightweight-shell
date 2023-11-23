@@ -1,7 +1,7 @@
 from antlr4 import *
 from src.parser.ShellLexer import ShellLexer
 from src.parser.ShellParser import ShellParser
-from src.parser.executors import Call, Pipe, Redirect
+from src.parser.executors import Call, Pipe, Redirect, RedirectionType
 
 from src.commands.echo import EchoCommand
 from src.commands.cd import CdCommand
@@ -18,12 +18,14 @@ class CustomVisitor(ShellVisitor):
 
         args = [self.visit(arg) for arg in ctx.arg()]
 
-        return Call(command_name, args)
+        call = Call(command_name, args)
 
-    def visitPipe(self, ctx: ShellParser.PipeContext):
-        calls = [self.visit(command) for command in ctx.command()]
+        if ctx.redirection():
+            redirection_type, file = self.visit(ctx.redirection())
 
-        return Pipe(calls)
+            return Redirect(call, file, redirection_type)
+        else:
+            return call
 
     def visitQuotedArg(self, ctx: ShellParser.QuotedArgContext):
         if ctx.SINGLE_QUOTED_ARG():
@@ -40,6 +42,20 @@ class CustomVisitor(ShellVisitor):
             return self.visit(ctx.quotedArg())
 
         return ctx.getText()
+
+    def visitRedirectionType(self, ctx: ShellParser.RedirectionTypeContext):
+        if ctx.REDIRECTION_READ():
+            return RedirectionType.READ
+        elif ctx.REDIRECTION_APPEND():
+            return RedirectionType.APPEND
+        else:
+            return RedirectionType.OVERWRITE
+
+    def visitRedirection(self, ctx: ShellParser.RedirectionContext):
+        file = self.visit(ctx.arg())
+        redirection = self.visitRedirectionType(ctx.redirectionType())
+
+        return (redirection, file)
 
 
 def main():
