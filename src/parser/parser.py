@@ -13,6 +13,14 @@ from src.parser.executors import Call, Pipe, Redirect
 
 
 class CustomVisitor(ShellVisitor):
+    def visitCommands(self, ctx: ShellParser.CommandsContext):
+        commands = ctx.command()
+
+        if len(commands) == 1:
+            return self.visit(commands)
+
+        return Pipe([self.visit(command) for command in commands])
+
     def visitCommand(self, ctx: ShellParser.CommandContext):
         command_name = ctx.COMMAND().getText()
 
