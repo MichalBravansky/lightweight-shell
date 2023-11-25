@@ -6,8 +6,7 @@ from src.commands.ls import LsCommand
 from src.commands.head import HeadCommand
 from src.commands.tail import TailCommand
 from src.commands.grep import GrepCommand
-from src.commands.uniq import UniqCommand
-from src.commands.sort import SortCommand
+from src.commands.find import FindCommand
 from src.commands.uniq import UniqCommand
 from src.commands.sort import SortCommand
 
@@ -23,9 +22,7 @@ class CommandFactory:
             "head": HeadCommand,
             "tail": TailCommand,
             "grep": GrepCommand,
-
-            "uniq": UniqCommand,
-            "sort": SortCommand
+            "find": FindCommand,
             "uniq": UniqCommand,
             "sort": SortCommand
         }
