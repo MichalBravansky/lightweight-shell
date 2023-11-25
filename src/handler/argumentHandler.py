@@ -56,7 +56,19 @@ class ArgumentHandler:
                     "name": Argument(Argument.STRING, "name", None),
                 },
                 "positional_args": [Argument(Argument.STRING, "directory", ".")],
-            }
+            },
+            "uniq": {
+                "named_args": {
+                    "i": Argument(Argument.FLAG, "ignore_case", False)
+                },
+                "positional_args": [Argument(Argument.STRING, "file", None)],
+            },
+            "sort": {
+                "named_args": {
+                    "r": Argument(Argument.FLAG, "reverse", False)
+                },
+                "positional_args": [Argument(Argument.STRING, "file", None)],
+            },
         }
 
     def assign_arguments(self, command_name, args) -> dict:
