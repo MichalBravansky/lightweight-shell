@@ -12,7 +12,7 @@ class Call(Executor):
     the command using a CommandFactory.
     """
 
-    def __init__(self, command: str, args: [str]) -> None:
+    def __init__(self, command: str, args: [str], unsafe_app: bool) -> None:
         """
         Initializes a new instance of the Call class.
 
@@ -25,6 +25,7 @@ class Call(Executor):
 
         self._command = command
         self._unprocessed_args = args
+        self._unsafe_app = unsafe_app
 
     def evaluate(self, input: str = None) -> str:
         """
@@ -48,4 +49,4 @@ class Call(Executor):
                 self._command, self._unprocessed_args
             )
 
-        return CommandFactory().execute_command(self._command, args)
+        return CommandFactory().execute_command(self._command, args, self._unsafe_app)

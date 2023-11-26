@@ -25,7 +25,12 @@ class CustomVisitor(ShellVisitor):
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
         command_name = ctx.COMMAND().getText()
+        unsafe_app = False
         
+        if command_name.startswith("_"):
+            command_name = command_name[1:]
+            unsafe_app = True
+
         args = [self.visit(arg) for arg in ctx.arg()]
 
         # flatten args if they are lists. otherwise leave them as is
@@ -36,7 +41,7 @@ class CustomVisitor(ShellVisitor):
             else:
                 flattened_args.append(arg)
         
-        call = Call(command_name, flattened_args)
+        call = Call(command_name, flattened_args, unsafe_app=unsafe_app)
 
         if ctx.redirection():
             redirection_type, file = self.visit(ctx.redirection())
@@ -105,8 +110,11 @@ def main():
         # Use the visitor to visit the parse tree
         visitor = CustomVisitor()
         root = visitor.visit(tree)
-
-        output = root.evaluate()
+        try:
+            output = root.evaluate()
+        except Exception as e:
+            print(e)
+            continue
 
         if output:
             print(output, end="")

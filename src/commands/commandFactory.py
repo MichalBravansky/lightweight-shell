@@ -25,11 +25,16 @@ class CommandFactory:
             "uniq": UniqCommand,
         }
 
-    def execute_command(self, command_name, args: list, input=None):
+    def execute_command(self, command_name, args: list, unsafe_app=False):
         command_class = self.classes.get(command_name.lower())
         if command_class is None:
             print(f"Unknown command: {command_name}")
             return
         else:
             command = command_class()
+            if unsafe_app:
+                try:
+                    return command.execute(args)
+                except Exception as e:
+                    return e
             return command.execute(args)
