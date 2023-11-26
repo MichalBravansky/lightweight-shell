@@ -1,17 +1,15 @@
 from antlr4 import *
 from src.parser.ShellLexer import ShellLexer
 from src.parser.ShellParser import ShellParser
-from src.parser.executors import Call, Pipe, Redirect, RedirectionType
+from src.parser.executors import Call, Pipe, Redirect, RedirectionType, Sequence
 
 from src.commands.echo import EchoCommand
 from src.commands.cd import CdCommand
-from src.parser.ShellListener import ShellListener
 import glob
 from src.commands.argument import Argument
 from src.parser.ShellVisitor import ShellVisitor
 
 from src.commands.commandFactory import CommandFactory
-from src.parser.executors import Call, Pipe, Redirect
 
 
 class CustomVisitor(ShellVisitor):
@@ -78,7 +76,10 @@ class CustomVisitor(ShellVisitor):
         redirection = self.visitRedirectionType(ctx.redirectionType())
 
         return (redirection, file)
-
+    
+    def visitSequence(self, ctx: ShellParser.SequenceContext):
+        commands = ctx.commands()
+        return Sequence([self.visit(command) for command in commands])
 
 def main():
     # Load the input
@@ -100,7 +101,7 @@ def main():
         visitor = CustomVisitor()
 
         # Build the parse tree
-        tree = parser.commands()
+        tree = parser.sequence()
 
         # Use the visitor to visit the parse tree
         visitor = CustomVisitor()
@@ -109,7 +110,7 @@ def main():
         output = root.evaluate()
 
         if output:
-            print(output, end="\n")
+            print(output, end="")
 
 
 if __name__ == "__main__":
