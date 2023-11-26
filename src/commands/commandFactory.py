@@ -23,6 +23,8 @@ class CommandFactory:
             "tail": TailCommand,
             "grep": GrepCommand,
             "uniq": UniqCommand,
+            "sort": SortCommand,
+            "find": FindCommand
         }
 
     def execute_command(self, command_name, args: list, input=None):
