@@ -22,9 +22,7 @@ class CommandFactory:
             "head": HeadCommand,
             "tail": TailCommand,
             "grep": GrepCommand,
-            "find": FindCommand,
             "uniq": UniqCommand,
-            "sort": SortCommand
         }
 
     def execute_command(self, command_name, args: list, input=None):
