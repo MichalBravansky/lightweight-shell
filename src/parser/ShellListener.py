@@ -1,4 +1,4 @@
-# Generated from Shell.g4 by ANTLR 4.13.1
+# Generated from src/parser/Shell.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .ShellParser import ShellParser
@@ -7,6 +7,15 @@ else:
 
 # This class defines a complete listener for a parse tree produced by ShellParser.
 class ShellListener(ParseTreeListener):
+
+    # Enter a parse tree produced by ShellParser#sequence.
+    def enterSequence(self, ctx:ShellParser.SequenceContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#sequence.
+    def exitSequence(self, ctx:ShellParser.SequenceContext):
+        pass
+
 
     # Enter a parse tree produced by ShellParser#commands.
     def enterCommands(self, ctx:ShellParser.CommandsContext):
@@ -23,6 +32,15 @@ class ShellListener(ParseTreeListener):
 
     # Exit a parse tree produced by ShellParser#command.
     def exitCommand(self, ctx:ShellParser.CommandContext):
+        pass
+
+
+    # Enter a parse tree produced by ShellParser#sequenceOp.
+    def enterSequenceOp(self, ctx:ShellParser.SequenceOpContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#sequenceOp.
+    def exitSequenceOp(self, ctx:ShellParser.SequenceOpContext):
         pass
 
 
