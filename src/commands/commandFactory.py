@@ -3,6 +3,12 @@ from src.commands.cd import CdCommand
 from src.commands.pwd import PwdCommand
 from src.commands.cat import CatCommand
 from src.commands.ls import LsCommand
+from src.commands.head import HeadCommand
+from src.commands.tail import TailCommand
+from src.commands.grep import GrepCommand
+from src.commands.find import FindCommand
+from src.commands.uniq import UniqCommand
+from src.commands.sort import SortCommand
 
 
 class CommandFactory:
@@ -12,7 +18,11 @@ class CommandFactory:
             "cd": CdCommand,
             "pwd": PwdCommand,
             "cat": CatCommand,
-            "ls": LsCommand
+            "ls": LsCommand,
+            "head": HeadCommand,
+            "tail": TailCommand,
+            "grep": GrepCommand,
+            "uniq": UniqCommand,
         }
 
     def execute_command(self, command_name, args: list, input=None):

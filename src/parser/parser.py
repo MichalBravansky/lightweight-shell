@@ -5,6 +5,8 @@ from src.parser.executors import Call, Pipe, Redirect, RedirectionType
 
 from src.commands.echo import EchoCommand
 from src.commands.cd import CdCommand
+from src.parser.ShellListener import ShellListener
+import glob
 from src.commands.argument import Argument
 from src.parser.ShellVisitor import ShellVisitor
 
@@ -26,11 +28,18 @@ class CustomVisitor(ShellVisitor):
         
         args = [self.visit(arg) for arg in ctx.arg()]
 
-        call = Call(command_name, args)
+        # flatten args if they are lists. otherwise leave them as is
+        flattened_args = []
+        for arg in args:
+            if isinstance(arg, list):
+                flattened_args += arg
+            else:
+                flattened_args.append(arg)
+        
+        call = Call(command_name, flattened_args)
 
         if ctx.redirection():
             redirection_type, file = self.visit(ctx.redirection())
-
             return Redirect(call, file, redirection_type)
         else:
             return call
@@ -48,8 +57,13 @@ class CustomVisitor(ShellVisitor):
     def visitArg(self, ctx: ShellParser.ArgContext):
         if ctx.quotedArg():
             return self.visit(ctx.quotedArg())
-
-        return ctx.getText()
+        text = ctx.getText()
+        if '*' in text:
+            matches = glob.glob(text)
+            if matches:
+                # returns a list of args if we are globbing
+                return matches
+        return text
 
     def visitRedirectionType(self, ctx: ShellParser.RedirectionTypeContext):
         if ctx.REDIRECTION_READ():
