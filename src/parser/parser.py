@@ -33,7 +33,6 @@ class CustomVisitor(ShellVisitor):
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
         command_name = ctx.COMMAND().getText()
-
         # Initialize an empty list for processed arguments
         processed_args = []
 
@@ -126,8 +125,6 @@ class CustomVisitor(ShellVisitor):
         commands = ctx.commands()
         return Sequence([self.visit(command) for command in commands])
     
-
-    
     def visitCommandSubstitution(self, ctx):
         # Extract the command text within the backquotes
         inner_command_text = ctx.BACKQUOTED_ARG().getText()[1:-1]  # Remove the backquotes
@@ -188,8 +185,11 @@ def main():
         # Use the visitor to visit the parse tree
         visitor = CustomVisitor()
         root = visitor.visit(tree)
-
-        output = root.evaluate()
+        try:
+            output = root.evaluate()
+        except Exception as e:
+            print(e)
+            continue
 
         if output:
             print(output, end="")
