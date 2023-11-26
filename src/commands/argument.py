@@ -28,6 +28,7 @@ class Argument:
         i = 0
         positional_count = 0
         seen_positional_args = False
+        stop_positional_after_named_args = args_info.get("stop_positional_after_named", True)
         while i < len(arg_list):
             arg = arg_list[i]
             if arg.startswith("-"):
@@ -43,7 +44,7 @@ class Argument:
                             raise MissingValueError(arg_name)
                     else:
                         args_info["named_args"][arg_name].value = True
-                elif not seen_positional_args:
+                elif not seen_positional_args or not stop_positional_after_named_args:
                     # Treat as a positional argument for 'echo' like behavior
                     Argument.handle_positional_arg(args_info, arg, positional_count)
                     positional_count += 1   
@@ -54,8 +55,8 @@ class Argument:
                 Argument.handle_positional_arg(args_info, arg, positional_count)
                 positional_count += 1
             i += 1
-
         return args_info
+        
 
     @staticmethod
     def handle_named_arg(args_info, arg_name, arg_list, i):
@@ -71,9 +72,9 @@ class Argument:
             raise MissingValueError(arg_name)
 
     @staticmethod
-    def handle_positional_arg(args_info, arg, i):
-        if i < len(args_info["positional_args"]):
-            arg_obj = args_info["positional_args"][i]
+    def handle_positional_arg(args_info, arg, positional_count):
+        if positional_count < len(args_info["positional_args"]):
+            arg_obj = args_info["positional_args"][positional_count]
             arg_obj.value = Argument.convert_arg_value(arg, arg_obj.type)
         else:
             # Assume last positional argument is an infinite list
