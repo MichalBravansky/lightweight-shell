@@ -1,20 +1,31 @@
 from antlr4 import *
 from src.parser.ShellLexer import ShellLexer
 from src.parser.ShellParser import ShellParser
+from src.parser.executors import Call, Pipe, Redirect, RedirectionType
+
+from src.commands.echo import EchoCommand
+from src.commands.cd import CdCommand
 from src.parser.ShellListener import ShellListener
 import glob
 from src.commands.argument import Argument
-
 from src.parser.ShellVisitor import ShellVisitor
 
-from src.handler.argumentHandler import ArgumentHandler
 from src.commands.commandFactory import CommandFactory
+from src.parser.executors import Call, Pipe, Redirect
 
 
 class CustomVisitor(ShellVisitor):
+    def visitCommands(self, ctx: ShellParser.CommandsContext):
+        commands = ctx.command()
+
+        if len(commands) == 1:
+            return self.visit(commands[0])
+
+        return Pipe([self.visit(command) for command in commands])
+
     def visitCommand(self, ctx: ShellParser.CommandContext):
         command_name = ctx.COMMAND().getText()
-
+        
         args = [self.visit(arg) for arg in ctx.arg()]
 
         # flatten args if they are lists. otherwise leave them as is
@@ -24,10 +35,14 @@ class CustomVisitor(ShellVisitor):
                 flattened_args += arg
             else:
                 flattened_args.append(arg)
-                
-        args_info = ArgumentHandler().assign_arguments(command_name, flattened_args)
+        
+        call = Call(command_name, flattened_args)
 
-        return CommandFactory().execute_command(command_name, args_info)
+        if ctx.redirection():
+            redirection_type, file = self.visit(ctx.redirection())
+            return Redirect(call, file, redirection_type)
+        else:
+            return call
 
     def visitQuotedArg(self, ctx: ShellParser.QuotedArgContext):
         if ctx.SINGLE_QUOTED_ARG():
@@ -40,6 +55,8 @@ class CustomVisitor(ShellVisitor):
             return ctx.getText()
 
     def visitArg(self, ctx: ShellParser.ArgContext):
+        if ctx.quotedArg():
+            return self.visit(ctx.quotedArg())
         text = ctx.getText()
         if '*' in text:
             matches = glob.glob(text)
@@ -47,6 +64,20 @@ class CustomVisitor(ShellVisitor):
                 # returns a list of args if we are globbing
                 return matches
         return text
+
+    def visitRedirectionType(self, ctx: ShellParser.RedirectionTypeContext):
+        if ctx.REDIRECTION_READ():
+            return RedirectionType.READ
+        elif ctx.REDIRECTION_APPEND():
+            return RedirectionType.APPEND
+        else:
+            return RedirectionType.OVERWRITE
+
+    def visitRedirection(self, ctx: ShellParser.RedirectionContext):
+        file = self.visit(ctx.arg())
+        redirection = self.visitRedirectionType(ctx.redirectionType())
+
+        return (redirection, file)
 
 
 def main():
@@ -73,10 +104,12 @@ def main():
 
         # Use the visitor to visit the parse tree
         visitor = CustomVisitor()
-        data = visitor.visit(tree)
+        root = visitor.visit(tree)
 
-        if data:
-            print(data, end="")
+        output = root.evaluate()
+
+        if output:
+            print(output, end="")
 
 
 if __name__ == "__main__":

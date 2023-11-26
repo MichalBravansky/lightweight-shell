@@ -71,5 +71,14 @@ class ShellListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ShellParser#redirectionType.
+    def enterRedirectionType(self, ctx:ShellParser.RedirectionTypeContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#redirectionType.
+    def exitRedirectionType(self, ctx:ShellParser.RedirectionTypeContext):
+        pass
+
+
 
 del ShellParser

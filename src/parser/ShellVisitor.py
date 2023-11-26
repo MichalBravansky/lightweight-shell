@@ -44,5 +44,10 @@ class ShellVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ShellParser#redirectionType.
+    def visitRedirectionType(self, ctx:ShellParser.RedirectionTypeContext):
+        return self.visitChildren(ctx)
+
+
 
 del ShellParser
