@@ -5,7 +5,7 @@ class UniqCommand(Command):
     def __init__(self):
         super().__init__("uniq", "remove duplicate lines")
 
-    def execute(self, args):
+    def execute(self, args, input=None):
         ignore_case = args['ignore_case'].value
         file = args['file'].value
         previous_line = None
@@ -15,7 +15,9 @@ class UniqCommand(Command):
             with open(file, 'r') as f:
                 lines = f.readlines()
         else:
-            lines = input().split('\n')
+            if input is None:
+                raise ValueError("uniq: missing file operand\nTry 'uniq --help' for more information.")
+            lines = input.split('\n')
 
         for line in lines:
             if ignore_case:

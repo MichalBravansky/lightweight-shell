@@ -27,6 +27,7 @@ class Argument:
     def populate_args(args_info, arg_list):
         i = 0
         positional_count = 0
+        
         seen_positional_args = False
         stop_positional_after_named_args = args_info.get("stop_positional_after_named", True)
         while i < len(arg_list):

@@ -32,4 +32,4 @@ class CommandFactory:
             return
         else:
             command = command_class()
-            return command.execute(args)
+            return command.execute(args, input)
