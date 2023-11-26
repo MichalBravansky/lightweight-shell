@@ -79,6 +79,12 @@ class ArgumentHandler:
                 "positional_args": [Argument(Argument.STRING, "file", None)],
                 "stop_positional_args_after_named": True,
             },
+            "cut": {
+                "named_args": {
+                    "b": Argument(Argument.FLAG_WITH_STRING, "bytes", ""),  # change this
+                },
+                "positional_args": [Argument(Argument.STRING, "file", None)],
+            },
         }
 
     def assign_arguments(self, command_name, args) -> dict:

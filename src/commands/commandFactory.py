@@ -9,6 +9,7 @@ from src.commands.grep import GrepCommand
 from src.commands.find import FindCommand
 from src.commands.uniq import UniqCommand
 from src.commands.sort import SortCommand
+from src.commands.cut import CutCommand
 
 
 class CommandFactory:
@@ -24,7 +25,8 @@ class CommandFactory:
             "grep": GrepCommand,
             "uniq": UniqCommand,
             "sort": SortCommand,
-            "find": FindCommand
+            "find": FindCommand,
+            "cut": CutCommand,
         }
 
     def execute_command(self, command_name, args: list, input=None):
