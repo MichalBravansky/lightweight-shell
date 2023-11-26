@@ -82,9 +82,10 @@ class ArgumentHandler:
         }
 
     def assign_arguments(self, command_name, args) -> dict:
+        if command_name.startswith("_"):
+            command_name = command_name[1:]
         if command_name not in self.default_arguments:
-            print("Command not found")
-
+            raise ValueError(f"Unknown command: {command_name}")
         else:
             args_info = dict(self.default_arguments[command_name])
 
