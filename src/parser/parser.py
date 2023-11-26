@@ -17,13 +17,13 @@ class CustomVisitor(ShellVisitor):
         commands = ctx.command()
 
         if len(commands) == 1:
-            return self.visit(commands)
+            return self.visit(commands[0])
 
         return Pipe([self.visit(command) for command in commands])
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
         command_name = ctx.COMMAND().getText()
-
+        
         args = [self.visit(arg) for arg in ctx.arg()]
 
         call = Call(command_name, args)
