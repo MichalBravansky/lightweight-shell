@@ -109,7 +109,7 @@ def main():
         output = root.evaluate()
 
         if output:
-            print(output, end="")
+            print(output, end="\n")
 
 
 if __name__ == "__main__":

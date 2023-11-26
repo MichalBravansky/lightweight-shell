@@ -7,7 +7,7 @@ class Pipe(Executor):
         self.calls = calls
 
     def evaluate(self):
-        input = None
-        for call in reversed(self.calls):
+        input = ""
+        for call in self.calls:
             input = call.evaluate(input)
         return input

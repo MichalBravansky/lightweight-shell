@@ -34,18 +34,14 @@ class Call(Executor):
 
         Args:
             input (str, optional): Additional input that may be required for command execution.
-                                    Defaults to None.
+                                    Defaults to None
 
         Returns:
             str: The output from the executed command.
         """
 
-        if input is not None:
-            new_args = self._unprocessed_args + [input]
-            args = ArgumentHandler().assign_arguments(self._command, new_args)
-        else:
-            args = ArgumentHandler().assign_arguments(
-                self._command, self._unprocessed_args
-            )
+        args = ArgumentHandler().assign_arguments(
+            self._command, self._unprocessed_args
+        )
 
-        return CommandFactory().execute_command(self._command, args)
+        return CommandFactory().execute_command(self._command, args, input)

@@ -7,10 +7,17 @@ class CatCommand(Command):
     def __init__(self):
         super().__init__("cat", "concatenate and print files")
 
-    def execute(self, args):
-        for filename in args['files'].value:
-            if os.path.exists(filename):
-                with open(filename, 'r') as file:
+    def execute(self, args, input=None):
+        all_lines = []
+        if not args['files'].value:
+            if input is None:
+                raise ValueError("cat: missing file operand\nTry 'cat --help' for more information.")
+            file_names = input.split(' ')
+        else:
+            file_names = args['files'].value
+        for file in file_names:
+            if os.path.exists(file):
+                with open(file, 'r') as file:
                     lines = file.readlines()
                     if args['number_nonblank'].value:
                         lines = self.number_non_blank_lines(lines)
@@ -24,9 +31,10 @@ class CatCommand(Command):
                         lines = self.display_non_printing_chars_and_dollar(lines)
                     if args['display_non_printing_chars_and_tab'].value:
                         lines = self.display_non_printing_chars_and_tab(lines)
-                    return ''.join(lines)
+                    all_lines += lines
             else:
-                raise FileNotFoundError(f"cat: {filename}: No such file or directory")
+                raise FileNotFoundError(f"cat: {file}: No such file or directory")
+        return "".join(all_lines)
 
     def number_non_blank_lines(self, lines):
         return [f"{i+1} {line}" for i, line in enumerate(lines) if line.strip() != '']
