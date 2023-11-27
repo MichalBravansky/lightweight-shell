@@ -7,17 +7,6 @@ import glob
 from src.parser.ShellVisitor import ShellVisitor
 
 
-class DummyBackquotedContext:
-    def __init__(self, text):
-        self.text = text
-
-    def BACKQUOTED_ARG(self):
-        # Creating a dummy inner class to mimic the structure
-        class InnerDummy:
-            def getText(inner_self):
-                return self.text
-        return InnerDummy()
-    
 class CustomVisitor(ShellVisitor):
     def visitCommands(self, ctx: ShellParser.CommandsContext):
         commands = ctx.command()
@@ -26,10 +15,6 @@ class CustomVisitor(ShellVisitor):
             return self.visit(commands[0])
 
         return Pipe([self.visit(command) for command in commands])
-
-
-    def createDummyBackquotedContext(self, backquoted_text):
-        return DummyBackquotedContext("`" + backquoted_text + "`")
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
         command_name = ctx.COMMAND().getText()
@@ -58,25 +43,24 @@ class CustomVisitor(ShellVisitor):
             return call
 
     def processDoubleQuotedArg(self, text):
-        pattern = r'`([^`\n]*)`'
+        pattern = r"`([^`\n]*)`"
 
-        def replace_backquoted(match):
-            backquoted_text = match.group(1)
-            # Process the backquoted text as a command
-            dummy_context = self.createDummyBackquotedContext(backquoted_text)
-            # Use visitCommandSubstitution for processing
-            command_output = self.visitCommandSubstitution(dummy_context)
-            processed_output = self.processCommandOutputAsArgs(command_output)
-            return ' '.join(processed_output) if isinstance(processed_output, list) else processed_output
+        args_to_str_func = (
+            lambda result: " ".join(result) if isinstance(result, list) else result
+        )
+        replace_func = lambda x: args_to_str_func(
+            self._processCommandSubstitution(x.group(1))
+        )
 
-        # Replace backquoted segments with their processed output
-        return re.sub(pattern, replace_backquoted, text)
-    
+        return re.sub(pattern, replace_func, text)
+
     def visitQuotedArg(self, ctx: ShellParser.QuotedArgContext):
         if ctx.SINGLE_QUOTED_ARG():
             return ctx.SINGLE_QUOTED_ARG().getText()[1:-1].replace("\\'", "'")
         elif ctx.DOUBLE_QUOTED_ARG():
-            double_quoted_text = ctx.DOUBLE_QUOTED_ARG().getText()[1:-1].replace("\\ ", '"')  # Remove double quotes
+            double_quoted_text = (
+                ctx.DOUBLE_QUOTED_ARG().getText()[1:-1].replace("\\ ", '"')
+            )  # Remove double quotes
             return self.processDoubleQuotedArg(double_quoted_text)
         elif ctx.BACKQUOTED_ARG():
             return self.visitCommandSubstitution(ctx.BACKQUOTED_ARG())
@@ -91,14 +75,11 @@ class CustomVisitor(ShellVisitor):
         # Handle command substitutions
         if ctx.commandSubstitution():
             # Get the output of the command substitution
-            command_output = self.visitCommandSubstitution(ctx.commandSubstitution())
-            # Process the output as arguments
-            processed_args = self.processCommandOutputAsArgs(command_output)
-            return processed_args if processed_args else command_output
+            return self.visitCommandSubstitution(ctx.commandSubstitution())
 
         # Handle globbing
         text = ctx.getText()
-        if '*' in text:
+        if "*" in text:
             matches = glob.glob(text)
             if matches:
                 # Returns a list of args if we are globbing
@@ -120,44 +101,42 @@ class CustomVisitor(ShellVisitor):
         redirection = self.visitRedirectionType(ctx.redirectionType())
 
         return (redirection, file)
-    
+
+    def visitCommandSubstitution(self, ctx: ShellParser.CommandSubstitutionContext):
+        command = ctx.BACKQUOTED_ARG().getText()[1:-1]
+        return self._processCommandSubstitution(command)
+
     def visitSequence(self, ctx: ShellParser.SequenceContext):
         commands = ctx.commands()
         return Sequence([self.visit(command) for command in commands])
-    
-    def visitCommandSubstitution(self, ctx):
-        # Extract the command text within the backquotes
-        inner_command_text = ctx.BACKQUOTED_ARG().getText()[1:-1]  # Remove the backquotes
 
-        # Create a new InputStream for the inner comman
-        inner_input_stream = InputStream(inner_command_text)
-
-        # Create a lexer and parser for the inner command
-        inner_lexer = ShellLexer(inner_input_stream)
-        inner_token_stream = CommonTokenStream(inner_lexer)
-        inner_parser = ShellParser(inner_token_stream)
-
-        # Parse and visit the inner command
-        inner_tree = inner_parser.sequence()  # Assuming the inner command is a sequence
-        inner_output = self.visit(inner_tree).evaluate()
-
-        # Process the output as needed
-        return inner_output.replace("\n", " ")
-
-    def processCommandOutputAsArgs(self, command_output):
-        # Create a new InputStream for the command output
+    def _processCommandOutputAsArgs(self, command_output: str) -> [str]:
         input_stream = InputStream(command_output)
 
-        # Create a lexer and parser for the command output
         lexer = ShellLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
         parser = ShellParser(token_stream)
 
-        # Parse the command output as arguments
-        args_context = parser.args()  # Assuming 'args' is a rule in your grammar
+        args_context = parser.args()
         processed_args = [self.visit(arg) for arg in args_context.arg()]
 
         return processed_args
+
+    def _processCommandSubstitution(self, command_str: str) -> str:
+        inner_input_stream = InputStream(command_str)
+
+        inner_lexer = ShellLexer(inner_input_stream)
+        inner_token_stream = CommonTokenStream(inner_lexer)
+        inner_parser = ShellParser(inner_token_stream)
+
+        inner_tree = inner_parser.sequence()
+        inner_output = self.visit(inner_tree).evaluate()
+
+        output = inner_output.replace("\n", " ")
+
+        arg_output = self._processCommandOutputAsArgs(inner_output.replace("\n", " "))
+
+        return arg_output if arg_output else output
 
 
 def main():
