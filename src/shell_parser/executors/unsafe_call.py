@@ -1,6 +1,6 @@
-from src.parser.executors.executor import Executor
-from src.commands.commandFactory import CommandFactory
-from src.handler.argumentHandler import ArgumentHandler
+from shell_parser.executors.executor import Executor
+from commands.commandFactory import CommandFactory
+from handler.argumentHandler import ArgumentHandler
 
 
 class UnsafeCall(Call):
