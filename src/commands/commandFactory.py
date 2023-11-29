@@ -30,21 +30,10 @@ class CommandFactory:
         }
 
     def execute_command(self, command_name, args: list, input=None):
-        unsafe_mode = False
-        if command_name.startswith("_"):
-            print(command_name)
-            command_name = command_name[1:]
-            unsafe_mode = True
         command_class = self.classes.get(command_name.lower())
         if command_class is None:
             print(f"Unknown command: {command_name}")
             return
         else:
             command = command_class()
-            if unsafe_mode:
-                try:
-                    return command.execute(args, input)
-                except Exception as e:
-                    return str(e)
-            else:
-                return command.execute(args, input)
+            return command.execute(args, input)
