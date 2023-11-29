@@ -13,3 +13,5 @@ jobs:
       - run:  docker build -t image .
       - name: Unit Tests
         run:  docker run --rm image nose2 -s /comp0010/test
+      - name: System Tests
+        run:  docker run --rm image nose2 -s /comp0010/system_test
