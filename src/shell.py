@@ -2,6 +2,8 @@ from antlr4 import *
 from shell_parser.ShellLexer import ShellLexer
 from shell_parser.ShellParser import ShellParser
 from shell_parser.parser import CustomVisitor
+from collections import deque
+import argparse, sys
 
 
 def eval(user_input: str) -> str:
@@ -30,14 +32,22 @@ def eval(user_input: str) -> str:
 
 
 def main():
-    # Load the input
-    while True:
-        user_input = input("> ")
+    args_num = len(sys.argv) - 1
 
-        output = eval(user_input)
+    if args_num == 0:
+        while True:
+            user_input = input("> ")
 
-        if output:
-            print(output, end="")
+            output = eval(user_input)
+
+            if output:
+                print(output, end="")
+    else:
+        command = sys.argv[2]
+
+        output = eval(command)
+
+        print(output, end="")
 
 
 if __name__ == "__main__":
