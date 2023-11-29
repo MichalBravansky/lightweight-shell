@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nose2 -s ../test
+cd .. && nose2 -s test
