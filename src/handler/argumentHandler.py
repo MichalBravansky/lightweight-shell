@@ -1,5 +1,5 @@
 from typing import Any
-from src.commands.argument import Argument
+from commands.argument import Argument
 
 
 class ArgumentHandler:
@@ -34,15 +34,22 @@ class ArgumentHandler:
                     "s": Argument(Argument.FLAG, "squeeze_blank", False),
                     "u": Argument(Argument.FLAG, "disable_output_buffering", False),
                     "v": Argument(Argument.FLAG, "display_non_printing_chars", False),
-                    "e": Argument(Argument.FLAG, "display_non_printing_chars_and_dollar", False),
-                    "t": Argument(Argument.FLAG, "display_non_printing_chars_and_tab", False)
+                    "e": Argument(
+                        Argument.FLAG, "display_non_printing_chars_and_dollar", False
+                    ),
+                    "t": Argument(
+                        Argument.FLAG, "display_non_printing_chars_and_tab", False
+                    ),
                 },
                 "positional_args": [Argument(Argument.LIST, "files", [])],
                 "stop_positional_args_after_named": True,
             },
             "grep": {
                 "named_args": {},
-                "positional_args": [Argument(Argument.STRING, "pattern", ""), Argument(Argument.LIST, "files", [])],
+                "positional_args": [
+                    Argument(Argument.STRING, "pattern", ""),
+                    Argument(Argument.LIST, "files", []),
+                ],
                 "stop_positional_args_after_named": True,
             },
             "head": {
@@ -66,22 +73,20 @@ class ArgumentHandler:
                 "positional_args": [Argument(Argument.STRING, "directory", ".")],
             },
             "uniq": {
-                "named_args": {
-                    "i": Argument(Argument.FLAG, "ignore_case", False)
-                },
+                "named_args": {"i": Argument(Argument.FLAG, "ignore_case", False)},
                 "positional_args": [Argument(Argument.STRING, "file", None)],
                 "stop_positional_args_after_named": True,
             },
             "sort": {
-                "named_args": {
-                    "r": Argument(Argument.FLAG, "reverse", False)
-                },
+                "named_args": {"r": Argument(Argument.FLAG, "reverse", False)},
                 "positional_args": [Argument(Argument.STRING, "file", None)],
                 "stop_positional_args_after_named": True,
             },
             "cut": {
                 "named_args": {
-                    "b": Argument(Argument.FLAG_WITH_STRING, "bytes", ""),  # change this
+                    "b": Argument(
+                        Argument.FLAG_WITH_STRING, "bytes", ""
+                    ),  # change this
                 },
                 "positional_args": [Argument(Argument.STRING, "file", None)],
             },

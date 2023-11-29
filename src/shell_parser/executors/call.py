@@ -1,6 +1,6 @@
-from src.parser.executors.executor import Executor
-from src.commands.commandFactory import CommandFactory
-from src.handler.argumentHandler import ArgumentHandler
+from shell_parser.executors.executor import Executor
+from commands.commandFactory import CommandFactory
+from handler.argumentHandler import ArgumentHandler
 
 
 class Call(Executor):
@@ -40,8 +40,6 @@ class Call(Executor):
             str: The output from the executed command.
         """
 
-        args = ArgumentHandler().assign_arguments(
-            self._command, self._unprocessed_args
-        )
+        args = ArgumentHandler().assign_arguments(self._command, self._unprocessed_args)
 
         return CommandFactory().execute_command(self._command, args, input)
