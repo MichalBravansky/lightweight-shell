@@ -1,7 +1,7 @@
 from antlr4 import *
 from src.parser.ShellLexer import ShellLexer
 from src.parser.ShellParser import ShellParser
-from src.parser.executors import Call, Pipe, Redirect, RedirectionType, Sequence
+from src.parser.executors import Call, Pipe, Redirect, RedirectionType, Sequence, UnsafeCall    
 import re
 import glob
 from src.parser.ShellVisitor import ShellVisitor
@@ -33,7 +33,10 @@ class CustomVisitor(ShellVisitor):
                 processed_args.append(processed_arg)
 
         # Create the call with the processed arguments
-        call = Call(command_name, processed_args)
+        if command_name.startswith("_"):
+            call = UnsafeCall(command_name, processed_args)
+        else:
+            call = Call(command_name, processed_args)
 
         # Handle redirection if present
         if ctx.redirection():
