@@ -1,4 +1,10 @@
-from ..utils.exceptions import UnexpectedArgumentError, MissingValueError, TooManyArgumentsError 
+from utils.exceptions import (
+    UnexpectedArgumentError,
+    MissingValueError,
+    TooManyArgumentsError,
+)
+
+
 class Argument:
     INTEGER = 1
     STRING = 2
@@ -27,20 +33,29 @@ class Argument:
     def populate_args(args_info, arg_list):
         i = 0
         positional_count = 0
-        
+
         seen_positional_args = False
-        stop_positional_after_named_args = args_info.get("stop_positional_after_named", True)
+        stop_positional_after_named_args = args_info.get(
+            "stop_positional_after_named", True
+        )
         while i < len(arg_list):
             arg = arg_list[i]
             if arg.startswith("-"):
                 # It's a named argument or flag
                 arg_name = arg[1:]
                 if arg_name in args_info["named_args"]:
-                    if args_info["named_args"][arg_name].type in [Argument.FLAG_WITH_INTEGER, Argument.FLAG_WITH_STRING]:
+                    if args_info["named_args"][arg_name].type in [
+                        Argument.FLAG_WITH_INTEGER,
+                        Argument.FLAG_WITH_STRING,
+                    ]:
                         # This flag expects a value, consume the next argument
                         i += 1
                         if i < len(arg_list):
-                            args_info["named_args"][arg_name].value = Argument.convert_arg_value(arg_list[i], args_info["named_args"][arg_name].type)
+                            args_info["named_args"][
+                                arg_name
+                            ].value = Argument.convert_arg_value(
+                                arg_list[i], args_info["named_args"][arg_name].type
+                            )
                         else:
                             raise MissingValueError(arg_name)
                     else:
@@ -48,7 +63,7 @@ class Argument:
                 elif not seen_positional_args or not stop_positional_after_named_args:
                     # Treat as a positional argument for 'echo' like behavior
                     Argument.handle_positional_arg(args_info, arg, positional_count)
-                    positional_count += 1   
+                    positional_count += 1
                 else:
                     raise UnexpectedArgumentError(arg_name)
             else:
@@ -57,7 +72,6 @@ class Argument:
                 positional_count += 1
             i += 1
         return args_info
-        
 
     @staticmethod
     def handle_named_arg(args_info, arg_name, arg_list, i):

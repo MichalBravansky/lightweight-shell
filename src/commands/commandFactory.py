@@ -1,15 +1,15 @@
-from src.commands.echo import EchoCommand
-from src.commands.cd import CdCommand
-from src.commands.pwd import PwdCommand
-from src.commands.cat import CatCommand
-from src.commands.ls import LsCommand
-from src.commands.head import HeadCommand
-from src.commands.tail import TailCommand
-from src.commands.grep import GrepCommand
-from src.commands.find import FindCommand
-from src.commands.uniq import UniqCommand
-from src.commands.sort import SortCommand
-from src.commands.cut import CutCommand
+from commands.echo import EchoCommand
+from commands.cd import CdCommand
+from commands.pwd import PwdCommand
+from commands.cat import CatCommand
+from commands.ls import LsCommand
+from commands.head import HeadCommand
+from commands.tail import TailCommand
+from commands.grep import GrepCommand
+from commands.find import FindCommand
+from commands.uniq import UniqCommand
+from commands.sort import SortCommand
+from commands.cut import CutCommand
 
 
 class CommandFactory:

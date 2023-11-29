@@ -1,10 +1,10 @@
 from antlr4 import *
-from src.parser.ShellLexer import ShellLexer
-from src.parser.ShellParser import ShellParser
-from src.parser.executors import Call, Pipe, Redirect, RedirectionType, Sequence
+from shell_parser.ShellLexer import ShellLexer
+from shell_parser.ShellParser import ShellParser
+from shell_parser.executors import Call, Pipe, Redirect, RedirectionType, Sequence
 import re
 import glob
-from src.parser.ShellVisitor import ShellVisitor
+from shell_parser.ShellVisitor import ShellVisitor
 
 
 class CustomVisitor(ShellVisitor):

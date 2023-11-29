@@ -1,7 +1,7 @@
 from antlr4 import *
-from src.parser.ShellLexer import ShellLexer
-from src.parser.ShellParser import ShellParser
-from src.parser.parser import CustomVisitor
+from shell_parser.ShellLexer import ShellLexer
+from shell_parser.ShellParser import ShellParser
+from shell_parser.parser import CustomVisitor
 
 
 def eval(user_input: str) -> str:

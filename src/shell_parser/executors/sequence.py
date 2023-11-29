@@ -1,5 +1,5 @@
-from src.parser.executors.executor import Executor
-from src.parser.executors.call import Call
+from shell_parser.executors.executor import Executor
+from shell_parser.executors.call import Call
 
 
 class Sequence(Executor):
