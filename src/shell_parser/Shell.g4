@@ -8,6 +8,7 @@ commandSubstitution: BACKQUOTED_ARG ;
 sequenceOp: SEQUENCE_OP ;
 pipe: '|';
 redirection: redirectionType arg ;
+args: (arg )* ;
 arg: UNQUOTED_ARG | quotedArg | commandArg ;
 commandArg: COMMAND ;
 

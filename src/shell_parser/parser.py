@@ -97,7 +97,7 @@ class CustomVisitor(ShellVisitor):
         return (redirection, file)
 
     def visitCommandSubstitution(self, ctx: ShellParser.CommandSubstitutionContext):
-        command = ctx.BACKQUOTED_ARG().getText()[1:-1]
+        command = ctx.getText()[1:-1]
         return self._processCommandSubstitution(command)
 
     def visitSequence(self, ctx: ShellParser.SequenceContext):
