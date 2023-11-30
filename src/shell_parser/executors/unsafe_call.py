@@ -1,12 +1,9 @@
-from shell_parser.executors.executor import Executor
 from shell_parser.executors.call import Call
-from commands.commandFactory import CommandFactory
-from handler.argumentHandler import ArgumentHandler
 
 
 class UnsafeCall(Call):
     """
-    An unsafe version of the Call class that returns the error message if the command fails.
+    An unsafe version of the Call class that returns an error message directly.
     """
 
     def __init__(self, command: str, args: [str]) -> None:
@@ -23,7 +20,7 @@ class UnsafeCall(Call):
         """
         Executes the command with the provided arguments and optional additional input.
 
-        This method uses the CommandFactory to execute the command and returns the result or the error message.
+        If the command fails then the error message is returned.
 
         Args:
             input (str, optional): Additional input that may be required for command execution.

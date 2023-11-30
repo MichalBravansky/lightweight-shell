@@ -54,21 +54,29 @@ class Argument:
                             args_info["named_args"][
                                 arg_name
                             ].value = Argument.convert_arg_value(
-                                arg_list[i], args_info["named_args"][arg_name].type
+                                arg_list[i],
+                                args_info["named_args"][arg_name].type,
                             )
                         else:
                             raise MissingValueError(arg_name)
                     else:
                         args_info["named_args"][arg_name].value = True
-                elif not seen_positional_args or not stop_positional_after_named_args:
+                elif (
+                    not seen_positional_args
+                    or not stop_positional_after_named_args
+                ):
                     # Treat as a positional argument for 'echo' like behavior
-                    Argument.handle_positional_arg(args_info, arg, positional_count)
+                    Argument.handle_positional_arg(
+                        args_info, arg, positional_count
+                    )
                     positional_count += 1
                 else:
                     raise UnexpectedArgumentError(arg_name)
             else:
                 seen_positional_args = True
-                Argument.handle_positional_arg(args_info, arg, positional_count)
+                Argument.handle_positional_arg(
+                    args_info, arg, positional_count
+                )
                 positional_count += 1
             i += 1
         return args_info
@@ -114,7 +122,11 @@ class Argument:
             Argument.FLAG_WITH_INTEGER: int,
             Argument.FLAG_WITH_STRING: str,
         }
-        return converters[arg_type](arg_value) if arg_type in converters else arg_value
+        return (
+            converters[arg_type](arg_value)
+            if arg_type in converters
+            else arg_value
+        )
 
     @staticmethod
     def set_keys_to_readable(args_info):

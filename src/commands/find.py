@@ -2,13 +2,14 @@ from .command import Command
 import os
 import fnmatch
 
+
 class FindCommand(Command):
     def __init__(self):
         super().__init__("find", "walk a file hierarchy")
 
     def execute(self, args, input=None):
-        directory = args['directory'].value if args['directory'].value else "."
-        pattern = args['name'].value
+        directory = args["directory"].value if args["directory"].value else "."
+        pattern = args["name"].value
 
         if not os.path.isdir(directory):
             raise ValueError(f"find: Invalid directory: {directory}")

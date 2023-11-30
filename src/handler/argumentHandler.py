@@ -1,4 +1,3 @@
-from typing import Any
 from commands.argument import Argument
 
 
@@ -7,7 +6,11 @@ class ArgumentHandler:
         self.default_arguments = {
             "echo": {
                 "named_args": {
-                    "n": Argument(Argument.FLAG, "exclude_trailing_newline", False)
+                    "n": Argument(
+                        Argument.FLAG,
+                        "exclude_trailing_newline",
+                        False,
+                    )
                 },
                 "positional_args": [Argument(Argument.LIST, "echo_text", [])],
                 "stop_positional_args_after_named": True,
@@ -24,7 +27,9 @@ class ArgumentHandler:
             },
             "ls": {
                 "named_args": {},
-                "positional_args": [Argument(Argument.STRING, "directory", ".")],
+                "positional_args": [
+                    Argument(Argument.STRING, "directory", ".")
+                ],
                 "stop_positional_args_after_named": True,
             },
             "cat": {
@@ -32,13 +37,25 @@ class ArgumentHandler:
                     "b": Argument(Argument.FLAG, "number_nonblank", False),
                     "n": Argument(Argument.FLAG, "number_output_lines", False),
                     "s": Argument(Argument.FLAG, "squeeze_blank", False),
-                    "u": Argument(Argument.FLAG, "disable_output_buffering", False),
-                    "v": Argument(Argument.FLAG, "display_non_printing_chars", False),
+                    "u": Argument(
+                        Argument.FLAG,
+                        "disable_output_buffering",
+                        False,
+                    ),
+                    "v": Argument(
+                        Argument.FLAG,
+                        "display_non_printing_chars",
+                        False,
+                    ),
                     "e": Argument(
-                        Argument.FLAG, "display_non_printing_chars_and_dollar", False
+                        Argument.FLAG,
+                        "display_non_printing_chars_and_dollar",
+                        False,
                     ),
                     "t": Argument(
-                        Argument.FLAG, "display_non_printing_chars_and_tab", False
+                        Argument.FLAG,
+                        "display_non_printing_chars_and_tab",
+                        False,
                     ),
                 },
                 "positional_args": [Argument(Argument.LIST, "files", [])],
@@ -70,10 +87,14 @@ class ArgumentHandler:
                 "named_args": {
                     "name": Argument(Argument.FLAG_WITH_STRING, "name", None),
                 },
-                "positional_args": [Argument(Argument.STRING, "directory", ".")],
+                "positional_args": [
+                    Argument(Argument.STRING, "directory", ".")
+                ],
             },
             "uniq": {
-                "named_args": {"i": Argument(Argument.FLAG, "ignore_case", False)},
+                "named_args": {
+                    "i": Argument(Argument.FLAG, "ignore_case", False)
+                },
                 "positional_args": [Argument(Argument.STRING, "file", None)],
                 "stop_positional_args_after_named": True,
             },
