@@ -44,12 +44,12 @@ class CutCommand(Command):
         file_name = args['file'].value
 
         if not file_name and not input:
-            raise ValueError("cut: missing file operand\nTry 'cut --help' for more information.")
+            raise ValueError("cut: missing file operand. Try 'cut --help' for more information.")
 
         try:
             byte_ranges = self.parse_byte_ranges(byte_range_str)
         except ValueError as e:
-            return f"Invalid byte range specification: {str(e)}"
+            raise ValueError(f"Invalid byte range specification: {str(e)}")
 
         lines = []
         if file_name:
@@ -57,9 +57,9 @@ class CutCommand(Command):
                 with open(file_name, 'r') as file:
                     lines = file.read().splitlines()
             except FileNotFoundError:
-                return f"File '{file_name}' does not exist."
+                raise FileNotFoundError(f"File '{file_name}' does not exist.")
             except IOError as e:
-                return f"Error reading file '{file_name}': {str(e)}"
+                raise IOError(f"Error reading file '{file_name}': {str(e)}")
 
         result = []
         for line in lines or input.split('\n'):
