@@ -68,7 +68,7 @@ class ArgumentHandler:
             },
             "find": {
                 "named_args": {
-                    "name": Argument(Argument.STRING, "name", None),
+                    "name": Argument(Argument.FLAG_WITH_STRING, "name", None),
                 },
                 "positional_args": [Argument(Argument.STRING, "directory", ".")],
             },
