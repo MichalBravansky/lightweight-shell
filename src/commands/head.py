@@ -20,6 +20,6 @@ class HeadCommand(Command):
                 lines = file.readlines()
         
         if len(lines) < args['lines'].value:
-            return "".join(lines)
+            return "\n".join(lines)
         else:
-            return "".join(lines[:args['lines'].value])
+            return "\n".join(lines[:args['lines'].value])
