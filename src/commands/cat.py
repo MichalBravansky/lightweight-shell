@@ -18,7 +18,7 @@ class CatCommand(Command):
         for file in file_names:
             if os.path.exists(file):
                 with open(file, 'r') as file:
-                    lines = file.readlines()
+                    lines = file.read().split('\n')
                     if args['number_nonblank'].value:
                         lines = self.number_non_blank_lines(lines)
                     if args['number_output_lines'].value:
