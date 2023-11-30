@@ -34,7 +34,7 @@ class CatCommand(Command):
                     all_lines += lines
             else:
                 raise FileNotFoundError(f"cat: {file}: No such file or directory")
-        return "".join(all_lines)
+        return "\n".join(all_lines) + "\n"
 
     def number_non_blank_lines(self, lines):
         return [f"{i+1} {line}" for i, line in enumerate(lines) if line.strip() != '']
