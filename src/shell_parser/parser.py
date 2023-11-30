@@ -28,7 +28,7 @@ class CustomVisitor(ShellVisitor):
         processed_args = []
 
         # Iterate over each argument
-        for arg in ctx.arg():
+        for arg in ctx.argument():
             # Process each argument, which may include command substitutions
             processed_arg = self.visit(arg)
 
@@ -43,8 +43,38 @@ class CustomVisitor(ShellVisitor):
 
         # Handle redirection if present
         if ctx.redirection():
-            redirection_type, file = self.visit(ctx.redirection())
-            return Redirect(call, file, redirection_type)
+
+            redirections = [
+                self.visit(redirection) for redirection in ctx.redirection()
+            ]
+
+            input_redirection = next(
+                (
+                    redirection
+                    for redirection in redirections[::-1]
+                    if redirection[0] == RedirectionType.READ
+                ),
+                None,
+            )
+
+            output_redirection = next(
+                (
+                    redirection
+                    for redirection in redirections[::-1]
+                    if redirection[0] != RedirectionType.READ
+                ),
+                None,
+            )
+
+            if output_redirection:
+                redirection_type, file = output_redirection
+                call = Redirect(call, file, redirection_type)
+
+            if input_redirection:
+                redirection_type, file = input_redirection
+                call = Redirect(call, file, redirection_type)
+
+            return call
         else:
             return call
 
@@ -52,9 +82,7 @@ class CustomVisitor(ShellVisitor):
         pattern = r"`([^`\n]*)`"
 
         args_to_str_func = (
-            lambda result: " ".join(result)
-            if isinstance(result, list)
-            else result
+            lambda result: " ".join(result) if isinstance(result, list) else result
         )
         replace_func = lambda x: args_to_str_func(
             self._processCommandSubstitution(x.group(1))
@@ -75,7 +103,7 @@ class CustomVisitor(ShellVisitor):
         else:
             return ctx.getText()
 
-    def visitArg(self, ctx: ShellParser.ArgContext):
+    def visitArgument(self, ctx: ShellParser.ArgumentContext):
         # Handle quoted arguments
         if ctx.quotedArg():
             return self.visit(ctx.quotedArg())
@@ -99,14 +127,12 @@ class CustomVisitor(ShellVisitor):
             return RedirectionType.OVERWRITE
 
     def visitRedirection(self, ctx: ShellParser.RedirectionContext):
-        file = self.visit(ctx.arg())
+        file = self.visit(ctx.argument())
         redirection = self.visitRedirectionType(ctx.redirectionType())
 
         return (redirection, file)
 
-    def visitCommandSubstitution(
-        self, ctx: ShellParser.CommandSubstitutionContext
-    ):
+    def visitCommandSubstitution(self, ctx: ShellParser.CommandSubstitutionContext):
         command = ctx.getText()[1:-1]
         return self._processCommandSubstitution(command)
 
@@ -122,7 +148,7 @@ class CustomVisitor(ShellVisitor):
         parser = ShellParser(token_stream)
 
         args_context = parser.args()
-        processed_args = [self.visit(arg) for arg in args_context.arg()]
+        processed_args = [self.visit(arg) for arg in args_context.argument()]
 
         return processed_args
 
@@ -138,9 +164,7 @@ class CustomVisitor(ShellVisitor):
 
         output = inner_output.replace("\n", " ")
 
-        arg_output = self._processCommandOutputAsArgs(
-            inner_output.replace("\n", " ")
-        )
+        arg_output = self._processCommandOutputAsArgs(inner_output.replace("\n", " "))
 
         return arg_output if arg_output else output
 

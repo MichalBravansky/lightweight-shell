@@ -3,13 +3,13 @@ grammar Shell;
 // Parser rules
 sequence: commands (sequenceOp commands)* sequenceOp?;
 commands: command (pipe command)* ;
-command: COMMAND arg* (redirection)? ;
+command: redirection* COMMAND (argument | redirection)* ;
 commandSubstitution: BACKQUOTED_ARG ;
 sequenceOp: SEQUENCE_OP ;
 pipe: '|';
-redirection: redirectionType arg ;
-args: (arg )* ;
-arg: UNQUOTED_ARG | quotedArg | commandArg ;
+args: argument* ;
+redirection: redirectionType argument ;
+argument: UNQUOTED_ARG | quotedArg | commandArg ;
 commandArg: COMMAND ;
 
 // Incorporating complex quote rules
@@ -34,4 +34,3 @@ BACKQUOTED_ARG: '`' (~[\n`])+ '`' ;
 
 FILE: ~[ ;|<>]+ ;
 WS: [ \t\n\r]+ -> skip ;
-
