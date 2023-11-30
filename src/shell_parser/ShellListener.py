@@ -71,6 +71,15 @@ class ShellListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ShellParser#args.
+    def enterArgs(self, ctx:ShellParser.ArgsContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#args.
+    def exitArgs(self, ctx:ShellParser.ArgsContext):
+        pass
+
+
     # Enter a parse tree produced by ShellParser#arg.
     def enterArg(self, ctx:ShellParser.ArgContext):
         pass
