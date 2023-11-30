@@ -41,8 +41,6 @@ class Call(Executor):
             str: The output from the executed command.
         """
 
-        args = ArgumentHandler().assign_arguments(
-            self._command, self._unprocessed_args
-        )
+        args = ArgumentHandler().assign_arguments(self._command, self._unprocessed_args)
 
         return CommandFactory().execute_command(self._command, args, input)
