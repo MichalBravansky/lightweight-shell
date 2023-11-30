@@ -44,7 +44,7 @@ class CutCommand(Command):
         file_name = args['file'].value
 
         if not file_name and not input:
-            raise ValueError("cut: missing file operand. Try 'cut --help' for more information.")
+            raise ValueError("cut: missing file operand\nTry 'cut --help' for more information.")
 
         try:
             byte_ranges = self.parse_byte_ranges(byte_range_str)
