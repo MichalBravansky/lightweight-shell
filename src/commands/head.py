@@ -17,9 +17,6 @@ class HeadCommand(Command):
             if not os.path.isfile(args['file'].value):
                 raise FileNotFoundError("head: " + args['file'].value + ": No such file or directory")
             with open(args['file'].value, "r") as file:
-                lines = file.readlines()
+                lines = file.read().split('\n') 
         
-        if len(lines) < args['lines'].value:
-            return "".join(lines)
-        else:
-            return "".join(lines[:args['lines'].value])
+        return "\n".join(lines[:min(args['lines'].value, len(lines))])
