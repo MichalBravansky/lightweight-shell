@@ -9,5 +9,7 @@ class Sequence(Executor):
     def evaluate(self):
         output = []
         for call in self.calls:
-            output.append(call.evaluate())
+            evaluate_result = call.evaluate()
+            if evaluate_result is not None:
+                output.append(evaluate_result)
         return "".join(output)

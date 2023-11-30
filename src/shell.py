@@ -22,7 +22,7 @@ def eval(user_input: str) -> str:
     visitor = CustomVisitor()
 
     # Build the parse tree
-    tree = parser.commands()
+    tree = parser.sequence()
 
     # Use the visitor to visit the parse tree
     visitor = CustomVisitor()
@@ -44,7 +44,7 @@ def main():
                 print(output, end="")
     else:
         command = sys.argv[2]
-
+        
         output = eval(command)
 
         print(output, end="")

@@ -12,7 +12,7 @@ class CatCommand(Command):
         if not args['files'].value:
             if input is None:
                 raise ValueError("cat: missing file operand\nTry 'cat --help' for more information.")
-            file_names = input.split(' ')
+            return input
         else:
             file_names = args['files'].value
         for file in file_names:

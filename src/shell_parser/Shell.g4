@@ -4,6 +4,7 @@ grammar Shell;
 sequence: commands (sequenceOp commands)* sequenceOp?;
 commands: command (pipe command)* ;
 command: COMMAND arg* (redirection)? ;
+commandSubstitution: BACKQUOTED_ARG ;
 sequenceOp: SEQUENCE_OP ;
 pipe: '|';
 redirection: redirectionType arg ;
