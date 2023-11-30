@@ -18,7 +18,7 @@ class CatCommand(Command):
         for file in file_names:
             if os.path.exists(file):
                 with open(file, 'r') as file:
-                    lines = file.read().split('\n')
+                    lines = file.read().strip().split('\n')
                     if args['number_nonblank'].value:
                         lines = self.number_non_blank_lines(lines)
                     if args['number_output_lines'].value:
@@ -34,7 +34,7 @@ class CatCommand(Command):
                     all_lines += lines
             else:
                 raise FileNotFoundError(f"cat: {file}: No such file or directory")
-        return "\n".join(all_lines) + "\n"
+        return "\n".join(all_lines)
 
     def number_non_blank_lines(self, lines):
         return [f"{i+1} {line}" for i, line in enumerate(lines) if line.strip() != '']
