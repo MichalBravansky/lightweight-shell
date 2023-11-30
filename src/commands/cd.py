@@ -1,16 +1,14 @@
 from .command import Command
-import os 
-from os import listdir
-import re
+import os
+
 
 class CdCommand(Command):
     def __init__(self):
         super().__init__("cd", "change directory")
 
     def execute(self, args, input=None):
-        if os.path.exists(args["cd_path"].value) and os.path.isdir(args["cd_path"].value):
-            os.chdir(args["cd_path"].value)
+        cd_path = args["cd_path"].value
+        if os.path.exists(cd_path) and os.path.isdir(cd_path):
+            os.chdir(cd_path)
         else:
-            raise FileNotFoundError(f"cd: {args['cd_path'].value}: No such directory")
-    
-        
+            raise FileNotFoundError(f"cd: {cd_path}: No such directory")

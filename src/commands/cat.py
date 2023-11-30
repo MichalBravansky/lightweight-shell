@@ -1,7 +1,6 @@
-import argparse
 import os
-import re
 from .command import Command
+
 
 class CatCommand(Command):
     def __init__(self):
@@ -9,47 +8,22 @@ class CatCommand(Command):
 
     def execute(self, args, input=None):
         all_lines = []
-        if not args['files'].value:
+        if not args["files"].value:
             if input is None:
-                raise ValueError("cat: missing file operand\nTry 'cat --help' for more information.")
+                raise ValueError(
+                    "cat: missing file operand\nTry 'cat --help' for more"
+                    " information."
+                )
             return input
         else:
-            file_names = args['files'].value
+            file_names = args["files"].value
         for file in file_names:
             if os.path.exists(file):
-                with open(file, 'r') as file:
-                    lines = file.read().strip().split('\n')
-                    if args['number_nonblank'].value:
-                        lines = self.number_non_blank_lines(lines)
-                    if args['number_output_lines'].value:
-                        lines = self.number_all_lines(lines)
-                    if args['squeeze_blank'].value:
-                        lines = self.squeeze_empty_lines(lines)
-                    if args['display_non_printing_chars'].value:
-                        lines = self.display_non_printing_chars(lines)
-                    if args['display_non_printing_chars_and_dollar'].value:
-                        lines = self.display_non_printing_chars_and_dollar(lines)
-                    if args['display_non_printing_chars_and_tab'].value:
-                        lines = self.display_non_printing_chars_and_tab(lines)
+                with open(file, "r") as file:
+                    lines = file.read().strip().split("\n")
                     all_lines += lines
             else:
-                raise FileNotFoundError(f"cat: {file}: No such file or directory")
+                raise FileNotFoundError(
+                    f"cat: {file}: No such file or directory"
+                )
         return "\n".join(all_lines)
-
-    def number_non_blank_lines(self, lines):
-        return [f"{i+1} {line}" for i, line in enumerate(lines) if line.strip() != '']
-
-    def number_all_lines(self, lines):
-        return [f"{i+1} {line}" for i, line in enumerate(lines)]
-
-    def squeeze_empty_lines(self, lines):
-        return [line for i, line in enumerate(lines) if i == 0 or lines[i-1].strip() != '' or line.strip() != '']
-
-    def display_non_printing_chars(self, lines):
-        return [re.sub(r'[^ -~]', lambda match: '^' + chr(ord(match.group(0)) ^ 0x40), line) for line in lines]
-
-    def display_non_printing_chars_and_dollar(self, lines):
-        return [line + '$\n' for line in self.display_non_printing_chars(lines)]
-
-    def display_non_printing_chars_and_tab(self, lines):
-        return [line.replace('\t', '^I') for line in self.display_non_printing_chars(lines)]

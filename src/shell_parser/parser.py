@@ -1,7 +1,13 @@
-from antlr4 import *
+from antlr4 import InputStream, CommonTokenStream
 from shell_parser.ShellLexer import ShellLexer
 from shell_parser.ShellParser import ShellParser
-from shell_parser.executors import Call, Pipe, Redirect, RedirectionType, Sequence
+from shell_parser.executors import (
+    Call,
+    Pipe,
+    Redirect,
+    RedirectionType,
+    Sequence,
+)
 import re
 import glob
 from shell_parser.ShellVisitor import ShellVisitor
@@ -46,7 +52,9 @@ class CustomVisitor(ShellVisitor):
         pattern = r"`([^`\n]*)`"
 
         args_to_str_func = (
-            lambda result: " ".join(result) if isinstance(result, list) else result
+            lambda result: " ".join(result)
+            if isinstance(result, list)
+            else result
         )
         replace_func = lambda x: args_to_str_func(
             self._processCommandSubstitution(x.group(1))
@@ -96,7 +104,9 @@ class CustomVisitor(ShellVisitor):
 
         return (redirection, file)
 
-    def visitCommandSubstitution(self, ctx: ShellParser.CommandSubstitutionContext):
+    def visitCommandSubstitution(
+        self, ctx: ShellParser.CommandSubstitutionContext
+    ):
         command = ctx.getText()[1:-1]
         return self._processCommandSubstitution(command)
 
@@ -128,7 +138,9 @@ class CustomVisitor(ShellVisitor):
 
         output = inner_output.replace("\n", " ")
 
-        arg_output = self._processCommandOutputAsArgs(inner_output.replace("\n", " "))
+        arg_output = self._processCommandOutputAsArgs(
+            inner_output.replace("\n", " ")
+        )
 
         return arg_output if arg_output else output
 

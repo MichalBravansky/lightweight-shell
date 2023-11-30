@@ -5,11 +5,12 @@ from handler.argumentHandler import ArgumentHandler
 
 class Call(Executor):
     """
-    This class represents an implementation of the Executor for executing commands.
+    This class represents an implementation of the Executor
+    for executing commands.
 
     It provides functionality to handle command execution by taking a command
-    and its arguments, processing them using an ArgumentHandler, and then executing
-    the command using a CommandFactory.
+    and its arguments, processing them using an ArgumentHandler,
+    and then executing the command using a CommandFactory.
     """
 
     def __init__(self, command: str, args: [str]) -> None:
@@ -40,6 +41,8 @@ class Call(Executor):
             str: The output from the executed command.
         """
 
-        args = ArgumentHandler().assign_arguments(self._command, self._unprocessed_args)
+        args = ArgumentHandler().assign_arguments(
+            self._command, self._unprocessed_args
+        )
 
         return CommandFactory().execute_command(self._command, args, input)

@@ -11,7 +11,9 @@ class RedirectionType(Enum):
 
 
 class Redirect(Executor):
-    def __init__(self, call: Call, file_name, redirect_type: RedirectionType) -> None:
+    def __init__(
+        self, call: Call, file_name, redirect_type: RedirectionType
+    ) -> None:
         super().__init__()
 
         self.call = call
@@ -23,7 +25,9 @@ class Redirect(Executor):
             if os.path.isfile(file_name):
                 self.file_contents = open(file_name, "r").read()
             else:
-                raise FileNotFoundError(f"No such file or directory: {file_name}")
+                raise FileNotFoundError(
+                    f"No such file or directory: {file_name}"
+                )
 
     def evaluate(self, input: str = None) -> str:
         """

@@ -1,9 +1,8 @@
-from antlr4 import *
+from antlr4 import InputStream, CommonTokenStream
 from shell_parser.ShellLexer import ShellLexer
 from shell_parser.ShellParser import ShellParser
 from shell_parser.parser import CustomVisitor
-from collections import deque
-import argparse, sys
+import sys
 
 
 def eval(user_input: str) -> str:
@@ -44,7 +43,7 @@ def main():
                 print(output, end="")
     else:
         command = sys.argv[2]
-        
+
         output = eval(command)
 
         print(output, end="")
