@@ -13,7 +13,7 @@ class UniqCommand(Command):
         
         if file:
             with open(file, 'r') as f:
-                lines = f.readlines()
+                lines = f.read().split('\n')
         else:
             if input is None:
                 raise ValueError("uniq: missing file operand\nTry 'uniq --help' for more information.")
