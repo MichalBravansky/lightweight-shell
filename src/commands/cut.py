@@ -15,7 +15,7 @@ class CutCommand(Command):
         for part in byte_range_str.split(','):
             if '-' in part:
                 start, end = part.split('-')
-                start = int(start) - 1 if start else None  # Adjust for one-based indexing
+                start = int(start) - 1 if start else 0  # Adjust for one-based indexing
                 end = int(end) if end else None
                 ranges.append((start, end))
             else:
@@ -28,8 +28,15 @@ class CutCommand(Command):
         Extracts bytes from a line based on the specified byte ranges.
         """
         result = []
-        for start, end in byte_ranges:
-            result.append(line[start:end])
+        for i in range(len(line)):
+            for start, end in byte_ranges:
+                if start is None:
+                    start = 0
+                if end is None or end > len(line):
+                    end = len(line)
+                if start <= i < end:
+                    result.append(line[i])
+                    break  # Exit the inner loop once the byte is included
         return ''.join(result)
 
     def execute(self, args, input=None):
@@ -48,7 +55,7 @@ class CutCommand(Command):
         if file_name:
             try:
                 with open(file_name, 'r') as file:
-                    lines = file.readlines()
+                    lines = file.read().splitlines()
             except FileNotFoundError:
                 return f"File '{file_name}' does not exist."
             except IOError as e:
