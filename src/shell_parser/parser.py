@@ -71,12 +71,6 @@ class CustomVisitor(ShellVisitor):
         # Handle quoted arguments
         if ctx.quotedArg():
             return self.visit(ctx.quotedArg())
-
-        # Handle command substitutions
-        if ctx.commandSubstitution():
-            # Get the output of the command substitution
-            return self.visitCommandSubstitution(ctx.commandSubstitution())
-
         # Handle globbing
         text = ctx.getText()
         if "*" in text:

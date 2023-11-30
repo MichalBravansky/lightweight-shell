@@ -1,4 +1,4 @@
-# Generated from src/parser/Shell.g4 by ANTLR 4.13.1
+# Generated from src/shell_parser/Shell.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .ShellParser import ShellParser
@@ -14,11 +14,6 @@ class ShellVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ShellParser#args.
-    def visitArgs(self, ctx:ShellParser.ArgsContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by ShellParser#commands.
     def visitCommands(self, ctx:ShellParser.CommandsContext):
         return self.visitChildren(ctx)
@@ -26,6 +21,11 @@ class ShellVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by ShellParser#command.
     def visitCommand(self, ctx:ShellParser.CommandContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ShellParser#commandSubstitution.
+    def visitCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
         return self.visitChildren(ctx)
 
 
@@ -51,11 +51,6 @@ class ShellVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by ShellParser#commandArg.
     def visitCommandArg(self, ctx:ShellParser.CommandArgContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ShellParser#commandSubstitution.
-    def visitCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
         return self.visitChildren(ctx)
 
 
