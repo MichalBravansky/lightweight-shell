@@ -78,7 +78,9 @@ class ArgumentHandler:
                 "stop_positional_args_after_named": True,
             },
             "sort": {
-                "named_args": {"r": Argument(Argument.FLAG, "reverse", False)},
+                "named_args": {
+                    "r": Argument(Argument.FLAG, "reverse", False)
+                },
                 "positional_args": [Argument(Argument.STRING, "file", None)],
                 "stop_positional_args_after_named": True,
             },
