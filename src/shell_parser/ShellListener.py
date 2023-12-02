@@ -71,6 +71,15 @@ class ShellListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ShellParser#atom.
+    def enterAtom(self, ctx:ShellParser.AtomContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#atom.
+    def exitAtom(self, ctx:ShellParser.AtomContext):
+        pass
+
+
     # Enter a parse tree produced by ShellParser#redirection.
     def enterRedirection(self, ctx:ShellParser.RedirectionContext):
         pass
@@ -86,15 +95,6 @@ class ShellListener(ParseTreeListener):
 
     # Exit a parse tree produced by ShellParser#argument.
     def exitArgument(self, ctx:ShellParser.ArgumentContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#commandArg.
-    def enterCommandArg(self, ctx:ShellParser.CommandArgContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#commandArg.
-    def exitCommandArg(self, ctx:ShellParser.CommandArgContext):
         pass
 
 

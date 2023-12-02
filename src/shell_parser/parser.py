@@ -23,12 +23,12 @@ class CustomVisitor(ShellVisitor):
         return Pipe([self.visit(command) for command in commands])
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
-        command_name = ctx.COMMAND().getText()
         # Initialize an empty list for processed arguments
         processed_args = []
+        command = ctx.argument().getText()
 
         # Iterate over each argument
-        for arg in ctx.argument():
+        for arg in ctx.atom():
             # Process each argument, which may include command substitutions
             processed_arg = self.visit(arg)
 
@@ -39,11 +39,10 @@ class CustomVisitor(ShellVisitor):
                 processed_args.append(processed_arg)
 
         # Create the call with the processed arguments
-        call = Call(command_name, processed_args)
+        call = Call(command, processed_args)
 
         # Handle redirection if present
         if ctx.redirection():
-
             redirections = [
                 self.visit(redirection) for redirection in ctx.redirection()
             ]
@@ -103,10 +102,18 @@ class CustomVisitor(ShellVisitor):
         else:
             return ctx.getText()
 
+    def visitAtom(self, ctx: ShellParser.AtomContext):
+        return self.visit(ctx.getChild(0))
+
     def visitArgument(self, ctx: ShellParser.ArgumentContext):
         # Handle quoted arguments
         if ctx.quotedArg():
-            return self.visit(ctx.quotedArg())
+            args = [self.visit(arg) for arg in ctx.quotedArg()]
+
+            if isinstance(args, list):
+                return "".join(args)
+            return args
+
         # Handle globbing
         text = ctx.getText()
         if "*" in text:

@@ -10,32 +10,42 @@ else:
 
 def serializedATN():
     return [
-        4,1,12,86,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,10,114,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,1,0,1,0,1,0,1,0,5,
-        0,29,8,0,10,0,12,0,32,9,0,1,0,3,0,35,8,0,1,1,1,1,1,1,1,1,5,1,41,
-        8,1,10,1,12,1,44,9,1,1,2,5,2,47,8,2,10,2,12,2,50,9,2,1,2,1,2,1,2,
-        5,2,55,8,2,10,2,12,2,58,9,2,1,3,1,3,1,4,1,4,1,5,1,5,1,6,5,6,67,8,
-        6,10,6,12,6,70,9,6,1,7,1,7,1,7,1,8,1,8,1,8,3,8,78,8,8,1,9,1,9,1,
-        10,1,10,1,11,1,11,1,11,0,0,12,0,2,4,6,8,10,12,14,16,18,20,22,0,2,
-        1,0,8,10,1,0,4,6,82,0,24,1,0,0,0,2,36,1,0,0,0,4,48,1,0,0,0,6,59,
-        1,0,0,0,8,61,1,0,0,0,10,63,1,0,0,0,12,68,1,0,0,0,14,71,1,0,0,0,16,
-        77,1,0,0,0,18,79,1,0,0,0,20,81,1,0,0,0,22,83,1,0,0,0,24,30,3,2,1,
-        0,25,26,3,8,4,0,26,27,3,2,1,0,27,29,1,0,0,0,28,25,1,0,0,0,29,32,
-        1,0,0,0,30,28,1,0,0,0,30,31,1,0,0,0,31,34,1,0,0,0,32,30,1,0,0,0,
-        33,35,3,8,4,0,34,33,1,0,0,0,34,35,1,0,0,0,35,1,1,0,0,0,36,42,3,4,
-        2,0,37,38,3,10,5,0,38,39,3,4,2,0,39,41,1,0,0,0,40,37,1,0,0,0,41,
-        44,1,0,0,0,42,40,1,0,0,0,42,43,1,0,0,0,43,3,1,0,0,0,44,42,1,0,0,
-        0,45,47,3,14,7,0,46,45,1,0,0,0,47,50,1,0,0,0,48,46,1,0,0,0,48,49,
-        1,0,0,0,49,51,1,0,0,0,50,48,1,0,0,0,51,56,5,2,0,0,52,55,3,16,8,0,
-        53,55,3,14,7,0,54,52,1,0,0,0,54,53,1,0,0,0,55,58,1,0,0,0,56,54,1,
-        0,0,0,56,57,1,0,0,0,57,5,1,0,0,0,58,56,1,0,0,0,59,60,5,10,0,0,60,
-        7,1,0,0,0,61,62,5,3,0,0,62,9,1,0,0,0,63,64,5,1,0,0,64,11,1,0,0,0,
-        65,67,3,16,8,0,66,65,1,0,0,0,67,70,1,0,0,0,68,66,1,0,0,0,68,69,1,
-        0,0,0,69,13,1,0,0,0,70,68,1,0,0,0,71,72,3,22,11,0,72,73,3,16,8,0,
-        73,15,1,0,0,0,74,78,5,7,0,0,75,78,3,20,10,0,76,78,3,18,9,0,77,74,
-        1,0,0,0,77,75,1,0,0,0,77,76,1,0,0,0,78,17,1,0,0,0,79,80,5,2,0,0,
-        80,19,1,0,0,0,81,82,7,0,0,0,82,21,1,0,0,0,83,84,7,1,0,0,84,23,1,
-        0,0,0,8,30,34,42,48,54,56,68,77
+        0,29,8,0,10,0,12,0,32,9,0,1,0,3,0,35,8,0,1,0,1,0,1,1,1,1,1,1,1,1,
+        5,1,43,8,1,10,1,12,1,46,9,1,1,2,5,2,49,8,2,10,2,12,2,52,9,2,1,2,
+        1,2,5,2,56,8,2,10,2,12,2,59,9,2,5,2,61,8,2,10,2,12,2,64,9,2,1,2,
+        1,2,5,2,68,8,2,10,2,12,2,71,9,2,1,2,5,2,74,8,2,10,2,12,2,77,9,2,
+        1,2,5,2,80,8,2,10,2,12,2,83,9,2,1,3,1,3,1,4,1,4,1,5,1,5,1,6,5,6,
+        92,8,6,10,6,12,6,95,9,6,1,7,1,7,3,7,99,8,7,1,8,1,8,1,8,1,9,1,9,4,
+        9,106,8,9,11,9,12,9,107,1,10,1,10,1,11,1,11,1,11,0,0,12,0,2,4,6,
+        8,10,12,14,16,18,20,22,0,2,1,0,7,9,1,0,3,5,114,0,24,1,0,0,0,2,38,
+        1,0,0,0,4,50,1,0,0,0,6,84,1,0,0,0,8,86,1,0,0,0,10,88,1,0,0,0,12,
+        93,1,0,0,0,14,98,1,0,0,0,16,100,1,0,0,0,18,105,1,0,0,0,20,109,1,
+        0,0,0,22,111,1,0,0,0,24,30,3,2,1,0,25,26,3,8,4,0,26,27,3,2,1,0,27,
+        29,1,0,0,0,28,25,1,0,0,0,29,32,1,0,0,0,30,28,1,0,0,0,30,31,1,0,0,
+        0,31,34,1,0,0,0,32,30,1,0,0,0,33,35,3,8,4,0,34,33,1,0,0,0,34,35,
+        1,0,0,0,35,36,1,0,0,0,36,37,5,0,0,1,37,1,1,0,0,0,38,44,3,4,2,0,39,
+        40,3,10,5,0,40,41,3,4,2,0,41,43,1,0,0,0,42,39,1,0,0,0,43,46,1,0,
+        0,0,44,42,1,0,0,0,44,45,1,0,0,0,45,3,1,0,0,0,46,44,1,0,0,0,47,49,
+        5,10,0,0,48,47,1,0,0,0,49,52,1,0,0,0,50,48,1,0,0,0,50,51,1,0,0,0,
+        51,62,1,0,0,0,52,50,1,0,0,0,53,57,3,16,8,0,54,56,5,10,0,0,55,54,
+        1,0,0,0,56,59,1,0,0,0,57,55,1,0,0,0,57,58,1,0,0,0,58,61,1,0,0,0,
+        59,57,1,0,0,0,60,53,1,0,0,0,61,64,1,0,0,0,62,60,1,0,0,0,62,63,1,
+        0,0,0,63,65,1,0,0,0,64,62,1,0,0,0,65,75,3,18,9,0,66,68,5,10,0,0,
+        67,66,1,0,0,0,68,71,1,0,0,0,69,67,1,0,0,0,69,70,1,0,0,0,70,72,1,
+        0,0,0,71,69,1,0,0,0,72,74,3,14,7,0,73,69,1,0,0,0,74,77,1,0,0,0,75,
+        73,1,0,0,0,75,76,1,0,0,0,76,81,1,0,0,0,77,75,1,0,0,0,78,80,5,10,
+        0,0,79,78,1,0,0,0,80,83,1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,5,
+        1,0,0,0,83,81,1,0,0,0,84,85,5,9,0,0,85,7,1,0,0,0,86,87,5,2,0,0,87,
+        9,1,0,0,0,88,89,5,1,0,0,89,11,1,0,0,0,90,92,3,18,9,0,91,90,1,0,0,
+        0,92,95,1,0,0,0,93,91,1,0,0,0,93,94,1,0,0,0,94,13,1,0,0,0,95,93,
+        1,0,0,0,96,99,3,16,8,0,97,99,3,18,9,0,98,96,1,0,0,0,98,97,1,0,0,
+        0,99,15,1,0,0,0,100,101,3,22,11,0,101,102,3,18,9,0,102,17,1,0,0,
+        0,103,106,3,20,10,0,104,106,5,6,0,0,105,103,1,0,0,0,105,104,1,0,
+        0,0,106,107,1,0,0,0,107,105,1,0,0,0,107,108,1,0,0,0,108,19,1,0,0,
+        0,109,110,7,0,0,0,110,21,1,0,0,0,111,112,7,1,0,0,112,23,1,0,0,0,
+        13,30,34,44,50,57,62,69,75,81,93,98,105,107
     ]
 
 class ShellParser ( Parser ):
@@ -48,13 +58,12 @@ class ShellParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'|'", "<INVALID>", "';'", "'>'", "'>>'", 
-                     "'<'" ]
+    literalNames = [ "<INVALID>", "'|'", "';'", "'>'", "'>>'", "'<'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "COMMAND", "SEQUENCE_OP", 
-                      "REDIRECTION_OVERWRITE", "REDIRECTION_APPEND", "REDIRECTION_READ", 
-                      "UNQUOTED_ARG", "SINGLE_QUOTED_ARG", "DOUBLE_QUOTED_ARG", 
-                      "BACKQUOTED_ARG", "FILE", "WS" ]
+    symbolicNames = [ "<INVALID>", "<INVALID>", "SEQUENCE_OP", "REDIRECTION_OVERWRITE", 
+                      "REDIRECTION_APPEND", "REDIRECTION_READ", "UNQUOTED_ARG", 
+                      "SINGLE_QUOTED_ARG", "DOUBLE_QUOTED_ARG", "BACKQUOTED_ARG", 
+                      "WS" ]
 
     RULE_sequence = 0
     RULE_commands = 1
@@ -63,29 +72,27 @@ class ShellParser ( Parser ):
     RULE_sequenceOp = 4
     RULE_pipe = 5
     RULE_args = 6
-    RULE_redirection = 7
-    RULE_argument = 8
-    RULE_commandArg = 9
+    RULE_atom = 7
+    RULE_redirection = 8
+    RULE_argument = 9
     RULE_quotedArg = 10
     RULE_redirectionType = 11
 
     ruleNames =  [ "sequence", "commands", "command", "commandSubstitution", 
-                   "sequenceOp", "pipe", "args", "redirection", "argument", 
-                   "commandArg", "quotedArg", "redirectionType" ]
+                   "sequenceOp", "pipe", "args", "atom", "redirection", 
+                   "argument", "quotedArg", "redirectionType" ]
 
     EOF = Token.EOF
     T__0=1
-    COMMAND=2
-    SEQUENCE_OP=3
-    REDIRECTION_OVERWRITE=4
-    REDIRECTION_APPEND=5
-    REDIRECTION_READ=6
-    UNQUOTED_ARG=7
-    SINGLE_QUOTED_ARG=8
-    DOUBLE_QUOTED_ARG=9
-    BACKQUOTED_ARG=10
-    FILE=11
-    WS=12
+    SEQUENCE_OP=2
+    REDIRECTION_OVERWRITE=3
+    REDIRECTION_APPEND=4
+    REDIRECTION_READ=5
+    UNQUOTED_ARG=6
+    SINGLE_QUOTED_ARG=7
+    DOUBLE_QUOTED_ARG=8
+    BACKQUOTED_ARG=9
+    WS=10
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -109,6 +116,9 @@ class ShellParser ( Parser ):
             else:
                 return self.getTypedRuleContext(ShellParser.CommandsContext,i)
 
+
+        def EOF(self):
+            return self.getToken(ShellParser.EOF, 0)
 
         def sequenceOp(self, i:int=None):
             if i is None:
@@ -162,11 +172,13 @@ class ShellParser ( Parser ):
             self.state = 34
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==3:
+            if _la==2:
                 self.state = 33
                 self.sequenceOp()
 
 
+            self.state = 36
+            self.match(ShellParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -224,17 +236,17 @@ class ShellParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 36
+            self.state = 38
             self.command()
-            self.state = 42
+            self.state = 44
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==1:
-                self.state = 37
+                self.state = 39
                 self.pipe()
-                self.state = 38
+                self.state = 40
                 self.command()
-                self.state = 44
+                self.state = 46
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -254,8 +266,15 @@ class ShellParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def COMMAND(self):
-            return self.getToken(ShellParser.COMMAND, 0)
+        def argument(self):
+            return self.getTypedRuleContext(ShellParser.ArgumentContext,0)
+
+
+        def WS(self, i:int=None):
+            if i is None:
+                return self.getTokens(ShellParser.WS)
+            else:
+                return self.getToken(ShellParser.WS, i)
 
         def redirection(self, i:int=None):
             if i is None:
@@ -264,11 +283,11 @@ class ShellParser ( Parser ):
                 return self.getTypedRuleContext(ShellParser.RedirectionContext,i)
 
 
-        def argument(self, i:int=None):
+        def atom(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(ShellParser.ArgumentContext)
+                return self.getTypedRuleContexts(ShellParser.AtomContext)
             else:
-                return self.getTypedRuleContext(ShellParser.ArgumentContext,i)
+                return self.getTypedRuleContext(ShellParser.AtomContext,i)
 
 
         def getRuleIndex(self):
@@ -298,37 +317,66 @@ class ShellParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 48
+            self.state = 50
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 112) != 0):
-                self.state = 45
-                self.redirection()
-                self.state = 50
+            while _la==10:
+                self.state = 47
+                self.match(ShellParser.WS)
+                self.state = 52
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 51
-            self.match(ShellParser.COMMAND)
-            self.state = 56
+            self.state = 62
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 2036) != 0):
-                self.state = 54
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 56) != 0):
+                self.state = 53
+                self.redirection()
+                self.state = 57
                 self._errHandler.sync(self)
-                token = self._input.LA(1)
-                if token in [2, 7, 8, 9, 10]:
-                    self.state = 52
-                    self.argument()
-                    pass
-                elif token in [4, 5, 6]:
-                    self.state = 53
-                    self.redirection()
-                    pass
-                else:
-                    raise NoViableAltException(self)
+                _la = self._input.LA(1)
+                while _la==10:
+                    self.state = 54
+                    self.match(ShellParser.WS)
+                    self.state = 59
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
 
-                self.state = 58
+                self.state = 64
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+
+            self.state = 65
+            self.argument()
+            self.state = 75
+            self._errHandler.sync(self)
+            _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
+                    self.state = 69
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
+                    while _la==10:
+                        self.state = 66
+                        self.match(ShellParser.WS)
+                        self.state = 71
+                        self._errHandler.sync(self)
+                        _la = self._input.LA(1)
+
+                    self.state = 72
+                    self.atom() 
+                self.state = 77
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
+
+            self.state = 81
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            while _la==10:
+                self.state = 78
+                self.match(ShellParser.WS)
+                self.state = 83
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -377,7 +425,7 @@ class ShellParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_commandSubstitution)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 59
+            self.state = 84
             self.match(ShellParser.BACKQUOTED_ARG)
         except RecognitionException as re:
             localctx.exception = re
@@ -424,7 +472,7 @@ class ShellParser ( Parser ):
         self.enterRule(localctx, 8, self.RULE_sequenceOp)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 61
+            self.state = 86
             self.match(ShellParser.SEQUENCE_OP)
         except RecognitionException as re:
             localctx.exception = re
@@ -469,7 +517,7 @@ class ShellParser ( Parser ):
         self.enterRule(localctx, 10, self.RULE_pipe)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 63
+            self.state = 88
             self.match(ShellParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -521,15 +569,80 @@ class ShellParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 68
+            self.state = 93
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 1924) != 0):
-                self.state = 65
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 960) != 0):
+                self.state = 90
                 self.argument()
-                self.state = 70
+                self.state = 95
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class AtomContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def redirection(self):
+            return self.getTypedRuleContext(ShellParser.RedirectionContext,0)
+
+
+        def argument(self):
+            return self.getTypedRuleContext(ShellParser.ArgumentContext,0)
+
+
+        def getRuleIndex(self):
+            return ShellParser.RULE_atom
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAtom" ):
+                listener.enterAtom(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAtom" ):
+                listener.exitAtom(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAtom" ):
+                return visitor.visitAtom(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def atom(self):
+
+        localctx = ShellParser.AtomContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 14, self.RULE_atom)
+        try:
+            self.state = 98
+            self._errHandler.sync(self)
+            token = self._input.LA(1)
+            if token in [3, 4, 5]:
+                self.enterOuterAlt(localctx, 1)
+                self.state = 96
+                self.redirection()
+                pass
+            elif token in [6, 7, 8, 9]:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 97
+                self.argument()
+                pass
+            else:
+                raise NoViableAltException(self)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -578,12 +691,12 @@ class ShellParser ( Parser ):
     def redirection(self):
 
         localctx = ShellParser.RedirectionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_redirection)
+        self.enterRule(localctx, 16, self.RULE_redirection)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 71
+            self.state = 100
             self.redirectionType()
-            self.state = 72
+            self.state = 101
             self.argument()
         except RecognitionException as re:
             localctx.exception = re
@@ -601,16 +714,18 @@ class ShellParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def UNQUOTED_ARG(self):
-            return self.getToken(ShellParser.UNQUOTED_ARG, 0)
+        def quotedArg(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(ShellParser.QuotedArgContext)
+            else:
+                return self.getTypedRuleContext(ShellParser.QuotedArgContext,i)
 
-        def quotedArg(self):
-            return self.getTypedRuleContext(ShellParser.QuotedArgContext,0)
 
-
-        def commandArg(self):
-            return self.getTypedRuleContext(ShellParser.CommandArgContext,0)
-
+        def UNQUOTED_ARG(self, i:int=None):
+            if i is None:
+                return self.getTokens(ShellParser.UNQUOTED_ARG)
+            else:
+                return self.getToken(ShellParser.UNQUOTED_ARG, i)
 
         def getRuleIndex(self):
             return ShellParser.RULE_argument
@@ -635,76 +750,35 @@ class ShellParser ( Parser ):
     def argument(self):
 
         localctx = ShellParser.ArgumentContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_argument)
-        try:
-            self.state = 77
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [7]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 74
-                self.match(ShellParser.UNQUOTED_ARG)
-                pass
-            elif token in [8, 9, 10]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 75
-                self.quotedArg()
-                pass
-            elif token in [2]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 76
-                self.commandArg()
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class CommandArgContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def COMMAND(self):
-            return self.getToken(ShellParser.COMMAND, 0)
-
-        def getRuleIndex(self):
-            return ShellParser.RULE_commandArg
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCommandArg" ):
-                listener.enterCommandArg(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCommandArg" ):
-                listener.exitCommandArg(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCommandArg" ):
-                return visitor.visitCommandArg(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def commandArg(self):
-
-        localctx = ShellParser.CommandArgContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_commandArg)
+        self.enterRule(localctx, 18, self.RULE_argument)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 79
-            self.match(ShellParser.COMMAND)
+            self.state = 105 
+            self._errHandler.sync(self)
+            _alt = 1
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
+                    self.state = 105
+                    self._errHandler.sync(self)
+                    token = self._input.LA(1)
+                    if token in [7, 8, 9]:
+                        self.state = 103
+                        self.quotedArg()
+                        pass
+                    elif token in [6]:
+                        self.state = 104
+                        self.match(ShellParser.UNQUOTED_ARG)
+                        pass
+                    else:
+                        raise NoViableAltException(self)
+
+
+                else:
+                    raise NoViableAltException(self)
+                self.state = 107 
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -757,9 +831,9 @@ class ShellParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 81
+            self.state = 109
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 1792) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 896) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -816,9 +890,9 @@ class ShellParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 83
+            self.state = 111
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 112) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 56) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
