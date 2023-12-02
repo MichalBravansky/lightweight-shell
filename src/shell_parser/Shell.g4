@@ -9,7 +9,7 @@ sequenceOp : SEQUENCE_OP ;
 pipe : '|';
 args : argument* ;
 atom : redirection | argument ;
-redirection : redirectionType argument ;
+redirection : redirectionType WS* argument ;
 argument : ( quotedArg | UNQUOTED_ARG )+ ;
 quotedArg : SINGLE_QUOTED_ARG | DOUBLE_QUOTED_ARG | BACKQUOTED_ARG ;
 
