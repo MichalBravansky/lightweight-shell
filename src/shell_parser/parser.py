@@ -11,6 +11,7 @@ from shell_parser.executors import (
 import re
 from glob import glob
 from shell_parser.ShellVisitor import ShellVisitor
+import itertools
 
 
 class CustomVisitor(ShellVisitor):
@@ -27,9 +28,7 @@ class CustomVisitor(ShellVisitor):
         processed_args = []
         redirections = []
 
-        command = ctx.argument().getText()
-        if command:
-            processed_args.append(command)
+        command = self.visit(ctx.argument())
 
         for arg in ctx.redirection():
             redirections.append(self.visit(arg))
@@ -65,7 +64,7 @@ class CustomVisitor(ShellVisitor):
             None,
         )
 
-        call = Call(processed_args[0], processed_args[1:])
+        call = Call(command, processed_args)
 
         if output_redirection:
             redirection_type, file = output_redirection
@@ -91,12 +90,12 @@ class CustomVisitor(ShellVisitor):
 
     def visitQuotedArg(self, ctx: ShellParser.QuotedArgContext):
         if ctx.SINGLE_QUOTED_ARG():
-            return ctx.SINGLE_QUOTED_ARG().getText()[1:-1].replace("\\'", "'")
+            return "".join(ctx.SINGLE_QUOTED_ARG().getText()[1:-1].replace("\\'", "'"))
         elif ctx.DOUBLE_QUOTED_ARG():
             double_quoted_text = (
                 ctx.DOUBLE_QUOTED_ARG().getText()[1:-1].replace("\\ ", '"')
-            )  # Remove double quotes
-            return self.processDoubleQuotedArg(double_quoted_text)
+            )
+            return "".join(self.processDoubleQuotedArg(double_quoted_text))
         elif ctx.BACKQUOTED_ARG():
             return self.visitCommandSubstitution(ctx.BACKQUOTED_ARG())
         else:
@@ -112,6 +111,7 @@ class CustomVisitor(ShellVisitor):
 
     def visitArgument(self, ctx: ShellParser.ArgumentContext):
         args = []
+        globbing = False
 
         for arg in ctx.getChildren():
             if isinstance(arg, ShellParser.QuotedArgContext):
@@ -120,13 +120,15 @@ class CustomVisitor(ShellVisitor):
                 argument = arg.getText()
 
                 if "*" in argument:
-                    argument = glob(argument)
-                    return " ".join(argument)
+                    globbing = True
 
             if isinstance(argument, list):
                 args += argument
             else:
                 args.append(argument)
+
+        if globbing:
+            return glob("".join(args))
 
         return "".join(args)
 
@@ -160,7 +162,12 @@ class CustomVisitor(ShellVisitor):
         parser = ShellParser(token_stream)
 
         args_context = parser.args()
+        data = args_context.argument()
         processed_args = [self.visit(arg) for arg in args_context.argument()]
+
+        # Flattens the output
+        if all(isinstance(i, list) for i in processed_args):
+            return list(itertools.chain(*processed_args))
 
         return processed_args
 
@@ -178,4 +185,4 @@ class CustomVisitor(ShellVisitor):
 
         arg_output = self._processCommandOutputAsArgs(inner_output.replace("\n", " "))
 
-        return arg_output if arg_output else output
+        return " ".join(arg_output) if arg_output else output
