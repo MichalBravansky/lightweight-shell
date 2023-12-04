@@ -1,14 +1,14 @@
 import unittest
 
-# from shell import eval
-# from collections import deque
+from collections import deque
 
 
 class TestShell(unittest.TestCase):
     def test_shell(self):
-        self.assertEqual(2, 2)
-        # output = eval("echo foo")
-        # self.assertEqual(output, "foo\n")
+        assert (0, 0)
+
+    def test_shell2(self):
+        assert (1, 1)
 
 
 if __name__ == "__main__":

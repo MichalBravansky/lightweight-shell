@@ -5,5 +5,8 @@
         "editor.formatOnSaveMode": "file",
         "editor.formatOnSave": true
     },
-    "python.envFile": "${workspaceRoot}/.env"
+    "python.envFile": "${workspaceRoot}/.env",
+    "files.exclude": {
+		"**/.git": false
+	}
 }
