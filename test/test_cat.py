@@ -17,22 +17,35 @@ class TestCat(unittest.TestCase):
         self.test_dir.cleanup()
 
     def test_cat_single_file(self):
-        arg = Argument(Argument.LIST, "files", ["/Users/george/foo.txt"])
+        arg = Argument(Argument.LIST, "files", [f"{self.temp_path}/file1.txt"])
         response = Cat().execute({"files": arg})
-
         expected = "This is file 1.\nSecond line."
+
         self.assertEqual(response, expected)
 
-    # def test_cat_multiple_files(self):
-    #     response = Cat().execute([str(self.temp_path / "file1.txt"), str(self.temp_path / "file2.txt")])
-    #     expected = "This is file 1.\nSecond line.File 2 content."
-    #     self.assertEqual(response, expected)
+    def test_cat_multiple_files(self):
+        arg = Argument(Argument.LIST, "files", [f"{self.temp_path}/file1.txt", f"{self.temp_path}/file2.txt"])
+        response = Cat().execute({"files": arg})
+        expected = "This is file 1.\nSecond line.File 2 content."
 
-    # def test_cat_nonexistent_file(self):
-    #     with self.assertRaises(FileNotFoundError):
-    #         Cat().execute(["nonexistent.txt"])
+        self.assertEqual(response, expected)
 
-    # Additional tests for handling empty files, reading from stdin, etc.
+    def test_cat_nonexistent_file(self):
+        with self.assertRaises(FileNotFoundError):
+            arg = Argument(Argument.LIST, "files", ["nonexistent.txt"])
+            Cat().execute({"files": arg})
+
+    def test_cat_no_file(self):
+        with self.assertRaises(ValueError):
+            arg = Argument(Argument.LIST, "files", [])
+            Cat().execute({"files": arg})
+    
+    def test_cat_stdin(self):
+        arg = Argument(Argument.LIST, "files", [])
+        response = Cat().execute({"files": arg}, input="This is stdin.")
+        expected = "This is stdin."
+        self.assertEqual(response, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
