@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cd .. && nose2 -s test
+TOOLS_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+cd "$TOOLS_ROOT/../test" && (nose2 --plugin nose2.plugins.junitxml --junit-xml test || true) && junit2html nose2-junit.xml index.html
