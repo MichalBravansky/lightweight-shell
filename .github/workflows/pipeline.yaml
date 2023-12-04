@@ -1,9 +1,7 @@
 name: Test Pipeline
 
 on:
-  push:
-    branches:
-      - "github-action"
+  push
 
 jobs:
   Tests:
