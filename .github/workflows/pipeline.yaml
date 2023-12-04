@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run:  docker build -t image .
+      - run:  docker build -t comp0010-system-test .
+      - name: System tests
+        run:  python system_test/tests.py -v
       - name: Unit Tests
         run:  docker run --rm image nose2 -s /comp0010/test
       - name: System Tests
