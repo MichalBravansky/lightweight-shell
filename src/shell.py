@@ -21,7 +21,7 @@ def eval(user_input: str) -> str:
     visitor = CustomVisitor()
 
     # Build the parse tree
-    tree = parser.sequence()
+    tree = parser.shell()
 
     # Use the visitor to visit the parse tree
     visitor = CustomVisitor()

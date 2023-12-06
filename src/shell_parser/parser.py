@@ -15,13 +15,21 @@ import itertools
 
 
 class CustomVisitor(ShellVisitor):
-    def visitCommands(self, ctx: ShellParser.CommandsContext):
-        commands = ctx.command()
+    def visitShell(self, ctx: ShellParser.ShellContext):
+        return self.visit(ctx.getChild(0))
 
-        if len(commands) == 1:
-            return self.visit(commands[0])
+    def visitPipe(self, ctx: ShellParser.PipeContext):
+        commands = iter(
+            [
+                self.visit(command)
+                for command in ctx.getChildren()
+                if isinstance(
+                    command, (ShellParser.CommandContext, ShellParser.PipeContext)
+                )
+            ]
+        )
 
-        return Pipe([self.visit(command) for command in commands])
+        return Pipe(next(commands, None), next(commands, None))
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
         # Initialize an empty list for processed arguments
@@ -151,8 +159,22 @@ class CustomVisitor(ShellVisitor):
         return self._processCommandSubstitution(command)
 
     def visitSequence(self, ctx: ShellParser.SequenceContext):
-        commands = ctx.commands()
-        return Sequence([self.visit(command) for command in commands])
+        commands = iter(
+            [
+                self.visit(command)
+                for command in ctx.getChildren()
+                if isinstance(
+                    command,
+                    (
+                        ShellParser.CommandContext,
+                        ShellParser.PipeContext,
+                        ShellParser.SequenceContext,
+                    ),
+                )
+            ]
+        )
+
+        return Sequence(next(commands, None), next(commands, None))
 
     def _processCommandOutputAsArgs(self, command_output: str) -> [str]:
         input_stream = InputStream(command_output)
@@ -178,7 +200,7 @@ class CustomVisitor(ShellVisitor):
         inner_token_stream = CommonTokenStream(inner_lexer)
         inner_parser = ShellParser(inner_token_stream)
 
-        inner_tree = inner_parser.sequence()
+        inner_tree = inner_parser.shell()
         inner_output = self.visit(inner_tree).evaluate()
 
         output = inner_output.replace("\n", " ")

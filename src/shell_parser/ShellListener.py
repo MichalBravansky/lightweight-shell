@@ -8,6 +8,15 @@ else:
 # This class defines a complete listener for a parse tree produced by ShellParser.
 class ShellListener(ParseTreeListener):
 
+    # Enter a parse tree produced by ShellParser#shell.
+    def enterShell(self, ctx:ShellParser.ShellContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#shell.
+    def exitShell(self, ctx:ShellParser.ShellContext):
+        pass
+
+
     # Enter a parse tree produced by ShellParser#sequence.
     def enterSequence(self, ctx:ShellParser.SequenceContext):
         pass
@@ -17,12 +26,12 @@ class ShellListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ShellParser#commands.
-    def enterCommands(self, ctx:ShellParser.CommandsContext):
+    # Enter a parse tree produced by ShellParser#pipe.
+    def enterPipe(self, ctx:ShellParser.PipeContext):
         pass
 
-    # Exit a parse tree produced by ShellParser#commands.
-    def exitCommands(self, ctx:ShellParser.CommandsContext):
+    # Exit a parse tree produced by ShellParser#pipe.
+    def exitPipe(self, ctx:ShellParser.PipeContext):
         pass
 
 
@@ -41,24 +50,6 @@ class ShellListener(ParseTreeListener):
 
     # Exit a parse tree produced by ShellParser#commandSubstitution.
     def exitCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#sequenceOp.
-    def enterSequenceOp(self, ctx:ShellParser.SequenceOpContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#sequenceOp.
-    def exitSequenceOp(self, ctx:ShellParser.SequenceOpContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#pipe.
-    def enterPipe(self, ctx:ShellParser.PipeContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#pipe.
-    def exitPipe(self, ctx:ShellParser.PipeContext):
         pass
 
 
