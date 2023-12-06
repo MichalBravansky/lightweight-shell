@@ -33,13 +33,11 @@ class CutCommand(Command):
         result = []
         for i in range(len(line)):
             for start, end in byte_ranges:
-                if start is None:
-                    start = 0
                 if end is None or end > len(line):
                     end = len(line)
                 if start <= i < end:
                     result.append(line[i])
-                    break  # Exit the inner loop once the byte is included
+                    break
         return "".join(result)
 
     def execute(self, args, input=None):
