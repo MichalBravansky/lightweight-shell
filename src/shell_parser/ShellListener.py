@@ -44,21 +44,12 @@ class ShellListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ShellParser#commandSubstitution.
-    def enterCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
+    # Enter a parse tree produced by ShellParser#arguments.
+    def enterArguments(self, ctx:ShellParser.ArgumentsContext):
         pass
 
-    # Exit a parse tree produced by ShellParser#commandSubstitution.
-    def exitCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#args.
-    def enterArgs(self, ctx:ShellParser.ArgsContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#args.
-    def exitArgs(self, ctx:ShellParser.ArgsContext):
+    # Exit a parse tree produced by ShellParser#arguments.
+    def exitArguments(self, ctx:ShellParser.ArgumentsContext):
         pass
 
 

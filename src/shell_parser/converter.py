@@ -14,7 +14,7 @@ from shell_parser.ShellVisitor import ShellVisitor
 import itertools
 
 
-class CustomVisitor(ShellVisitor):
+class Converter(ShellVisitor):
     def visitShell(self, ctx: ShellParser.ShellContext):
         return self.visit(ctx.getChild(0))
 
@@ -32,7 +32,7 @@ class CustomVisitor(ShellVisitor):
         return Pipe(next(commands, None), next(commands, None))
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
-        # Initialize an empty list for processed arguments
+        # Initialize an empty list for processed arguments and redirections
         processed_args = []
         redirections = []
 
@@ -84,7 +84,7 @@ class CustomVisitor(ShellVisitor):
 
         return call
 
-    def processDoubleQuotedArg(self, text):
+    def _processDoubleQuotedArg(self, text):
         pattern = r"`([^`\n]*)`"
 
         args_to_str_func = (
@@ -103,9 +103,11 @@ class CustomVisitor(ShellVisitor):
             double_quoted_text = (
                 ctx.DOUBLE_QUOTED_ARG().getText()[1:-1].replace("\\ ", '"')
             )
-            return "".join(self.processDoubleQuotedArg(double_quoted_text))
+            return "".join(self._processDoubleQuotedArg(double_quoted_text))
         elif ctx.BACKQUOTED_ARG():
-            return self.visitCommandSubstitution(ctx.BACKQUOTED_ARG())
+            return self._processCommandSubstitution(
+                ctx.BACKQUOTED_ARG().getText()[1:-1]
+            )
         else:
             return ctx.getText()
 
@@ -154,10 +156,6 @@ class CustomVisitor(ShellVisitor):
 
         return (redirection, file)
 
-    def visitCommandSubstitution(self, ctx: ShellParser.CommandSubstitutionContext):
-        command = ctx.getText()[1:-1]
-        return self._processCommandSubstitution(command)
-
     def visitSequence(self, ctx: ShellParser.SequenceContext):
         commands = iter(
             [
@@ -176,18 +174,16 @@ class CustomVisitor(ShellVisitor):
 
         return Sequence(next(commands, None), next(commands, None))
 
-    def _processCommandOutputAsArgs(self, command_output: str) -> [str]:
+    def _convertStringToArguments(self, command_output: str) -> [str]:
         input_stream = InputStream(command_output)
 
         lexer = ShellLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
         parser = ShellParser(token_stream)
 
-        args_context = parser.args()
-        data = args_context.argument()
+        args_context = parser.arguments()
         processed_args = [self.visit(arg) for arg in args_context.argument()]
 
-        # Flattens the output
         if all(isinstance(i, list) for i in processed_args):
             return list(itertools.chain(*processed_args))
 
@@ -203,8 +199,9 @@ class CustomVisitor(ShellVisitor):
         inner_tree = inner_parser.shell()
         inner_output = self.visit(inner_tree).evaluate()
 
-        output = inner_output.replace("\n", " ")
+        arg_output = self._convertStringToArguments(inner_output.replace("\n", " "))
 
-        arg_output = self._processCommandOutputAsArgs(inner_output.replace("\n", " "))
+        if not arg_output:
+            pass
 
-        return " ".join(arg_output) if arg_output else output
+        return " ".join(arg_output) if arg_output else inner_output.replace("\n", " ")

@@ -5,10 +5,8 @@ shell: command | pipe | sequence EOF ;
 sequence : (command | pipe) ';' (command | pipe | sequence)? EOF ;
 pipe : command '|' command | command '|' pipe;
 command : WS* (redirection WS*)* argument (WS* atom)* WS* ;
+arguments : (WS* argument)* WS* ;
 
-commandSubstitution : BACKQUOTED_ARG ;
-
-args : (WS* argument)* WS* ;
 atom : redirection | argument ;
 
 redirection : redirectionType WS* argument ;

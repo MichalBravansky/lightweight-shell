@@ -29,13 +29,8 @@ class ShellVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ShellParser#commandSubstitution.
-    def visitCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ShellParser#args.
-    def visitArgs(self, ctx:ShellParser.ArgsContext):
+    # Visit a parse tree produced by ShellParser#arguments.
+    def visitArguments(self, ctx:ShellParser.ArgumentsContext):
         return self.visitChildren(ctx)
 
 
