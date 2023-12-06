@@ -1,6 +1,6 @@
 from antlr4 import InputStream, CommonTokenStream
-from shell_parser.ShellLexer import ShellLexer
-from shell_parser.ShellParser import ShellParser
+from shell_parser.tools.ShellLexer import ShellLexer
+from shell_parser.tools.ShellParser import ShellParser
 from shell_parser.executors import (
     Call,
     Pipe,
@@ -10,11 +10,11 @@ from shell_parser.executors import (
 )
 import re
 from glob import glob
-from shell_parser.ShellVisitor import ShellVisitor
+from shell_parser.tools.ShellVisitor import ShellVisitor
 import itertools
 
-
 class Converter(ShellVisitor):
+
     def visitShell(self, ctx: ShellParser.ShellContext):
         return self.visit(ctx.getChild(0))
 
@@ -173,15 +173,19 @@ class Converter(ShellVisitor):
         )
 
         return Sequence(next(commands, None), next(commands, None))
-
-    def _convertStringToArguments(self, command_output: str) -> [str]:
-        input_stream = InputStream(command_output)
+    
+    def _getParserFromShell(self, shell: str) -> ShellParser:
+        input_stream = InputStream(shell)
 
         lexer = ShellLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
         parser = ShellParser(token_stream)
 
-        args_context = parser.arguments()
+        return parser
+
+    def _convertStringToArguments(self, command_output: str) -> [str]:
+
+        args_context = self._getParserFromShell(command_output).arguments()
         processed_args = [self.visit(arg) for arg in args_context.argument()]
 
         if all(isinstance(i, list) for i in processed_args):
@@ -190,18 +194,10 @@ class Converter(ShellVisitor):
         return processed_args
 
     def _processCommandSubstitution(self, command_str: str) -> str:
-        inner_input_stream = InputStream(command_str)
 
-        inner_lexer = ShellLexer(inner_input_stream)
-        inner_token_stream = CommonTokenStream(inner_lexer)
-        inner_parser = ShellParser(inner_token_stream)
-
-        inner_tree = inner_parser.shell()
+        inner_tree = self._getParserFromShell(command_str).shell()
         inner_output = self.visit(inner_tree).evaluate()
 
         arg_output = self._convertStringToArguments(inner_output.replace("\n", " "))
-
-        if not arg_output:
-            pass
 
         return " ".join(arg_output) if arg_output else inner_output.replace("\n", " ")
