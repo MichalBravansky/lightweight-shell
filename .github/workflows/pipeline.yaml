@@ -13,4 +13,4 @@ jobs:
       - name: System tests
         run:  python system_test/tests.py -v
       - name: Unit Tests
-        run:  docker run --rm image nose2 -s /comp0010/test
+        run:  docker run --rm image -s /comp0010/test
