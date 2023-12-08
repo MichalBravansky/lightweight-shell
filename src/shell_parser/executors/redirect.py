@@ -12,7 +12,7 @@ class RedirectionType(Enum):
 
 class Redirect(Executor):
     def __init__(
-        self, call: Call, file_name, redirect_type: RedirectionType
+        self, call: Call, redirect_type: RedirectionType, file_name: str
     ) -> None:
         super().__init__()
 

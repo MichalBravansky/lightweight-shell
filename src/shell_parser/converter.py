@@ -7,6 +7,7 @@ from shell_parser.executors import (
     Redirect,
     RedirectionType,
     Sequence,
+    UnsafeCall
 )
 import re
 from glob import glob
@@ -19,68 +20,28 @@ class Converter(ShellVisitor):
         return self.visit(ctx.getChild(0))
 
     def visitPipe(self, ctx: ShellParser.PipeContext):
-        commands = iter(
-            [
-                self.visit(command)
-                for command in ctx.getChildren()
-                if isinstance(
-                    command, (ShellParser.CommandContext, ShellParser.PipeContext)
-                )
-            ]
+        commands = iter([self.visit(command) for command in ctx.getChildren()
+                if isinstance(command, (ShellParser.CommandContext, ShellParser.PipeContext))]
         )
 
         return Pipe(next(commands, None), next(commands, None))
 
     def visitCommand(self, ctx: ShellParser.CommandContext):
-        # Initialize an empty list for processed arguments and redirections
         processed_args = []
-        redirections = []
+        redirections = [self.visit(arg) for arg in ctx.redirection()]
 
-        command = self.visit(ctx.argument())
+        command = self.visit(ctx.argument())[0]
 
-        for arg in ctx.redirection():
-            redirections.append(self.visit(arg))
-
-        # Iterate over each argument
         for arg in ctx.atom():
-            # Process each argument, which may include command substitutions
             args, redirection = self.visit(arg)
+            processed_args.extend(args) if args else redirections.append(redirection)
 
-            if args:
-                if isinstance(args, list):
-                    processed_args += args
-                else:
-                    processed_args.append(args)
-            else:
-                redirections.append(redirection)
+        input_redirection = next((r for r in reversed(redirections) if r[0] == RedirectionType.READ), None)
+        output_redirection = next((r for r in reversed(redirections) if r[0] != RedirectionType.READ), None)
 
-        input_redirection = next(
-            (
-                redirection
-                for redirection in redirections[::-1]
-                if redirection[0] == RedirectionType.READ
-            ),
-            None,
-        )
-
-        output_redirection = next(
-            (
-                redirection
-                for redirection in redirections[::-1]
-                if redirection[0] != RedirectionType.READ
-            ),
-            None,
-        )
-
-        call = Call(command, processed_args)
-
-        if output_redirection:
-            redirection_type, file = output_redirection
-            call = Redirect(call, file, redirection_type)
-
-        if input_redirection:
-            redirection_type, file = input_redirection
-            call = Redirect(call, file, redirection_type)
+        call = Call(command, processed_args) if command[0] != "_" else UnsafeCall(command[1:], processed_args)
+        call = Redirect(call, *output_redirection) if output_redirection else call
+        call = Redirect(call, *input_redirection) if input_redirection else call
 
         return call
 
@@ -140,7 +101,7 @@ class Converter(ShellVisitor):
         if globbing:
             return glob("".join(args))
 
-        return "".join(args)
+        return ["".join(args)]
 
     def visitRedirectionType(self, ctx: ShellParser.RedirectionTypeContext):
         if ctx.REDIRECTION_READ():
@@ -151,26 +112,14 @@ class Converter(ShellVisitor):
             return RedirectionType.OVERWRITE
 
     def visitRedirection(self, ctx: ShellParser.RedirectionContext):
-        file = self.visit(ctx.argument())
+        file = self.visit(ctx.argument())[0]
         redirection = self.visitRedirectionType(ctx.redirectionType())
 
         return (redirection, file)
 
     def visitSequence(self, ctx: ShellParser.SequenceContext):
-        commands = iter(
-            [
-                self.visit(command)
-                for command in ctx.getChildren()
-                if isinstance(
-                    command,
-                    (
-                        ShellParser.CommandContext,
-                        ShellParser.PipeContext,
-                        ShellParser.SequenceContext,
-                    ),
-                )
-            ]
-        )
+        commands = iter([self.visit(command) for command in ctx.getChildren()
+                         if isinstance(command, (ShellParser.CommandContext, ShellParser.PipeContext, ShellParser.SequenceContext))])
 
         return Sequence(next(commands, None), next(commands, None))
     

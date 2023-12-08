@@ -30,6 +30,6 @@ class UnsafeCall(Call):
             str: The output from the executed command or the error message if the command fails.
         """
         try:
-            return super.evaluate(input)
+            return super().evaluate(input)
         except Exception as e:
             return str(e)
