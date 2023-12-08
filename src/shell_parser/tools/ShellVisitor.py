@@ -29,11 +29,6 @@ class ShellVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ShellParser#arguments.
-    def visitArguments(self, ctx:ShellParser.ArgumentsContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by ShellParser#atom.
     def visitAtom(self, ctx:ShellParser.AtomContext):
         return self.visitChildren(ctx)

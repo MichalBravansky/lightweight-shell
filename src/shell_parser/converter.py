@@ -12,7 +12,28 @@ from shell_parser.executors import (
 import re
 from glob import glob
 from shell_parser.tools.ShellVisitor import ShellVisitor
-import itertools
+from utils.custom_error_listener import CustomErrorListener
+
+class _ConverterHelper:
+
+    @classmethod
+    def processShell(cls, shell: str) -> str:
+
+        input_stream = InputStream(shell)
+
+        lexer = ShellLexer(input_stream)
+        lexer.addErrorListener(CustomErrorListener())
+
+        token_stream = CommonTokenStream(lexer)
+
+        parser = ShellParser(token_stream)
+        parser.addErrorListener(CustomErrorListener())
+
+        inner_tree = parser.shell()
+        inner_output = [output.strip("\n ") for output in Converter().visit(inner_tree).evaluate()]
+
+        return " ".join(inner_output)
+    
 
 class Converter(ShellVisitor):
 
@@ -21,8 +42,7 @@ class Converter(ShellVisitor):
 
     def visitPipe(self, ctx: ShellParser.PipeContext):
         commands = iter([self.visit(command) for command in ctx.getChildren()
-                if isinstance(command, (ShellParser.CommandContext, ShellParser.PipeContext))]
-        )
+                if isinstance(command, (ShellParser.CommandContext, ShellParser.PipeContext))])
 
         return Pipe(next(commands, None), next(commands, None))
 
@@ -45,40 +65,20 @@ class Converter(ShellVisitor):
 
         return call
 
-    def _processDoubleQuotedArg(self, text):
-        pattern = r"`([^`\n]*)`"
-
-        args_to_str_func = (
-            lambda result: " ".join(result) if isinstance(result, list) else result
-        )
-        replace_func = lambda x: args_to_str_func(
-            self._processCommandSubstitution(x.group(1))
-        )
-
-        return re.sub(pattern, replace_func, text)
-
     def visitQuotedArg(self, ctx: ShellParser.QuotedArgContext):
+        text = ctx.getText()
         if ctx.SINGLE_QUOTED_ARG():
-            return "".join(ctx.SINGLE_QUOTED_ARG().getText()[1:-1].replace("\\'", "'"))
+            return [text[1:-1].replace("\\'", "'")]
         elif ctx.DOUBLE_QUOTED_ARG():
-            double_quoted_text = (
-                ctx.DOUBLE_QUOTED_ARG().getText()[1:-1].replace("\\ ", '"')
-            )
-            return "".join(self._processDoubleQuotedArg(double_quoted_text))
+            replace_func = lambda x: _ConverterHelper.processShell(x.group(1))
+            return re.sub(r"`([^`\n]*)`", replace_func, text[1:-1].replace('\\"', '"'))
         elif ctx.BACKQUOTED_ARG():
-            return self._processCommandSubstitution(
-                ctx.BACKQUOTED_ARG().getText()[1:-1]
-            )
-        else:
-            return ctx.getText()
+            return _ConverterHelper.processShell(text[1:-1])
+        return [text]
 
     def visitAtom(self, ctx: ShellParser.AtomContext):
         child = ctx.getChild(0)
-
-        if isinstance(child, ShellParser.ArgumentContext):
-            return (self.visit(child), None)
-        else:
-            return (None, self.visit(child))
+        return (self.visit(child), None) if isinstance(child, ShellParser.ArgumentContext) else (None, self.visit(child))
 
     def visitArgument(self, ctx: ShellParser.ArgumentContext):
         args = []
@@ -88,15 +88,12 @@ class Converter(ShellVisitor):
             if isinstance(arg, ShellParser.QuotedArgContext):
                 argument = self.visit(arg)
             else:
-                argument = arg.getText()
+                argument = [arg.getText()]
 
-                if "*" in argument:
+                if "*" in argument[0]:
                     globbing = True
 
-            if isinstance(argument, list):
-                args += argument
-            else:
-                args.append(argument)
+            args += argument
 
         if globbing:
             return glob("".join(args))
@@ -122,31 +119,3 @@ class Converter(ShellVisitor):
                          if isinstance(command, (ShellParser.CommandContext, ShellParser.PipeContext, ShellParser.SequenceContext))])
 
         return Sequence(next(commands, None), next(commands, None))
-    
-    def _getParserFromShell(self, shell: str) -> ShellParser:
-        input_stream = InputStream(shell)
-
-        lexer = ShellLexer(input_stream)
-        token_stream = CommonTokenStream(lexer)
-        parser = ShellParser(token_stream)
-
-        return parser
-
-    def _convertStringToArguments(self, command_output: str) -> [str]:
-
-        args_context = self._getParserFromShell(command_output).arguments()
-        processed_args = [self.visit(arg) for arg in args_context.argument()]
-
-        if all(isinstance(i, list) for i in processed_args):
-            return list(itertools.chain(*processed_args))
-
-        return processed_args
-
-    def _processCommandSubstitution(self, command_str: str) -> str:
-
-        inner_tree = self._getParserFromShell(command_str).shell()
-        inner_output = self.visit(inner_tree).evaluate()
-
-        arg_output = self._convertStringToArguments(inner_output.replace("\n", " "))
-
-        return " ".join(arg_output) if arg_output else inner_output.replace("\n", " ")

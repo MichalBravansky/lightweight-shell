@@ -11,7 +11,7 @@ class Executor(ABC):
     """
 
     @abstractmethod
-    def evaluate(self, input: str = None) -> str:
+    def evaluate(self, input: str = None) -> [str]:
         """
         Abstract method to execute a task or command.
 

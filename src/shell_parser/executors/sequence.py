@@ -4,7 +4,7 @@ from itertools import chain
 
 
 class Sequence(Executor):
-    def __init__(self, left_executor: [Executor], right_executor: [Executor]) -> None:
+    def __init__(self, left_executor: [Executor], right_executor: [Executor]) -> [str]:
         self._left_executor = left_executor
         self._right_executor = right_executor
 
@@ -12,10 +12,7 @@ class Sequence(Executor):
         if executor:
             response = executor.evaluate()
 
-            if isinstance(response, list):
-                output += chain(response)
-            elif response:
-                output.append(response)
+            output += chain(response)
 
         return output
 
@@ -25,4 +22,4 @@ class Sequence(Executor):
         output = self._process_executor(self._left_executor, output)
         output = self._process_executor(self._right_executor, output)
 
-        return "".join(output)
+        return [line for line in output if line]

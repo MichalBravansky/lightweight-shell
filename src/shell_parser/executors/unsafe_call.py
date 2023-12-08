@@ -16,7 +16,7 @@ class UnsafeCall(Call):
         """
         super().__init__(command, args)
 
-    def evaluate(self, input: str = None) -> str:
+    def evaluate(self, input: str = None) -> [str]:
         """
         Executes the command with the provided arguments and optional additional input.
 
@@ -27,9 +27,9 @@ class UnsafeCall(Call):
                                     Defaults to None
 
         Returns:
-            str: The output from the executed command or the error message if the command fails.
+            [str]: The output from the executed command or the error message if the command fails.
         """
         try:
             return super().evaluate(input)
         except Exception as e:
-            return str(e)
+            return [str(e)]

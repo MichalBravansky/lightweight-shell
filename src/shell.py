@@ -34,7 +34,7 @@ def process(cmdline: str) -> str:
     visitor = Converter()
     root = visitor.visit(tree)
 
-    return root.evaluate()
+    return "".join(root.evaluate())
 
 
 def eval(user_input: str) -> str:

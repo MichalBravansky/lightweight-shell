@@ -29,7 +29,7 @@ class Redirect(Executor):
                     f"No such file or directory: {file_name}"
                 )
 
-    def evaluate(self, input: str = None) -> str:
+    def evaluate(self, input: str = None) -> [str]:
         """
         Executes the command with the provided arguments and optional additional input.
 
@@ -43,17 +43,17 @@ class Redirect(Executor):
             str: The output from the executed command.
         """
         if input:
-            call_output = self.call.evaluate(input)
+            call_output = "".join(self.call.evaluate(input))
         elif self.file_contents:
-            call_output = self.call.evaluate(self.file_contents)
+            call_output = "".join(self.call.evaluate(self.file_contents))
         else:
-            call_output = self.call.evaluate()
+            call_output = "".join(self.call.evaluate())
 
         if self.redirect_type == RedirectionType.OVERWRITE:
             open(self.file_name, "w").write(call_output)
-            return ""
+            return [""]
         elif self.redirect_type == RedirectionType.APPEND:
             open(self.file_name, "a").write(call_output)
-            return ""
+            return [""]
         elif self.redirect_type == RedirectionType.READ:
-            return call_output
+            return [call_output]

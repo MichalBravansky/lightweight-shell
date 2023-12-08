@@ -44,15 +44,6 @@ class ShellListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ShellParser#arguments.
-    def enterArguments(self, ctx:ShellParser.ArgumentsContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#arguments.
-    def exitArguments(self, ctx:ShellParser.ArgumentsContext):
-        pass
-
-
     # Enter a parse tree produced by ShellParser#atom.
     def enterAtom(self, ctx:ShellParser.AtomContext):
         pass
