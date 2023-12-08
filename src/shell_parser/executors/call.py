@@ -38,7 +38,7 @@ class Call(Executor):
                                     Defaults to None
 
         Returns:
-            str: The output from the executed command.
+            [str]: The output from the executed command.
         """
 
         args = ArgumentHandler().assign_arguments(self._command, self._unprocessed_args)
