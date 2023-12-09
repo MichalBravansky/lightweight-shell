@@ -18,7 +18,7 @@ class TailCommand(Command):
                     "tail: missing file operand\nTry 'tail --help' for more"
                     " information."
                 )
-            lines = input.split("\n")
+            lines = input.splitlines()
         else:
             if not os.path.isfile(args["file"].value):
                 raise FileNotFoundError(
@@ -27,6 +27,6 @@ class TailCommand(Command):
                     + ": No such file or directory"
                 )
             with open(args["file"].value, "r") as file:
-                lines = file.read().split("\n")
+                lines = file.read().splitlines()
 
-        return "\n".join(lines[-min(args["lines"].value, len(lines)) - 1:])
+        return "\n".join(lines[-min(args["lines"].value, len(lines)):] if args["lines"].value > 0 else "")
