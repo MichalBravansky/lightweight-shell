@@ -3,7 +3,7 @@
     "[python]": {
         "editor.formatOnPaste": false,
         "editor.formatOnSaveMode": "file",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": false
     },
     "python.envFile": "${workspaceRoot}/.env",
     "files.exclude": {

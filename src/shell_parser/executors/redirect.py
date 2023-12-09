@@ -11,9 +11,26 @@ class RedirectionType(Enum):
 
 
 class Redirect(Executor):
-    def __init__(
-        self, call: Call, file_name, redirect_type: RedirectionType
-    ) -> None:
+    """
+    This class represents a redirection in shell command execution,
+    handling the redirection of a command's output to a file or using a file's contents as input.
+
+    It inherits from the Executor class and overrides the evaluate method to implement redirection.
+    """
+        
+    def __init__(self, call: Call, redirect_type: RedirectionType, file_name: str) -> None:
+        """
+        Initializes a new instance of the Redirect class.
+
+        Args:
+            call (Call): The call executor representing the command to be executed.
+            redirect_type (RedirectionType): The type of redirection (READ, OVERWRITE, or APPEND).
+            file_name (str): The name of the file to redirect to/from.
+
+        Raises:
+            FileNotFoundError: If the redirect type is READ and the file does not exist.
+        """
+
         super().__init__()
 
         self.call = call
@@ -29,31 +46,31 @@ class Redirect(Executor):
                     f"No such file or directory: {file_name}"
                 )
 
-    def evaluate(self, input: str = None) -> str:
+    def evaluate(self, input: str = None) -> [str]:
         """
-        Executes the command with the provided arguments and optional additional input.
+        Executes the redirection process based on the specified redirection type.
 
-        This method uses the CommandFactory to execute the command and returns the result.
+        This method manages the flow of data either to the file (in case of OVERWRITE or APPEND)
+        or from the file (in case of READ) and executes the associated command.
 
         Args:
-            input (str, optional): Additional input that may be required for command execution.
+            input (str, optional): Additional input that functions as standard input for the command.
                                     Defaults to None.
 
         Returns:
-            str: The output from the executed command.
+            [str]: The output from the executed command or an empty list if the output is redirected to a file.
         """
-        if input:
-            call_output = self.call.evaluate(input)
-        elif self.file_contents:
-            call_output = self.call.evaluate(self.file_contents)
-        else:
-            call_output = self.call.evaluate()
 
-        if self.redirect_type == RedirectionType.OVERWRITE:
-            open(self.file_name, "w").write(call_output)
-            return ""
-        elif self.redirect_type == RedirectionType.APPEND:
-            open(self.file_name, "a").write(call_output)
-            return ""
+        call_input = input or self.file_contents or None
+        call_output = "".join(self.call.evaluate(call_input))
+
+        if self.redirect_type in (RedirectionType.OVERWRITE, RedirectionType.APPEND):
+            
+            mode = "w" if self.redirect_type == RedirectionType.OVERWRITE else "a"
+            with open(self.file_name, mode) as file:
+                file.write(call_output)
+
+            return [""]
+        
         elif self.redirect_type == RedirectionType.READ:
-            return call_output
+            return [call_output]

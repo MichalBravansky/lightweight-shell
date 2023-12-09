@@ -9,28 +9,13 @@ else:
 
 class ShellVisitor(ParseTreeVisitor):
 
+    # Visit a parse tree produced by ShellParser#shell.
+    def visitShell(self, ctx:ShellParser.ShellContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ShellParser#sequence.
     def visitSequence(self, ctx:ShellParser.SequenceContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ShellParser#commands.
-    def visitCommands(self, ctx:ShellParser.CommandsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ShellParser#command.
-    def visitCommand(self, ctx:ShellParser.CommandContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ShellParser#commandSubstitution.
-    def visitCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ShellParser#sequenceOp.
-    def visitSequenceOp(self, ctx:ShellParser.SequenceOpContext):
         return self.visitChildren(ctx)
 
 
@@ -39,8 +24,8 @@ class ShellVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ShellParser#args.
-    def visitArgs(self, ctx:ShellParser.ArgsContext):
+    # Visit a parse tree produced by ShellParser#command.
+    def visitCommand(self, ctx:ShellParser.CommandContext):
         return self.visitChildren(ctx)
 
 

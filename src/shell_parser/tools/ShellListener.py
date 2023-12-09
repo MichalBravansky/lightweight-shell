@@ -8,48 +8,21 @@ else:
 # This class defines a complete listener for a parse tree produced by ShellParser.
 class ShellListener(ParseTreeListener):
 
+    # Enter a parse tree produced by ShellParser#shell.
+    def enterShell(self, ctx:ShellParser.ShellContext):
+        pass
+
+    # Exit a parse tree produced by ShellParser#shell.
+    def exitShell(self, ctx:ShellParser.ShellContext):
+        pass
+
+
     # Enter a parse tree produced by ShellParser#sequence.
     def enterSequence(self, ctx:ShellParser.SequenceContext):
         pass
 
     # Exit a parse tree produced by ShellParser#sequence.
     def exitSequence(self, ctx:ShellParser.SequenceContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#commands.
-    def enterCommands(self, ctx:ShellParser.CommandsContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#commands.
-    def exitCommands(self, ctx:ShellParser.CommandsContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#command.
-    def enterCommand(self, ctx:ShellParser.CommandContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#command.
-    def exitCommand(self, ctx:ShellParser.CommandContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#commandSubstitution.
-    def enterCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#commandSubstitution.
-    def exitCommandSubstitution(self, ctx:ShellParser.CommandSubstitutionContext):
-        pass
-
-
-    # Enter a parse tree produced by ShellParser#sequenceOp.
-    def enterSequenceOp(self, ctx:ShellParser.SequenceOpContext):
-        pass
-
-    # Exit a parse tree produced by ShellParser#sequenceOp.
-    def exitSequenceOp(self, ctx:ShellParser.SequenceOpContext):
         pass
 
 
@@ -62,12 +35,12 @@ class ShellListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ShellParser#args.
-    def enterArgs(self, ctx:ShellParser.ArgsContext):
+    # Enter a parse tree produced by ShellParser#command.
+    def enterCommand(self, ctx:ShellParser.CommandContext):
         pass
 
-    # Exit a parse tree produced by ShellParser#args.
-    def exitArgs(self, ctx:ShellParser.ArgsContext):
+    # Exit a parse tree produced by ShellParser#command.
+    def exitCommand(self, ctx:ShellParser.CommandContext):
         pass
 
 

@@ -1,22 +1,17 @@
 grammar Shell;
 
-// Parser rules
-sequence : commands (sequenceOp commands)* sequenceOp? EOF ;
-commands : command (pipe command)* ;
+shell: command | pipe | sequence EOF ;
+sequence : (command | pipe) ';' (command | pipe | sequence)? ;
+pipe : command '|' command | command '|' pipe;
 command : WS* (redirection WS*)* argument (WS* atom)* WS* ;
-commandSubstitution : BACKQUOTED_ARG ;
-sequenceOp : SEQUENCE_OP ;
-pipe : '|';
-args : (WS* argument)* WS* ;
+
 atom : redirection | argument ;
+
 redirection : redirectionType WS* argument ;
+
 argument : ( quotedArg | UNQUOTED_ARG )+ ;
 quotedArg : SINGLE_QUOTED_ARG | DOUBLE_QUOTED_ARG | BACKQUOTED_ARG ;
 
-// Lexer rules
-SEQUENCE_OP: ';';
-
-// Complex quote lexer rules
 redirectionType: REDIRECTION_OVERWRITE | REDIRECTION_APPEND | REDIRECTION_READ;
 
 REDIRECTION_OVERWRITE: '>';

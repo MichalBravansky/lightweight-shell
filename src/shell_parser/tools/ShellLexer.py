@@ -22,7 +22,7 @@ def serializedATN():
         0,0,0,9,1,0,0,0,0,11,1,0,0,0,0,13,1,0,0,0,0,15,1,0,0,0,0,17,1,0,
         0,0,0,19,1,0,0,0,1,21,1,0,0,0,3,23,1,0,0,0,5,25,1,0,0,0,7,27,1,0,
         0,0,9,30,1,0,0,0,11,33,1,0,0,0,13,37,1,0,0,0,15,45,1,0,0,0,17,61,
-        1,0,0,0,19,70,1,0,0,0,21,22,5,124,0,0,22,2,1,0,0,0,23,24,5,59,0,
+        1,0,0,0,19,70,1,0,0,0,21,22,5,59,0,0,22,2,1,0,0,0,23,24,5,124,0,
         0,24,4,1,0,0,0,25,26,5,62,0,0,26,6,1,0,0,0,27,28,5,62,0,0,28,29,
         5,62,0,0,29,8,1,0,0,0,30,31,5,60,0,0,31,10,1,0,0,0,32,34,8,0,0,0,
         33,32,1,0,0,0,34,35,1,0,0,0,35,33,1,0,0,0,35,36,1,0,0,0,36,12,1,
@@ -46,7 +46,7 @@ class ShellLexer(Lexer):
     decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
 
     T__0 = 1
-    SEQUENCE_OP = 2
+    T__1 = 2
     REDIRECTION_OVERWRITE = 3
     REDIRECTION_APPEND = 4
     REDIRECTION_READ = 5
@@ -61,14 +61,14 @@ class ShellLexer(Lexer):
     modeNames = [ "DEFAULT_MODE" ]
 
     literalNames = [ "<INVALID>",
-            "'|'", "';'", "'>'", "'>>'", "'<'" ]
+            "';'", "'|'", "'>'", "'>>'", "'<'" ]
 
     symbolicNames = [ "<INVALID>",
-            "SEQUENCE_OP", "REDIRECTION_OVERWRITE", "REDIRECTION_APPEND", 
-            "REDIRECTION_READ", "UNQUOTED_ARG", "SINGLE_QUOTED_ARG", "DOUBLE_QUOTED_ARG", 
-            "BACKQUOTED_ARG", "WS" ]
+            "REDIRECTION_OVERWRITE", "REDIRECTION_APPEND", "REDIRECTION_READ", 
+            "UNQUOTED_ARG", "SINGLE_QUOTED_ARG", "DOUBLE_QUOTED_ARG", "BACKQUOTED_ARG", 
+            "WS" ]
 
-    ruleNames = [ "T__0", "SEQUENCE_OP", "REDIRECTION_OVERWRITE", "REDIRECTION_APPEND", 
+    ruleNames = [ "T__0", "T__1", "REDIRECTION_OVERWRITE", "REDIRECTION_APPEND", 
                   "REDIRECTION_READ", "UNQUOTED_ARG", "SINGLE_QUOTED_ARG", 
                   "DOUBLE_QUOTED_ARG", "BACKQUOTED_ARG", "WS" ]
 

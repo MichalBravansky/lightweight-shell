@@ -27,7 +27,7 @@ class Call(Executor):
         self._command = command
         self._unprocessed_args = args
 
-    def evaluate(self, input: str = None) -> str:
+    def evaluate(self, input: str = None) -> [str]:
         """
         Executes the command with the provided arguments and optional additional input.
 
@@ -38,9 +38,9 @@ class Call(Executor):
                                     Defaults to None
 
         Returns:
-            str: The output from the executed command.
+            [str]: The output from the executed command.
         """
 
         args = ArgumentHandler().assign_arguments(self._command, self._unprocessed_args)
 
-        return CommandFactory().execute_command(self._command, args, input)
+        return [CommandFactory().execute_command(self._command, args, input)]

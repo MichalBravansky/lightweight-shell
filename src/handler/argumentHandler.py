@@ -1,5 +1,5 @@
 from commands.argument import Argument
-
+from utils.exceptions import UnknownCommandError
 
 class ArgumentHandler:
     def __init__(self) -> None:
@@ -119,7 +119,7 @@ class ArgumentHandler:
         if command_name.startswith("_"):
             command_name = command_name[1:]
         if command_name not in self.default_arguments:
-            raise ValueError(f"Unknown command: {command_name}")
+            raise UnknownCommandError(command_name)
         else:
             args_info = dict(self.default_arguments[command_name])
 
