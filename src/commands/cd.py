@@ -12,3 +12,4 @@ class CdCommand(Command):
             os.chdir(cd_path)
         else:
             raise FileNotFoundError(f"cd: {cd_path}: No such directory")
+            # TODO: custom exception
