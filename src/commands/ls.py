@@ -7,11 +7,5 @@ class LsCommand(Command):
         super().__init__("ls", "list directory contents")
 
     def execute(self, args, input=None):
-        directory = args["directory"]
-        if directory:
-            directory = directory.value
-        else:
-            directory = (
-                os.getcwd()
-            )  # default to current directory if none is provided
+        directory = args["directory"].value
         return "\n".join(os.listdir(directory))
