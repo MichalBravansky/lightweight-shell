@@ -43,4 +43,4 @@ class Call(Executor):
 
         args = ArgumentHandler().assign_arguments(self._command, self._unprocessed_args)
 
-        return [CommandFactory().execute_command(self._command, args, input)]
+        return filter(lambda x: x, [CommandFactory().execute_command(self._command, args, input)])
