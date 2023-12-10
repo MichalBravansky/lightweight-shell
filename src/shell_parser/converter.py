@@ -156,7 +156,6 @@ class Converter(ShellVisitor):
             return re.sub(r"`([^`\n]*)`", replace_func, text[1:-1].replace('\\"', '"'))
         elif ctx.BACKQUOTED_ARG():
             return _ConverterHelper.processShell(text[1:-1])
-        return [text]
 
     def visitAtom(self, ctx: ShellParser.AtomContext) -> ([str], (RedirectionType, str)):
         """
@@ -172,7 +171,7 @@ class Converter(ShellVisitor):
         """
                 
         child = ctx.getChild(0)
-        return (self.visit(child), None) if isinstance(child, ShellParser.ArgumentContext) else (None, self.visit(child))
+        return (self.visit(child), None) if not isinstance(child, ShellParser.RedirectionContext) else (None, self.visit(child))
 
     def visitArgument(self, ctx: ShellParser.ArgumentContext) -> [str]:
         """

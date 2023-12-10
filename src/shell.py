@@ -12,7 +12,6 @@ from utils.exceptions import (
 
 import readline
 from utils.auto_completer import AutoCompleter
-readline.parse_and_bind("tab: complete")
 
 def process(cmdline: str) -> str:
     input_stream = InputStream(cmdline)
@@ -36,9 +35,12 @@ def process(cmdline: str) -> str:
 
     # Use the visitor to visit the parse tree
     visitor = Converter()
-    root = visitor.visit(tree)
+    root = tree.accept(Converter())
 
-    return "".join(root.evaluate())
+    if root:
+        return "".join(root.evaluate())
+
+    return ""
 
 
 def eval(user_input: str) -> str:
