@@ -1,7 +1,7 @@
 grammar Shell;
 
-shell: command | pipe | sequence EOF ;
-sequence : (command | pipe) ';' (command | pipe | sequence)? ;
+shell: (command | pipe | sequence)? ';'? EOF ;
+sequence : (command | pipe) ';' (command | pipe | sequence) ;
 pipe : command '|' command | command '|' pipe;
 command : WS* (redirection WS*)* argument (WS* atom)* WS* ;
 

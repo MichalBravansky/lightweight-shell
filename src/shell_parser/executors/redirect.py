@@ -35,16 +35,7 @@ class Redirect(Executor):
 
         self.call = call
         self.redirect_type = redirect_type
-        self.file_contents = None
         self.file_name = file_name
-
-        if redirect_type == RedirectionType.READ:
-            if os.path.isfile(file_name):
-                self.file_contents = open(file_name, "r").read()
-            else:
-                raise FileNotFoundError(
-                    f"No such file or directory: {file_name}"
-                )
 
     def evaluate(self, input: str = None) -> [str]:
         """
@@ -61,7 +52,17 @@ class Redirect(Executor):
             [str]: The output from the executed command or an empty list if the output is redirected to a file.
         """
 
-        call_input = input or self.file_contents or None
+        file_contents = None
+
+        if self.redirect_type == RedirectionType.READ:
+            if os.path.isfile(self.file_name):
+                file_contents = open(self.file_name, "r").read()
+            else:
+                raise FileNotFoundError(
+                    f"No such file or directory: {self.file_name}"
+                )
+
+        call_input = input or file_contents or None
         call_output = "".join(self.call.evaluate(call_input))
 
         if self.redirect_type in (RedirectionType.OVERWRITE, RedirectionType.APPEND):

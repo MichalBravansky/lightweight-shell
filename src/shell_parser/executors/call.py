@@ -25,7 +25,7 @@ class Call(Executor):
         super().__init__()
 
         self._command = command
-        self._unprocessed_args = args
+        self._args = ArgumentHandler().assign_arguments(self._command, args)
 
     def evaluate(self, input: str = None) -> [str]:
         """
@@ -41,6 +41,4 @@ class Call(Executor):
             [str]: The output from the executed command.
         """
 
-        args = ArgumentHandler().assign_arguments(self._command, self._unprocessed_args)
-
-        return filter(lambda x: x, [CommandFactory().execute_command(self._command, args, input)])
+        return filter(lambda x: x, [CommandFactory().execute_command(self._command, self._args, input)])
