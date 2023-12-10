@@ -10,6 +10,6 @@ jobs:
       - uses: actions/checkout@v4
       - run:  docker build -t comp0010-system-test .
       - name: Unit Tests
-        run:  docker run -ti --rm comp0010-system-test /comp0010/tools/test 
+        run:  docker run -it --rm comp0010-system-test /comp0010/tools/test 
       - name: System tests
         run:  python system_test/tests.py -v
