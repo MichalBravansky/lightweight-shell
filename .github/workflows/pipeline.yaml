@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # - run:  docker build -t shell .
       - run:  docker build -t comp0010-system-test .
       - name: Unit Tests
         run:  docker run -ti --rm comp0010-system-test /comp0010/tools/test 

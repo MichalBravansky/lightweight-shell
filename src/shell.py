@@ -10,6 +10,10 @@ from utils.exceptions import (
     UnknownCommandError
 )
 
+import readline
+from utils.auto_completer import AutoCompleter
+readline.parse_and_bind("tab: complete")
+
 def process(cmdline: str) -> str:
     input_stream = InputStream(cmdline)
 
@@ -51,9 +55,14 @@ def eval(user_input: str) -> str:
 
 
 def main():
+
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(AutoCompleter().completer)
+
     args_num = len(sys.argv) - 1
 
     if args_num == 0:
+
         while True:
             user_input = input(os.getcwd() + "> ")
 
