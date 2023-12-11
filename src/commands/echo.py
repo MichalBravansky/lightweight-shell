@@ -5,7 +5,7 @@ class EchoCommand(Command):
     Represents the 'echo' command which outputs text to stdout.
 
     This command mimics the behavior of the Unix 'echo' command. It outputs the provided text
-    and, by default, appends a newline character at the end unless specified otherwise.
+    without directly appending a newline character at the end.
     """
 
     def __init__(self):
@@ -16,13 +16,12 @@ class EchoCommand(Command):
         Executes the 'echo' command with the provided arguments.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected keys are 'echo_text' for the
-                         text to echo and 'exclude_trailing_newline' to indicate if the trailing newline
-                         should be omitted.
+            args (dict): A dictionary containing command arguments. The expected key is 'echo_text' for the
+                         text to echo.
             input (str, optional): Not used in this command.
 
         Returns:
             str: The text to be echoed, optionally without a trailing newline.
         """
         echo_text = " ".join(args["echo_text"].value)
-        return echo_text if args["exclude_trailing_newline"].value else echo_text + "\n"
+        return echo_text

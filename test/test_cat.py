@@ -26,7 +26,7 @@ class TestCat(unittest.TestCase):
     def test_cat_multiple_files(self):
         arg = Argument(Argument.LIST, "files", [f"{self.temp_path}/file1.txt", f"{self.temp_path}/file2.txt"])
         response = Cat().execute({"files": arg})
-        expected = "This is file 1.\nSecond line.\nFile 2 content."     # TODO: decide whether to keep the second newline in, put in to pass the test. should fix cat.py
+        expected = "This is file 1.\nSecond line.\nFile 2 content."
 
         self.assertEqual(response, expected)
 

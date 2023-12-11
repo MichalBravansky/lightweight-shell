@@ -5,13 +5,7 @@ class ArgumentHandler:
     def __init__(self) -> None:
         self.default_arguments = {
             "echo": {
-                "named_args": {
-                    "n": Argument(
-                        Argument.FLAG,
-                        "exclude_trailing_newline",
-                        False,
-                    )
-                },
+                "named_args": {},
                 "positional_args": [Argument(Argument.LIST, "echo_text", [])],
                 "stop_positional_args_after_named": True,
             },
@@ -33,31 +27,7 @@ class ArgumentHandler:
                 "stop_positional_args_after_named": True,
             },
             "cat": {
-                "named_args": {
-                    "b": Argument(Argument.FLAG, "number_nonblank", False),
-                    "n": Argument(Argument.FLAG, "number_output_lines", False),
-                    "s": Argument(Argument.FLAG, "squeeze_blank", False),
-                    "u": Argument(
-                        Argument.FLAG,
-                        "disable_output_buffering",
-                        False,
-                    ),
-                    "v": Argument(
-                        Argument.FLAG,
-                        "display_non_printing_chars",
-                        False,
-                    ),
-                    "e": Argument(
-                        Argument.FLAG,
-                        "display_non_printing_chars_and_dollar",
-                        False,
-                    ),
-                    "t": Argument(
-                        Argument.FLAG,
-                        "display_non_printing_chars_and_tab",
-                        False,
-                    ),
-                },
+                "named_args": {},
                 "positional_args": [Argument(Argument.LIST, "files", [])],
                 "stop_positional_args_after_named": True,
             },
@@ -90,6 +60,7 @@ class ArgumentHandler:
                 "positional_args": [
                     Argument(Argument.STRING, "directory", ".")
                 ],
+                "stop_positional_args_after_named": True,
             },
             "uniq": {
                 "named_args": {
@@ -109,9 +80,10 @@ class ArgumentHandler:
                 "named_args": {
                     "b": Argument(
                         Argument.FLAG_WITH_STRING, "bytes", ""
-                    ),  # change this
+                    ),
                 },
                 "positional_args": [Argument(Argument.STRING, "file", None)],
+                "stop_positional_args_after_named": True,
             },
         }
 

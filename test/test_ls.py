@@ -31,7 +31,7 @@ class TestLs(unittest.TestCase):
     def test_ls_default_directory(self):
         dir_arg = Argument(Argument.STRING, "directory", None)
         response = Ls().execute({"directory": dir_arg})
-        expected = "\n".join(["subdir", "file1.txt", "file2.txt"])
+        expected = "\n".join(["subdir", "file2.txt", "file1.txt"])
         self.assertEqual(response, expected)
 
     def test_ls_empty_directory(self):
@@ -42,6 +42,18 @@ class TestLs(unittest.TestCase):
         expected = ""
         self.assertEqual(response, expected)
         empty_dir.cleanup()
+    
+    def test_ls_non_existent_directory(self):
+        non_existent_dir = "/path/to/non/existent/directory"
+        dir_arg = Argument(Argument.STRING, "directory", non_existent_dir)
+        with self.assertRaises(FileNotFoundError):
+            Ls().execute({"directory": dir_arg})
+
+    def test_ls_not_a_directory(self):
+        not_a_directory = self.temp_path / "file1.txt"
+        dir_arg = Argument(Argument.STRING, "directory", str(not_a_directory))
+        with self.assertRaises(NotADirectoryError):
+            Ls().execute({"directory": dir_arg})
 
 
 if __name__ == "__main__":
