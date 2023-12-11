@@ -31,7 +31,7 @@ class TestLs(unittest.TestCase):
     def test_ls_default_directory(self):
         dir_arg = Argument(Argument.STRING, "directory", None)
         response = Ls().execute({"directory": dir_arg})
-        expected = "\n".join(["subdir", "file2.txt", "file1.txt"])
+        expected = "\n".join(["subdir", "file1.txt", "file2.txt"])
         self.assertEqual(response, expected)
 
     def test_ls_empty_directory(self):

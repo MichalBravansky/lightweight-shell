@@ -36,22 +36,6 @@ class Argument:
         self.name = arg_name
         self.value = arg_value
 
-    def is_arg_value_valid(self):
-        """
-        Checks if the argument's value is valid based on its type.
-
-        Returns:
-            bool: True if the value is valid, False otherwise.
-        """
-        if self.type == Argument.INTEGER:
-            return self.value.isdigit()
-        elif self.type == Argument.DECIMAL:
-            return self.value.replace(".", "", 1).isdigit()
-        elif self.type == Argument.FLAG:
-            return self.value is None
-        else:
-            return True
-
     @staticmethod
     def populate_args(args_info, arg_list):
         """
