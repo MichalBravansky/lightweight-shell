@@ -23,7 +23,7 @@ class TestCd(unittest.TestCase):
         args = {
             "cd_path": Argument(Argument.STRING, "cd_path", "/nonexistent")
         }
-        with self.assertRaises(FileNotFoundError):
+        with self.assertRaises(NotADirectoryError):
             Cd().execute(args)
 
     def test_cd_default_path(self):

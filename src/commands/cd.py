@@ -22,8 +22,7 @@ class CdCommand(Command):
             input (str, optional): Not used in this command.
 
         Raises:
-            FileNotFoundError: If the specified directory does not exist or is not a directory.
-            # TODO: Consider implementing a custom exception if needed for specific use cases.
+            NotADirectoryError: If the specified directory does not exist or is not a directory.
         """
         cd_path = args["cd_path"].value
         self._change_directory(cd_path)
@@ -36,9 +35,9 @@ class CdCommand(Command):
             cd_path (str): The path of the directory to change to.
 
         Raises:
-            FileNotFoundError: If the specified directory does not exist or is not a directory.
+            NotADirectoryError: If the specified directory does not exist or is not a directory.
         """
         if os.path.exists(cd_path) and os.path.isdir(cd_path):
             os.chdir(cd_path)
         else:
-            raise FileNotFoundError(f"cd: {cd_path}: No such directory")
+            raise NotADirectoryError(f"cd: {cd_path}: No such directory")
