@@ -1,6 +1,6 @@
 from shell_parser.executors.executor import Executor
 from commands.commandFactory import CommandFactory
-from handler.argumentHandler import ArgumentHandler
+from config import config
 
 
 class Call(Executor):
@@ -9,7 +9,7 @@ class Call(Executor):
     for executing commands.
 
     It provides functionality to handle command execution by taking a command
-    and its arguments, processing them using an ArgumentHandler,
+    and its arguments, processing them using an Config,
     and then executing the command using a CommandFactory.
     """
 
@@ -41,6 +41,6 @@ class Call(Executor):
             [str]: The output from the executed command.
         """
 
-        args = ArgumentHandler().assign_arguments(self._command, self._args)
+        args = config.assign_arguments(self._command, self._args)
 
         return [*filter(lambda x: x, [CommandFactory().execute_command(self._command, args, input)])]
