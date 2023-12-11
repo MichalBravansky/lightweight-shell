@@ -2,7 +2,6 @@ import unittest
 from src.shell_parser.tools.ShellLexer import ShellLexer
 from antlr4 import InputStream
 
-
 class TestLexer(unittest.TestCase):
 
     @staticmethod
@@ -90,5 +89,3 @@ class TestLexer(unittest.TestCase):
             self.get_tokens("echo text >> file.txt"),
             ["echo", " ", "text", " ", ">>", " ", "file.txt"]
         )
-
-
