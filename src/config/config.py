@@ -1,5 +1,4 @@
 import json
-from utils.exceptions import UnknownCommandError
 from commands.argument import Argument
 
 class Config:
@@ -36,27 +35,9 @@ class Config:
             config[key]["positional_args"] = [Argument(el["type"], el["name"], el["value"]) for el in config[key]["positional_args"]]
 
         return config
-
-    def assign_arguments(self, command_name:str, args: list) -> dict:
-        """
-        Assign the arguments to the specified command.
-
-        Args:
-            command_name (str): The name of the command.
-            args (list): The list of arguments.
-
-        Returns:
-            dict: The assigned arguments.
-        
-        Raises:
-            UnknownCommandError: If the command is not found in the configuration.
-        """
-        if command_name not in self._config.keys():
-            raise UnknownCommandError(command_name)
-        else:
-            args_info = dict(self._config[command_name])
-
-            Argument.populate_args(args_info, args)
-            args_info = Argument.set_keys_to_readable(args_info)
-
-            return args_info
+    
+    def is_command(self, command_name: str):
+        return command_name in self._config.keys()
+    
+    def get(self, command_name: str):
+        return self._config[command_name]
