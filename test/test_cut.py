@@ -82,6 +82,3 @@ class TestCut(unittest.TestCase):
         file_arg = Argument(Argument.STRING, "file", "test_file.txt")
         with self.assertRaises(IOError):
             Cut().execute({"bytes": byte_arg, "file": file_arg})
-
-if __name__ == "__main__":
-    unittest.main()

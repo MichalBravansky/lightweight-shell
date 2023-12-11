@@ -43,6 +43,3 @@ class TestLs(unittest.TestCase):
         self.assertEqual(response, expected)
         empty_dir.cleanup()
 
-
-if __name__ == "__main__":
-    unittest.main()

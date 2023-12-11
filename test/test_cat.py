@@ -45,7 +45,3 @@ class TestCat(unittest.TestCase):
         response = Cat().execute({"files": arg}, input="This is stdin.")
         expected = "This is stdin."
         self.assertEqual(response, expected)
-
-
-if __name__ == "__main__":
-    unittest.main()
