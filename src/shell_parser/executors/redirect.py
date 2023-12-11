@@ -56,7 +56,8 @@ class Redirect(Executor):
 
         if self.redirect_type == RedirectionType.READ:
             if os.path.isfile(self.file_name):
-                file_contents = open(self.file_name, "r").read()
+                with open(self.file_name, "r") as file:
+                    file_contents = file.read()
             else:
                 raise FileNotFoundError(
                     f"No such file or directory: {self.file_name}"
