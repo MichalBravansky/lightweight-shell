@@ -23,4 +23,4 @@ class PwdCommand(Command):
         Returns:
             str: The current working directory followed by a newline character.
         """
-        return os.getcwd() + "\n"
+        return os.getcwd()

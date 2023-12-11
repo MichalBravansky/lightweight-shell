@@ -10,7 +10,7 @@ class TestPwd(unittest.TestCase):
         os.chdir(self.previous_dir)
 
     def test_pwd(self):
-        expected = os.getcwd() + "\n"
+        expected = os.getcwd()
         response = Pwd().execute({})
         self.assertEqual(response, expected)
 
