@@ -3,7 +3,7 @@
         "named_args": {},
         "positional_args": [
             {
-                "type": 7,
+                "type": "LIST",
                 "name": "echo_text",
                 "value": []
             }
@@ -14,7 +14,7 @@
         "named_args": {},
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "cd_path",
                 "value": "/"
             }
@@ -30,7 +30,7 @@
         "named_args": {},
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "directory",
                 "value": "."
             }
@@ -41,7 +41,7 @@
         "named_args": {},
         "positional_args": [
             {
-                "type": 7,
+                "type": "LIST",
                 "name": "files",
                 "value": []
             }
@@ -52,12 +52,12 @@
         "named_args": {},
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "pattern",
                 "value": ""
             },
             {
-                "type": 7,
+                "type": "LIST",
                 "name": "files",
                 "value": []
             }
@@ -67,14 +67,14 @@
     "head": {
         "named_args": {
             "n": {
-                "type": 5,
+                "type": "FLAG_WITH_INTEGER",
                 "name": "lines",
                 "value": 10
             }
         },
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "file",
                 "value": null
             }
@@ -84,14 +84,14 @@
     "tail": {
         "named_args": {
             "n": {
-                "type": 5,
+                "type": "FLAG_WITH_INTEGER",
                 "name": "lines",
                 "value": 10
             }
         },
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "file",
                 "value": null
             }
@@ -101,14 +101,14 @@
     "find": {
         "named_args": {
             "name": {
-                "type": 6,
+                "type": "FLAG_WITH_STRING",
                 "name": "name",
                 "value": null
             }
         },
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "directory",
                 "value": "."
             }
@@ -118,14 +118,14 @@
     "uniq": {
         "named_args": {
             "i": {
-                "type": 4,
+                "type": "FLAG",
                 "name": "ignore_case",
                 "value": true
             }
         },
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "file",
                 "value": null
             }
@@ -135,14 +135,14 @@
     "sort": {
         "named_args": {
             "r": {
-                "type": 4,
+                "type": "FLAG",
                 "name": "reverse",
                 "value": true
             }
         },
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "file",
                 "value": null
             }
@@ -152,14 +152,14 @@
     "cut": {
         "named_args": {
             "b": {
-                "type": 6,
+                "type": "FLAG_WITH_STRING",
                 "name": "bytes",
                 "value": ""
             }
         },
         "positional_args": [
             {
-                "type": 2,
+                "type": "STRING",
                 "name": "file",
                 "value": null
             }
