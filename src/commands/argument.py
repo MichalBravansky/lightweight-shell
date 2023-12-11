@@ -62,12 +62,11 @@ class Argument:
             if arg.startswith("-"):
                 arg_name = arg[1:]
                 if arg_name in args_info["named_args"]:
+                    # Handle named argument and update index if needed i.e -n 10 would consume two args
                     i = Argument.handle_named_arg(args_info, arg_name, arg_list, i)
                 elif not seen_positional_args or not stop_positional_after_named_args:
-                    Argument.handle_positional_arg(args_info, arg, positional_count)
                     positional_count += 1
-                else:
-                    raise UnexpectedArgumentError(arg_name)
+                    Argument.handle_positional_arg(args_info, arg, positional_count)
             else:
                 seen_positional_args = True
                 Argument.handle_positional_arg(args_info, arg, positional_count)
@@ -75,7 +74,6 @@ class Argument:
             i += 1
 
         return args_info
-
 
 
     @staticmethod
@@ -154,7 +152,7 @@ class Argument:
             Argument.FLAG_WITH_INTEGER: int,
             Argument.FLAG_WITH_STRING: str,
         }
-        return converters.get(arg_type, lambda x: x)(arg_value)
+        return converters[arg_type](arg_value)
 
     @staticmethod
     def set_keys_to_readable(args_info):
