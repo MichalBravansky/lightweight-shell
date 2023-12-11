@@ -1,0 +1,211 @@
+{
+    "echo": {
+        "named_args": {
+            "n": {
+                "type": 4,
+                "name": "exclude_trailing_newline",
+                "value": false
+            }
+        },
+        "positional_args": [
+            {
+                "type": 7,
+                "name": "echo_text",
+                "value": []
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "cd": {
+        "named_args": {},
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "cd_path",
+                "value": "/"
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "pwd": {
+        "named_args": {},
+        "positional_args": [],
+        "stop_positional_args_after_named": false
+    },
+    "ls": {
+        "named_args": {},
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "directory",
+                "value": "."
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "cat": {
+        "named_args": {
+            "b": {
+                "type": 4,
+                "name": "number_nonblank",
+                "value": false
+            },
+            "n": {
+                "type": 4,
+                "name": "number_output_lines",
+                "value": false
+            },
+            "s": {
+                "type": 4,
+                "name": "squeeze_blank",
+                "value": false
+            },
+            "u": {
+                "type": 4,
+                "name": "disable_output_buffering",
+                "value": false
+            },
+            "v": {
+                "type": 4,
+                "name": "display_non_printing_chars",
+                "value": false
+            },
+            "e": {
+                "type": 4,
+                "name": "display_non_printing_chars_and_dollar",
+                "value": false
+            },
+            "t": {
+                "type": 4,
+                "name": "display_non_printing_chars_and_tab",
+                "value": false
+            }
+        },
+        "positional_args": [
+            {
+                "type": 7,
+                "name": "files",
+                "value": []
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "grep": {
+        "named_args": {},
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "pattern",
+                "value": ""
+            },
+            {
+                "type": 7,
+                "name": "files",
+                "value": []
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "head": {
+        "named_args": {
+            "n": {
+                "type": 5,
+                "name": "lines",
+                "value": 10
+            }
+        },
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "file",
+                "value": null
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "tail": {
+        "named_args": {
+            "n": {
+                "type": 5,
+                "name": "lines",
+                "value": 10
+            }
+        },
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "file",
+                "value": null
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "find": {
+        "named_args": {
+            "name": {
+                "type": 6,
+                "name": "name",
+                "value": null
+            }
+        },
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "directory",
+                "value": "."
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "uniq": {
+        "named_args": {
+            "i": {
+                "type": 4,
+                "name": "ignore_case",
+                "value": false
+            }
+        },
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "file",
+                "value": null
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "sort": {
+        "named_args": {
+            "r": {
+                "type": 4,
+                "name": "reverse",
+                "value": false
+            }
+        },
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "file",
+                "value": null
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "cut": {
+        "named_args": {
+            "b": {
+                "type": 6,
+                "name": "bytes",
+                "value": ""
+            }
+        },
+        "positional_args": [
+            {
+                "type": 2,
+                "name": "file",
+                "value": null
+            }
+        ],
+        "stop_positional_args_after_named": false
+    }
+}
