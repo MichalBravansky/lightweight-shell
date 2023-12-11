@@ -20,5 +20,6 @@ class TestCommand(unittest.TestCase):
             self.command.help()
             mocked_print.assert_any_call('test: A test command')
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_execute(self):
+        args = {}
+        self.assertEqual(self.command.execute(args), 'FakeCommand')
