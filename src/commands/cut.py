@@ -143,4 +143,4 @@ class CutCommand(Command):
             str: Concatenated string of all lines with bytes cut out.
         """
         result = [self.cut_bytes_from_line(line, byte_ranges) for line in lines]
-        return "\n".join(result) + "\n"
+        return "\n".join(result)
