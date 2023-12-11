@@ -55,6 +55,3 @@ class TestLs(unittest.TestCase):
         with self.assertRaises(NotADirectoryError):
             Ls().execute({"directory": dir_arg})
 
-
-if __name__ == "__main__":
-    unittest.main()

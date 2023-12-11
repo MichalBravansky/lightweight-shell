@@ -56,6 +56,3 @@ class TestGrep(unittest.TestCase):
         with self.assertRaises(ValueError):
             Grep().execute({"pattern": pattern_arg, "files": Argument(Argument.LIST, "files", [])})
 
-
-if __name__ == "__main__":
-    unittest.main()

@@ -21,7 +21,3 @@ class TestEcho(unittest.TestCase):
         response = Echo().execute({"echo_text": echo_text_arg})
         expected = ""
         self.assertEqual(response, expected)
-
-
-if __name__ == "__main__":
-    unittest.main()

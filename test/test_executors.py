@@ -110,6 +110,5 @@ class TestExecutors(unittest.TestCase):
         except:
             self.fail("Exception raised when using UnsafeDectorator")
 
-
 if __name__ == "__main__":
     unittest.main()
