@@ -19,7 +19,7 @@ class TestCut(unittest.TestCase):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "1-4")
         file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
-        expected = "Line\nLine\nLine\n"
+        expected = "Line\nLine\nLine"
 
         self.assertEqual(response, expected)
 
@@ -27,7 +27,7 @@ class TestCut(unittest.TestCase):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "1-4")
         input_str = "TestLine1\nTestLine2\nTestLine3"
         response = Cut().execute({"bytes": byte_arg, "file": Argument(Argument.STRING, "file", None)}, input=input_str)
-        expected = "Test\nTest\nTest\n"
+        expected = "Test\nTest\nTest"
 
         self.assertEqual(response, expected)
 
@@ -51,7 +51,7 @@ class TestCut(unittest.TestCase):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "3")
         file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
-        expected = "n\nn\nn\n"  # Assuming the file has "Line1\nLine2\nLine3"
+        expected = "n\nn\nn"  # Assuming the file has "Line1\nLine2\nLine3"
 
         self.assertEqual(response, expected)
     
@@ -59,7 +59,7 @@ class TestCut(unittest.TestCase):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "-4")
         file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
-        expected = "Line\nLine\nLine\n"
+        expected = "Line\nLine\nLine"
 
         self.assertEqual(response, expected)
 
@@ -67,7 +67,15 @@ class TestCut(unittest.TestCase):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "-")
         file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
-        expected = "Line1\nLine2\nLine3\n"
+        expected = "Line1\nLine2\nLine3"
+
+        self.assertEqual(response, expected)
+
+    def test_cut_same_start_end_byte_range(self):
+        byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "2-2")
+        file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
+        response = Cut().execute({"bytes": byte_arg, "file": file_arg})
+        expected = "i\ni\ni"  # Assuming the file has "Line1\nLine2\nLine3"
 
         self.assertEqual(response, expected)
 
