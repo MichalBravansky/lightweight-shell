@@ -9,6 +9,7 @@ import unittest
 import tempfile
 from pathlib import Path
 import os
+from utils.unsafe_decorator import UnsafeDecorator
 
 class TestConverter(unittest.TestCase):
 
@@ -193,3 +194,10 @@ class TestConverter(unittest.TestCase):
             call = self.parse_command_line(f"echo {test_dir}/*.txt")
 
             self.assertCallEqual(call, "echo", [os.path.join(test_dir, "test.txt")])
+    
+    def test_unsafe_call(self):
+        call = self.parse_command_line("_echo foo")
+        self.assertIsInstance(call, UnsafeDecorator)
+
+if __name__ == '__main__':
+    unittest.main()

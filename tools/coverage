@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 if args.value:
 
-    subprocess.run("coverage run --branch -m nose2 test", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run("coverage run --branch --omit='src/shell_parser/tools/*,src/shell.py' -m nose2 test", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(["coverage", "json"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     with open("coverage.json", "r") as coverage_file:
@@ -29,7 +29,7 @@ if args.value:
     print(percent_covered)
     
 else:
-    subprocess.run("coverage run --branch -m nose2 test", shell=True)
+    subprocess.run("coverage run --branch --omit='src/shell_parser/tools/*,src/shell.py' -m nose2 test", shell=True)
     subprocess.run("coverage html", shell=True)
     subprocess.run("cd htmlcov/ && python -m http.server", shell=True)
 
