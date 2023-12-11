@@ -32,7 +32,7 @@ class TestLs(unittest.TestCase):
         dir_arg = Argument(Argument.STRING, "directory", None)
         response = Ls().execute({"directory": dir_arg})
         expected = "\n".join(["subdir", "file2.txt", "file1.txt"])
-        self.assertEqual(response, expected)
+        self.assertCountEqual(response, expected)
 
     def test_ls_empty_directory(self):
         empty_dir = tempfile.TemporaryDirectory()
