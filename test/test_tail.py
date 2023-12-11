@@ -69,5 +69,3 @@ class TestTail(unittest.TestCase):
             Tail().execute(args)
     
 
-if __name__ == "__main__":
-    unittest.main()

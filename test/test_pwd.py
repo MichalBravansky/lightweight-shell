@@ -14,5 +14,4 @@ class TestPwd(unittest.TestCase):
         response = Pwd().execute({})
         self.assertEqual(response, expected)
 
-if __name__ == "__main__":
-    unittest.main()
+

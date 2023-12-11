@@ -53,6 +53,3 @@ class TestHead(unittest.TestCase):
         with self.assertRaises(ValueError):
             Head().execute({"lines": lines_arg, "file": Argument(Argument.STRING, "file", None)})
 
-
-if __name__ == "__main__":
-    unittest.main()

@@ -41,6 +41,3 @@ class TestSort(unittest.TestCase):
         }
         with self.assertRaises(ValueError):
             Sort().execute(args)
-
-if __name__ == "__main__":
-    unittest.main()

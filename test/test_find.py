@@ -48,6 +48,3 @@ class TestFind(unittest.TestCase):
         expected = "\n"
         self.assertEqual(response, expected)
 
-
-if __name__ == "__main__":
-    unittest.main()

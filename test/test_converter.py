@@ -193,6 +193,3 @@ class TestConverter(unittest.TestCase):
             call = self.parse_command_line(f"echo {test_dir}/*.txt")
 
             self.assertCallEqual(call, "echo", [os.path.join(test_dir, "test.txt")])
-
-if __name__ == "__main__":
-    unittest.main()

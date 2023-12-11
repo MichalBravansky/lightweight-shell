@@ -35,5 +35,3 @@ class TestCd(unittest.TestCase):
         current_directory = os.getcwd()
         self.assertEqual(current_directory, expected_directory)
 
-if __name__ == "__main__":
-    unittest.main()

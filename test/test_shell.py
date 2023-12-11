@@ -10,6 +10,3 @@ class TestShell(unittest.TestCase):
     def test_shell2(self):
         assert (1, 1)
 
-
-if __name__ == "__main__":
-    unittest.main()
