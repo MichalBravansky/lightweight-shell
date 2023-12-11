@@ -1,5 +1,6 @@
 import json
 from commands.argument import Argument
+import copy
 
 class Config:
     """
@@ -40,4 +41,6 @@ class Config:
         return command_name in self._config.keys()
     
     def get(self, command_name: str):
-        return self._config[command_name]
+        if command_name in self._config:
+            return copy.deepcopy(self._config[command_name])
+        return None
