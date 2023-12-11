@@ -7,7 +7,7 @@ class TestConfig(unittest.TestCase):
 
     def setUp(self):
         self.temp_file = tempfile.NamedTemporaryFile(delete=False, mode='w+')
-        config_data = {'test': {'named_args': {'test': {'type': 'string', 'name': 'test', 'value': 'test'}}, 'positional_args': [{'type': 'string', 'name': 'test', 'value': 'test'}], 'description': 'A test command'}}
+        config_data = {'test': {'named_args': {'test': {'type': 'STRING', 'name': 'test', 'value': 'test'}}, 'positional_args': [{'type': 'STRING', 'name': 'test', 'value': 'test'}]}}
         self.config_data = config_data
         json.dump(config_data, self.temp_file)
         self.temp_file.close()
