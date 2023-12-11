@@ -17,10 +17,11 @@ class Argument:
     # Argument types
     INTEGER = 1
     STRING = 2
-    FLAG = 3
-    FLAG_WITH_INTEGER = 4
-    FLAG_WITH_STRING = 5
-    LIST = 6
+    DECIMAL = 3 # Not implemented
+    FLAG = 4
+    FLAG_WITH_INTEGER = 5
+    FLAG_WITH_STRING = 6
+    LIST = 7
 
     def __init__(self, arg_type, arg_name, arg_value=None):
         """
