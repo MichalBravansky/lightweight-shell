@@ -198,6 +198,3 @@ class TestConverter(unittest.TestCase):
     def test_unsafe_call(self):
         call = self.parse_command_line("_echo foo")
         self.assertIsInstance(call, UnsafeDecorator)
-
-if __name__ == '__main__':
-    unittest.main()

@@ -9,7 +9,7 @@ class Command(ABC):
     # Assumes that the command has been pre-validated by the parser.
     @abstractmethod
     def execute(self, args, input=None):
-        raise NotImplementedError
+        pass
 
     def help(self):
         print(f"{self.command_name}: {self.command_description}")

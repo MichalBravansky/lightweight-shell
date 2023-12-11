@@ -10,6 +10,7 @@ from commands.find import FindCommand
 from commands.uniq import UniqCommand
 from commands.sort import SortCommand
 from commands.cut import CutCommand
+from utils.exceptions import UnknownCommandError
 
 
 class CommandFactory:
@@ -32,8 +33,7 @@ class CommandFactory:
     def execute_command(self, command_name, args: list, input=None):
         command_class = self.classes.get(command_name.lower())
         if command_class is None:
-            print(f"Unknown command: {command_name}")
-            return
+            raise UnknownCommandError(command_name)
         else:
             command = command_class()
             return command.execute(args, input)

@@ -52,5 +52,3 @@ class TestUniq(unittest.TestCase):
         with self.assertRaises(ValueError):
             Uniq().execute(args)
 
-if __name__ == "__main__":
-    unittest.main()
