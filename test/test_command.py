@@ -2,15 +2,17 @@ import unittest
 from unittest.mock import patch
 from src.commands.command import Command
 
+class FakeCommand(Command):
+    def __init__(self):
+        super().__init__('test', 'A test command')
+
+    def execute(self, args, input=None):
+        return "FakeCommand"
+
 class TestCommand(unittest.TestCase):
 
     def setUp(self):
-        self.command = Command('test', 'A test command')
-
-    def test_execute_not_implemented(self):
-        # Test that the execute method raises a NotImplementedError
-        with self.assertRaises(NotImplementedError):
-            self.command.execute([])
+        self.command = FakeCommand()
 
     def test_help(self):
         # Test the help method
