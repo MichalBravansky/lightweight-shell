@@ -7,9 +7,9 @@ from shell_parser.executors import (
     Redirect,
     RedirectionType,
     Sequence,
-    UnsafeCall,
     Executor
 )
+from utils.unsafe_decorator import UnsafeDecorator
 import re
 from glob import glob
 from shell_parser.tools.ShellVisitor import ShellVisitor
@@ -129,9 +129,12 @@ class Converter(ShellVisitor):
         input_redirection = next((r for r in reversed(redirections) if r[0] == RedirectionType.READ), None)
         output_redirection = next((r for r in reversed(redirections) if r[0] != RedirectionType.READ), None)
 
-        call = Call(command, processed_args) if command[0] != "_" else UnsafeCall(command[1:], processed_args)
+        call = Call(command, processed_args) if command[0] != "_" else Call(command[1:], processed_args)
         call = Redirect(call, *output_redirection) if output_redirection else call
         call = Redirect(call, *input_redirection) if input_redirection else call
+
+        if command[0] == "_":
+            call = UnsafeDecorator(call)
 
         return call
 
