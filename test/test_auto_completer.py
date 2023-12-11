@@ -28,6 +28,3 @@ class TestAutoCompleter(unittest.TestCase):
     def test_completer_no_match(self):
         # Test that the completer method returns None when there are no matches
         self.assertIsNone(self.auto_completer.completer('no_match', 0))
-
-if __name__ == "__main__": 
-    unittest.main() 
