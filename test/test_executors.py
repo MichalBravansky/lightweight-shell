@@ -5,6 +5,7 @@ from pathlib import Path
 from src.shell_parser.executors import Call, Redirect, RedirectionType, Pipe, Sequence
 
 from src.utils.unsafe_decorator import UnsafeDecorator
+from utils.exceptions import UnknownCommandError
 
 
 class TestExecutors(unittest.TestCase):
@@ -105,10 +106,7 @@ class TestExecutors(unittest.TestCase):
         self.assertListEqual(call.evaluate(), ["foo bar"])
     
     def test_unsafe_call_argument_exception(self):
-        try:
-            call = UnsafeDecorator(Call("ls", [6]))
-        except:
-            self.fail("Exception raised when using UnsafeDectorator")
+        call = UnsafeDecorator(Call("ls", [6]))
 
     def test_none_sequence(self):
         call1 = None
@@ -121,3 +119,8 @@ class TestExecutors(unittest.TestCase):
         call2 = None
         pipe = Pipe(call1, call2)
         self.assertListEqual(pipe.evaluate(), [None])
+
+    def test_unknown_command(self):
+        with self.assertRaises(UnknownCommandError):
+            call = Call("test", [])
+            call.evaluate()

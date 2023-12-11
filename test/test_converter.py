@@ -10,6 +10,8 @@ import tempfile
 from pathlib import Path
 import os
 from utils.unsafe_decorator import UnsafeDecorator
+from utils.exceptions import ParsingError
+from utils.custom_error_listener import CustomErrorListener
 
 class TestConverter(unittest.TestCase):
 
@@ -17,9 +19,12 @@ class TestConverter(unittest.TestCase):
     def parse_command_line(command_line: str):
         input_stream = InputStream(command_line)
         lexer = ShellLexer(input_stream)
+        lexer.addErrorListener(CustomErrorListener())
+
         token_stream = CommonTokenStream(lexer)
 
         parser = ShellParser(token_stream)
+        parser.addErrorListener(CustomErrorListener())
         tree = parser.shell()
 
         return tree.accept(Converter())
@@ -198,3 +203,7 @@ class TestConverter(unittest.TestCase):
     def test_unsafe_call(self):
         call = self.parse_command_line("_echo foo")
         self.assertIsInstance(call, UnsafeDecorator)
+
+    def test_error_parsing(self):
+        with self.assertRaises(ParsingError):
+            data = self.parse_command_line("<> file.txt")
