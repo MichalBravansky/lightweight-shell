@@ -38,7 +38,7 @@ class TestArgument(unittest.TestCase):
 
     def test_unexpected_argument_error(self):
         args_info = {
-            "positional_args": [Argument(Argument.STRING, "text")],
+            "positional_args": [],
             "named_args": {}
         }
         with self.assertRaises(UnexpectedArgumentError):
@@ -51,14 +51,6 @@ class TestArgument(unittest.TestCase):
         }
         with self.assertRaises(TooManyArgumentsError):
             Argument.populate_args(args_info, ["hello", "extra"])
-
-    def test_decimal_argument(self):
-        args_info = {
-            "positional_args": [Argument(Argument.DECIMAL, "price")],
-            "named_args": {}
-        }
-        result = Argument.populate_args(args_info, ["123.45"])
-        self.assertEqual(result["positional_args"][0].value, 123.45)
 
     def test_flag_with_value(self):
         args_info = {
@@ -136,7 +128,7 @@ class TestArgument(unittest.TestCase):
             "named_args": {"v": Argument(Argument.FLAG, "verbose")},
             "stop_positional_after_named": False
         }
-        with self.assertRaises(UnexpectedArgumentError):
+        with self.assertRaises(TooManyArgumentsError):
             Argument.populate_args(args_info, ["hello", "-unknown"])
 
     def test_positional_arguments_continued_after_named(self):
@@ -152,19 +144,10 @@ class TestArgument(unittest.TestCase):
 
     def test_convert_arg_value(self):
         self.assertEqual(Argument.convert_arg_value("123", Argument.INTEGER), 123)
-        self.assertEqual(Argument.convert_arg_value("123.45", Argument.DECIMAL), 123.45)
         self.assertEqual(Argument.convert_arg_value("hello", Argument.STRING), "hello")
         self.assertEqual(Argument.convert_arg_value("hello", Argument.FLAG_WITH_STRING), "hello")
         self.assertEqual(Argument.convert_arg_value("123", Argument.FLAG_WITH_INTEGER), 123)
         self.assertEqual(Argument.convert_arg_value("123", Argument.LIST), ["123"])
-
-    def test_named_decimal_argument(self):
-        args_info = {
-            "positional_args": [],
-            "named_args": {"price": Argument(Argument.DECIMAL, "price")}
-        }
-        result = Argument.populate_args(args_info, ["-price", "123.45"])
-        self.assertEqual(result["named_args"]["price"].value, 123.45)
 
     def test_unexpected_argument_after_named_and_positional(self):
         args_info = {
@@ -174,3 +157,4 @@ class TestArgument(unittest.TestCase):
         }
         with self.assertRaises(UnexpectedArgumentError):
             Argument.populate_args(args_info, ["hello", "-v", "-invalid"])
+    

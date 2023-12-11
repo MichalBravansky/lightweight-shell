@@ -17,11 +17,10 @@ class Argument:
     # Argument types
     INTEGER = 1
     STRING = 2
-    DECIMAL = 3
-    FLAG = 4
-    FLAG_WITH_INTEGER = 5
-    FLAG_WITH_STRING = 6
-    LIST = 7
+    FLAG = 3
+    FLAG_WITH_INTEGER = 4
+    FLAG_WITH_STRING = 5
+    LIST = 6
 
     def __init__(self, arg_type, arg_name, arg_value=None):
         """
@@ -67,6 +66,8 @@ class Argument:
                 elif not seen_positional_args or not stop_positional_after_named_args:
                     positional_count += 1
                     Argument.handle_positional_arg(args_info, arg, positional_count)
+                else:
+                    raise UnexpectedArgumentError(arg)
             else:
                 seen_positional_args = True
                 Argument.handle_positional_arg(args_info, arg, positional_count)
@@ -94,14 +95,13 @@ class Argument:
             MissingValueError: If a required value is missing for the named argument.
         """
         arg_obj = args_info["named_args"][arg_name]
-        if arg_obj.type in [Argument.FLAG, Argument.FLAG_WITH_INTEGER, Argument.FLAG_WITH_STRING]:
-            arg_obj.value = True
-            if arg_obj.type != Argument.FLAG:
-                if i + 1 < len(arg_list):
-                    arg_obj.value = Argument.convert_arg_value(arg_list[i + 1], arg_obj.type)
-                    i += 1
-                else:
-                    raise MissingValueError(arg_name)
+        arg_obj.value = True
+        if arg_obj.type != Argument.FLAG:
+            if i + 1 < len(arg_list):
+                arg_obj.value = Argument.convert_arg_value(arg_list[i + 1], arg_obj.type)
+                i += 1
+            else:
+                raise MissingValueError(arg_name)
         return i
 
 
@@ -147,12 +147,11 @@ class Argument:
         converters = {
             Argument.INTEGER: int,
             Argument.STRING: str,
-            Argument.DECIMAL: float,
             Argument.LIST: lambda x: [x],
             Argument.FLAG_WITH_INTEGER: int,
             Argument.FLAG_WITH_STRING: str,
         }
-        return converters[arg_type](arg_value)
+        return converters[arg_type](arg_value) if arg_type in converters else arg_value
 
     @staticmethod
     def set_keys_to_readable(args_info):
