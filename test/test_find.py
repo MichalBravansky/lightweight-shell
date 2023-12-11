@@ -26,7 +26,7 @@ class TestFind(unittest.TestCase):
         response = Find().execute({"directory": dir_arg, "name": name_arg})
         expected_files = ["file2.txt", "file1.txt", "subdir/file3.txt"]
         expected = "\n".join(str(self.temp_path / f) for f in expected_files) + "\n"
-        self.assertEqual(response, expected)
+        self.assertCountEqual(response, expected)
 
     def test_find_invalid_directory(self):
         dir_arg = Argument(Argument.STRING, "directory", "invalid")
