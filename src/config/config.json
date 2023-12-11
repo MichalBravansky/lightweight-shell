@@ -8,7 +8,7 @@
                 "value": []
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "cd": {
         "named_args": {},
@@ -19,12 +19,12 @@
                 "value": "/"
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "pwd": {
         "named_args": {},
         "positional_args": [],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "ls": {
         "named_args": {},
@@ -35,7 +35,7 @@
                 "value": "."
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "cat": {
         "named_args": {},
@@ -46,7 +46,7 @@
                 "value": []
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "grep": {
         "named_args": {},
@@ -62,7 +62,7 @@
                 "value": []
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "head": {
         "named_args": {
@@ -79,7 +79,7 @@
                 "value": null
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "tail": {
         "named_args": {
@@ -96,7 +96,7 @@
                 "value": null
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "find": {
         "named_args": {
@@ -120,7 +120,7 @@
             "i": {
                 "type": "FLAG",
                 "name": "ignore_case",
-                "value": true
+                "value": false
             }
         },
         "positional_args": [
@@ -130,14 +130,14 @@
                 "value": null
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "sort": {
         "named_args": {
             "r": {
                 "type": "FLAG",
                 "name": "reverse",
-                "value": true
+                "value": false
             }
         },
         "positional_args": [
@@ -147,7 +147,7 @@
                 "value": null
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     },
     "cut": {
         "named_args": {
@@ -164,6 +164,6 @@
                 "value": null
             }
         ],
-        "stop_positional_args_after_named": true
+        "stop_positional_args_after_named": false
     }
 }
