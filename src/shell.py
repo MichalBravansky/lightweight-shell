@@ -38,7 +38,7 @@ def process(cmdline: str) -> str:
     root = tree.accept(Converter())
 
     if root:
-        return "".join(root.evaluate())
+        return "\n".join(root.evaluate()) 
 
     return ""
 
@@ -71,13 +71,13 @@ def main():
             output = eval(user_input)
 
             if output:
-                print(output, end="")
+                print(output, end="\n")
     else:
         command = sys.argv[2]
 
         output = eval(command)
 
-        print(output, end="")
+        print(output, end="\n")
 
 
 if __name__ == "__main__":

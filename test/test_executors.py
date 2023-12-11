@@ -21,11 +21,11 @@ class TestExecutors(unittest.TestCase):
 
     def test_call_arguments(self):
         call = Call("echo", ["foo", "bar"])
-        self.assertListEqual(call.evaluate(), ["foo bar\n"])
+        self.assertListEqual(call.evaluate(), ["foo bar"])
     
     def test_call_no_arguments(self):
         call = Call("echo", [])
-        self.assertListEqual(call.evaluate(), ["\n"])
+        self.assertListEqual(call.evaluate(), [])
     
     def test_redirection_read(self):
         call = Call("cat", [])
@@ -79,14 +79,14 @@ class TestExecutors(unittest.TestCase):
         call1 = Call("echo", ["foo"])
         call2 = Call("echo", ["bar"])
         sequence = Sequence(call1, call2)
-        self.assertListEqual(sequence.evaluate(), ["foo\n", "bar\n"])
+        self.assertListEqual(sequence.evaluate(), ["foo", "bar"])
     
     def test_sequence_multiple(self):
         call1 = Call("echo", ["foo"])
         call2 = Call("echo", ["bar"])
         call3 = Call("echo", ["baz"])
         sequence = Sequence(call1, Sequence(call2, call3))
-        self.assertListEqual(sequence.evaluate(), ["foo\n", "bar\n", "baz\n"])
+        self.assertListEqual(sequence.evaluate(), ["foo", "bar", "baz"])
     
     def test_sequence_redirection(self):
         call1 = Call("echo", ["foo"])
@@ -94,15 +94,15 @@ class TestExecutors(unittest.TestCase):
         sequence = Sequence(call1, Redirect(call2, RedirectionType.OVERWRITE, self.temp_path / "file3.txt"))
         sequence.evaluate()
         with open(self.temp_path / "file3.txt", "r") as f:
-            self.assertEqual(f.read(), "bar\n")
+            self.assertEqual(f.read(), "bar")
 
     def test_unsafe_call_no_arguments(self):
         call = UnsafeDecorator(Call("echo", []))
-        self.assertListEqual(call.evaluate(), ["\n"])
+        self.assertListEqual(call.evaluate(), [])
     
     def test_unsafe_call_arguments(self):
         call = UnsafeDecorator(Call("echo", ["foo", "bar"]))
-        self.assertListEqual(call.evaluate(), ["foo bar\n"])
+        self.assertListEqual(call.evaluate(), ["foo bar"])
     
     def test_unsafe_call_argument_exception(self):
         try:
