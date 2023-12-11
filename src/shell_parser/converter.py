@@ -157,8 +157,8 @@ class Converter(ShellVisitor):
         elif ctx.DOUBLE_QUOTED_ARG():
             replace_func = lambda x: _ConverterHelper.processShell(x.group(1))
             return re.sub(r"`([^`\n]*)`", replace_func, text[1:-1].replace('\\"', '"'))
-        elif ctx.BACKQUOTED_ARG():
-            return _ConverterHelper.processShell(text[1:-1])
+        
+        return _ConverterHelper.processShell(text[1:-1])
 
     def visitAtom(self, ctx: ShellParser.AtomContext) -> ([str], (RedirectionType, str)):
         """

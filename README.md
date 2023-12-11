@@ -33,6 +33,7 @@ Then, the results of code analysis will be available at [http://localhost](http:
 To execute test coverage, run
 
     docker run -p 80:8000 -ti --rm shell /comp0010/tools/coverage
+    
 
 Then, the results of coverage computation will be available at [http://localhost](http://localhost)
 

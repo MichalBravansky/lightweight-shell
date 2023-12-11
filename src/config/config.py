@@ -31,9 +31,9 @@ class Config:
 
         for key in config.keys():
 
-            config[key]["named_args"] = {key: Argument(arg["type"],arg["name"], arg["value"]) for key, arg in config[key]["named_args"].items()}
+            config[key]["named_args"] = {key: Argument(getattr(Argument, arg["type"]),arg["name"], arg["value"]) for key, arg in config[key]["named_args"].items()}
 
-            config[key]["positional_args"] = [Argument(el["type"], el["name"], el["value"]) for el in config[key]["positional_args"]]
+            config[key]["positional_args"] = [Argument(getattr(Argument, el["type"]), el["name"], el["value"]) for el in config[key]["positional_args"]]
 
         return config
     
