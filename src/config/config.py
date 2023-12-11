@@ -38,9 +38,8 @@ class Config:
         return config
     
     def is_command(self, command_name: str):
-        return command_name in self._config.keys()
+        return command_name in self._config
     
     def get(self, command_name: str):
         if command_name in self._config:
             return copy.deepcopy(self._config[command_name])
-        return None

@@ -110,5 +110,14 @@ class TestExecutors(unittest.TestCase):
         except:
             self.fail("Exception raised when using UnsafeDectorator")
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_none_sequence(self):
+        call1 = None
+        call2 = None
+        sequence = Sequence(call1, call2)
+        self.assertListEqual(sequence.evaluate(), [])
+
+    def test_none_pipe(self):
+        call1 = None
+        call2 = None
+        pipe = Pipe(call1, call2)
+        self.assertListEqual(pipe.evaluate(), [None])

@@ -9,7 +9,4 @@ class TestDecorator(unittest.TestCase):
         result = UnsafeDecorator(Call("echo", ["foo"])).evaluate()
 
     def test_invalid_call(self):
-        try:
-            result = UnsafeDecorator(Call("ls", [0.4])).evaluate()
-        except:
-            self.fail("Call should not have failed")
+        result = UnsafeDecorator(Call("ls", [0.4])).evaluate()

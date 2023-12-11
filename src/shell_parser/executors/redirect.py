@@ -74,5 +74,5 @@ class Redirect(Executor):
 
             return [""]
         
-        elif self.redirect_type == RedirectionType.READ:
+        else:
             return [call_output]
