@@ -115,7 +115,9 @@ class CutCommand(Command):
         try:
             return self.parse_byte_ranges(byte_range_str)
         except ValueError as e:
-            raise ValueError(f'cut: invalid byte range specification: {str(e)}')
+            raise ValueError(
+                f'cut: invalid byte range specification: {str(e)}'
+                )
 
     def _read_lines_from_file_or_input(self, file_name, input):
         """
@@ -137,9 +139,13 @@ class CutCommand(Command):
                 with open(file_name, 'r') as file:
                     return file.read().splitlines()
             except FileNotFoundError:
-                raise FileNotFoundError(f"cut: file '{file_name}' does not exist.")
+                raise FileNotFoundError(
+                    f"cut: file '{file_name}' does not exist."
+                    )
             except IOError as e:
-                raise IOError(f"cut: error reading file '{file_name}': {str(e)}")
+                raise IOError(
+                    f"cut: error reading file '{file_name}': {str(e)}"
+                    )
         return input.split('\n')
 
     def _cut_bytes_from_lines(self, lines, byte_ranges):

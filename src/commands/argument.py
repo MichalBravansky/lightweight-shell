@@ -40,7 +40,8 @@ class Argument:
         self.value = arg_value
 
     @staticmethod
-    def populate_args(command_name: str, args_info: dict, arg_list: [str]) -> dict:
+    def populate_args(command_name: str, args_info: dict,
+                      arg_list: [str]) -> dict:
         """
         Populates arguments based on the provided list of command line
         arguments.
@@ -94,7 +95,8 @@ class Argument:
         return args_info
 
     @staticmethod
-    def handle_named_arg(command_name: str, args_info: dict, arg_name: str, arg_list: [str], i: int) -> int:
+    def handle_named_arg(command_name: str, args_info: dict, arg_name: str,
+                         arg_list: [str], i: int) -> int:
         """
         Handles a named argument and updates its value in args_info.
 
@@ -124,7 +126,8 @@ class Argument:
         return i
 
     @staticmethod
-    def handle_positional_arg(command_name: str, args_info: dict, arg: str, positional_count: int) -> None:
+    def handle_positional_arg(command_name: str, args_info: dict, arg: str,
+                              positional_count: int) -> None:
         """
         Handles a positional argument and updates its value in args_info.
 
