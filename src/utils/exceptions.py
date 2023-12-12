@@ -1,30 +1,33 @@
 class UnexpectedArgumentError(Exception):
-    def __init__(self, arg):
+    def __init__(self, command: str, arg: str):
+        self.command = command
         self.arg = arg
-        super().__init__(f'Unexpected argument: {arg}')
+        super().__init__(f'{command}: Unexpected argument: {arg}')
 
 
 class MissingValueError(Exception):
-    def __init__(self, arg):
+    def __init__(self, command: str, arg: str):
+        self.command = command
         self.arg = arg
-        super().__init__(f'Missing value for argument: {arg}')
+        super().__init__(f'{command}: Missing value for argument: {arg}')
 
 
 class TooManyArgumentsError(Exception):
-    def __init__(self, arg):
+    def __init__(self, command: str, arg: str):
+        self.command = command
         self.arg = arg
-        super().__init__(f'Too many arguments: {arg}')
+        super().__init__(f'{command}: Too many arguments: {arg}')
 
 
 class ParsingError(Exception):
-    def __init__(self, message):
+    def __init__(self, message: str):
         self.message = message
         super().__init__(
-            f'Unable to parse the provided command. Error: {message}'
+            f'Unable to parse the provided shell. Error: {message}'
         )
 
 
 class UnknownCommandError(Exception):
-    def __init__(self, message):
-        self.message = message
-        super().__init__(f'Command not found: {message}')
+    def __init__(self, command):
+        self.command = command
+        super().__init__(f'{command}: command not found')

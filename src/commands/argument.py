@@ -40,7 +40,7 @@ class Argument:
         self.value = arg_value
 
     @staticmethod
-    def populate_args(args_info, arg_list):
+    def populate_args(command_name: str, args_info: dict, arg_list: [str]) -> dict:
         """
         Populates arguments based on the provided list of command line arguments.
 
@@ -69,7 +69,7 @@ class Argument:
                 if arg_name in args_info['named_args']:
                     # Handle named argument and update index if needed i.e -n 10 would consume two args
                     i = Argument.handle_named_arg(
-                        args_info, arg_name, arg_list, i
+                        command_name, args_info, arg_name, arg_list, i
                     )
                 elif (
                     not seen_positional_args
@@ -77,14 +77,14 @@ class Argument:
                 ):
                     positional_count += 1
                     Argument.handle_positional_arg(
-                        args_info, arg, positional_count
+                        command_name, args_info, arg, positional_count
                     )
                 else:
-                    raise UnexpectedArgumentError(arg)
+                    raise UnexpectedArgumentError(command_name, arg)
             else:
                 seen_positional_args = True
                 Argument.handle_positional_arg(
-                    args_info, arg, positional_count
+                    command_name, args_info, arg, positional_count
                 )
                 positional_count += 1
             i += 1
@@ -92,7 +92,7 @@ class Argument:
         return args_info
 
     @staticmethod
-    def handle_named_arg(args_info, arg_name, arg_list, i):
+    def handle_named_arg(command_name: str, args_info: dict, arg_name: str, arg_list: [str], i: int) -> int:
         """
         Handles a named argument and updates its value in args_info.
 
@@ -117,11 +117,11 @@ class Argument:
                 )
                 i += 1
             else:
-                raise MissingValueError(arg_name)
+                raise MissingValueError(command_name, arg_name)
         return i
 
     @staticmethod
-    def handle_positional_arg(args_info, arg, positional_count):
+    def handle_positional_arg(command_name: str, args_info: dict, arg: str, positional_count: int) -> None:
         """
         Handles a positional argument and updates its value in args_info.
 
@@ -139,7 +139,7 @@ class Argument:
             arg_obj.value = Argument.convert_arg_value(arg, arg_obj.type)
         else:
             if len(args_info['positional_args']) == 0:
-                raise UnexpectedArgumentError(arg)
+                raise UnexpectedArgumentError(command_name, arg)
             else:
                 arg_obj = args_info['positional_args'][-1]
                 if arg_obj.type == Argument.LIST:
@@ -147,7 +147,7 @@ class Argument:
                         Argument.convert_arg_value(arg, Argument.STRING)
                     )
                 else:
-                    raise TooManyArgumentsError(arg)
+                    raise TooManyArgumentsError(command_name, arg)
 
     @staticmethod
     def convert_arg_value(arg_value, arg_type):

@@ -36,7 +36,7 @@ class ArgumentHandler:
         else:
             args_info = dict(config.get(command_name))
 
-            Argument.populate_args(args_info, args)
+            Argument.populate_args(command_name, args_info, args)
             args_info = Argument.set_keys_to_readable(args_info)
 
             return args_info

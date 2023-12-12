@@ -4,7 +4,7 @@ from shell_parser.tools.ShellParser import ShellParser
 from shell_parser.executors import (
     Call,
     Pipe,
-    Redirect,
+    Redirection,
     RedirectionType,
     Sequence,
     Executor,
@@ -172,10 +172,10 @@ class Converter(ShellVisitor):
             else Call(command[1:], processed_args)
         )
         call = (
-            Redirect(call, *output_redirection) if output_redirection else call
+            Redirection(call, *output_redirection) if output_redirection else call
         )
         call = (
-            Redirect(call, *input_redirection) if input_redirection else call
+            Redirection(call, *input_redirection) if input_redirection else call
         )
 
         if command[0] == '_':

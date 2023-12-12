@@ -5,7 +5,7 @@ from shell_parser.tools.ShellParser import ShellParser
 from shell_parser.converter import Converter
 from src.shell_parser.executors import (
     Call,
-    Redirect,
+    Redirection,
     RedirectionType,
 )
 import tempfile
@@ -33,12 +33,12 @@ class TestConverter(unittest.TestCase):
     def assertCallEqual(
         self, call: Call, expected_command: str, expected_args: dict
     ):
-        self.assertEqual(call._command, expected_command)
+        self.assertEqual(call.command, expected_command)
         self.assertListEqual(call._args, expected_args)
 
     def assertRedirectionEqual(
         self,
-        redirection: Redirect,
+        redirection: Redirection,
         expected_type: RedirectionType,
         expected_file_name: str,
     ):
