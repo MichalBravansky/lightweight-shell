@@ -1,5 +1,6 @@
 from .command import Command
 
+
 class EchoCommand(Command):
     """
     Represents the 'echo' command which outputs text to stdout.
@@ -9,7 +10,7 @@ class EchoCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("echo", "output text to stdout")
+        super().__init__('echo', 'output text to stdout')
 
     def execute(self, args, input=None):
         """
@@ -23,5 +24,5 @@ class EchoCommand(Command):
         Returns:
             str: The text to be echoed, optionally without a trailing newline.
         """
-        echo_text = " ".join(args["echo_text"].value)
+        echo_text = ' '.join(args['echo_text'].value)
         return echo_text

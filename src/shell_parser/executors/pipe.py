@@ -1,5 +1,4 @@
 from shell_parser.executors.executor import Executor
-from shell_parser.executors.call import Call
 
 
 class Pipe(Executor):
@@ -11,8 +10,10 @@ class Pipe(Executor):
     It inherits from the Executor class and overrides the evaluate method
     to implement the piping functionality.
     """
-        
-    def __init__(self, left_executor: [Executor], right_executor=[Executor]) -> [str]:
+
+    def __init__(
+        self, left_executor: [Executor], right_executor=[Executor]
+    ) -> [str]:
         """
         Initializes a new instance of the Pipe class.
 
@@ -20,7 +21,7 @@ class Pipe(Executor):
             left_executor (Executor): The executor that represents the command on the left side of the pipe.
             right_executor (Executor): The executor that represents the command on the right side of the pipe.
         """
-                
+
         self._left_executor = left_executor
         self._right_executor = right_executor
 
@@ -38,11 +39,11 @@ class Pipe(Executor):
         Returns:
             [str]: The output from the right executor after processing the piped input.
         """
-        
+
         if self._left_executor:
-            input = "".join(self._left_executor.evaluate(input))
+            input = ''.join(self._left_executor.evaluate(input))
 
         if self._right_executor:
-            input = "".join(self._right_executor.evaluate(input))
+            input = ''.join(self._right_executor.evaluate(input))
 
         return [input]

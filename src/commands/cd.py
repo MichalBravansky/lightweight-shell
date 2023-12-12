@@ -1,6 +1,7 @@
 from .command import Command
 import os
 
+
 class CdCommand(Command):
     """
     Represents the 'cd' command which changes the current working directory.
@@ -10,7 +11,7 @@ class CdCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("cd", "change directory")
+        super().__init__('cd', 'change directory')
 
     def execute(self, args, input=None):
         """
@@ -24,7 +25,7 @@ class CdCommand(Command):
         Raises:
             NotADirectoryError: If the specified directory does not exist or is not a directory.
         """
-        cd_path = args["cd_path"].value
+        cd_path = args['cd_path'].value
         self._change_directory(cd_path)
 
     def _change_directory(self, cd_path):
@@ -40,4 +41,4 @@ class CdCommand(Command):
         if os.path.exists(cd_path) and os.path.isdir(cd_path):
             os.chdir(cd_path)
         else:
-            raise NotADirectoryError(f"cd: {cd_path}: No such directory")
+            raise NotADirectoryError(f'cd: {cd_path}: No such directory')

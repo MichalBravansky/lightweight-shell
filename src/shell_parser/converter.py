@@ -7,7 +7,7 @@ from shell_parser.executors import (
     Redirect,
     RedirectionType,
     Sequence,
-    Executor
+    Executor,
 )
 from utils.unsafe_decorator import UnsafeDecorator
 import re
@@ -15,8 +15,8 @@ from glob import glob
 from shell_parser.tools.ShellVisitor import ShellVisitor
 from utils.custom_error_listener import CustomErrorListener
 
-class _ConverterHelper:
 
+class _ConverterHelper:
     @classmethod
     def processShell(cls, shell: str) -> str:
         """
@@ -43,13 +43,15 @@ class _ConverterHelper:
         parser.addErrorListener(CustomErrorListener())
 
         inner_tree = parser.shell()
-        inner_output = [output.strip("\n ") for output in Converter().visit(inner_tree).evaluate()]
+        inner_output = [
+            output.strip('\n ')
+            for output in Converter().visit(inner_tree).evaluate()
+        ]
 
-        return " ".join(inner_output)
-    
+        return ' '.join(inner_output)
+
 
 class Converter(ShellVisitor):
-
     def visitShell(self, ctx: ShellParser.ShellContext) -> Executor:
         """
         Visits the root node of the shell parse tree.
@@ -62,10 +64,9 @@ class Converter(ShellVisitor):
         Returns:
             The result of visiting the first child of the shell context.
         """
-                
+
         return self.visit(ctx.getChild(0))
-    
-    
+
     def visitSequence(self, ctx: ShellParser.SequenceContext) -> Sequence:
         """
         Processes a sequence of commands in the shell command.
@@ -79,11 +80,22 @@ class Converter(ShellVisitor):
             Sequence: A Sequence object representing the series of commands.
         """
 
-        commands = iter([self.visit(command) for command in ctx.getChildren()
-                         if isinstance(command, (ShellParser.CommandContext, ShellParser.PipeContext, ShellParser.SequenceContext))])
+        commands = iter(
+            [
+                self.visit(command)
+                for command in ctx.getChildren()
+                if isinstance(
+                    command,
+                    (
+                        ShellParser.CommandContext,
+                        ShellParser.PipeContext,
+                        ShellParser.SequenceContext,
+                    ),
+                )
+            ]
+        )
 
         return Sequence(next(commands, None), next(commands, None))
-    
 
     def visitPipe(self, ctx: ShellParser.PipeContext) -> Pipe:
         """
@@ -98,11 +110,18 @@ class Converter(ShellVisitor):
             Pipe: A Pipe object representing the pipe operation in the shell command.
         """
 
-        commands = iter([self.visit(command) for command in ctx.getChildren()
-                if isinstance(command, (ShellParser.CommandContext, ShellParser.PipeContext))])
+        commands = iter(
+            [
+                self.visit(command)
+                for command in ctx.getChildren()
+                if isinstance(
+                    command,
+                    (ShellParser.CommandContext, ShellParser.PipeContext),
+                )
+            ]
+        )
 
         return Pipe(next(commands, None), next(commands, None))
-    
 
     def visitCommand(self, ctx: ShellParser.CommandContext) -> Call:
         """
@@ -116,7 +135,7 @@ class Converter(ShellVisitor):
         Returns:
             Call: A Call object representing the command in the shell command.
         """
-                
+
         processed_args = []
         redirections = [self.visit(arg) for arg in ctx.redirection()]
 
@@ -124,16 +143,42 @@ class Converter(ShellVisitor):
 
         for arg in ctx.atom():
             args, redirection = self.visit(arg)
-            processed_args.extend(args) if args else redirections.append(redirection)
+            (
+                processed_args.extend(args)
+                if args
+                else redirections.append(redirection)
+            )
 
-        input_redirection = next((r for r in reversed(redirections) if r[0] == RedirectionType.READ), None)
-        output_redirection = next((r for r in reversed(redirections) if r[0] != RedirectionType.READ), None)
+        input_redirection = next(
+            (
+                r
+                for r in reversed(redirections)
+                if r[0] == RedirectionType.READ
+            ),
+            None,
+        )
+        output_redirection = next(
+            (
+                r
+                for r in reversed(redirections)
+                if r[0] != RedirectionType.READ
+            ),
+            None,
+        )
 
-        call = Call(command, processed_args) if command[0] != "_" else Call(command[1:], processed_args)
-        call = Redirect(call, *output_redirection) if output_redirection else call
-        call = Redirect(call, *input_redirection) if input_redirection else call
+        call = (
+            Call(command, processed_args)
+            if command[0] != '_'
+            else Call(command[1:], processed_args)
+        )
+        call = (
+            Redirect(call, *output_redirection) if output_redirection else call
+        )
+        call = (
+            Redirect(call, *input_redirection) if input_redirection else call
+        )
 
-        if command[0] == "_":
+        if command[0] == '_':
             call = UnsafeDecorator(call)
 
         return call
@@ -150,17 +195,21 @@ class Converter(ShellVisitor):
         Returns:
             [str]: A list containing the processed quoted argument.
         """
-                
+
         text = ctx.getText()
         if ctx.SINGLE_QUOTED_ARG():
             return [text[1:-1].replace("\\'", "'")]
         elif ctx.DOUBLE_QUOTED_ARG():
             replace_func = lambda x: _ConverterHelper.processShell(x.group(1))
-            return re.sub(r"`([^`\n]*)`", replace_func, text[1:-1].replace('\\"', '"'))
-        
+            return re.sub(
+                r'`([^`\n]*)`', replace_func, text[1:-1].replace('\\"', '"')
+            )
+
         return _ConverterHelper.processShell(text[1:-1])
 
-    def visitAtom(self, ctx: ShellParser.AtomContext) -> ([str], (RedirectionType, str)):
+    def visitAtom(
+        self, ctx: ShellParser.AtomContext
+    ) -> ([str], (RedirectionType, str)):
         """
         Processes an atom in the shell command.
 
@@ -172,9 +221,13 @@ class Converter(ShellVisitor):
         Returns:
             tuple: A tuple with processed argument or redirection.
         """
-                
+
         child = ctx.getChild(0)
-        return (self.visit(child), None) if not isinstance(child, ShellParser.RedirectionContext) else (None, self.visit(child))
+        return (
+            (self.visit(child), None)
+            if not isinstance(child, ShellParser.RedirectionContext)
+            else (None, self.visit(child))
+        )
 
     def visitArgument(self, ctx: ShellParser.ArgumentContext) -> [str]:
         """
@@ -198,17 +251,19 @@ class Converter(ShellVisitor):
             else:
                 argument = [arg.getText()]
 
-                if "*" in argument[0]:
+                if '*' in argument[0]:
                     globbing = True
 
             args += argument
 
         if globbing:
-            return glob("".join(args))
+            return glob(''.join(args))
 
-        return ["".join(args)]
+        return [''.join(args)]
 
-    def visitRedirectionType(self, ctx: ShellParser.RedirectionTypeContext) -> RedirectionType:
+    def visitRedirectionType(
+        self, ctx: ShellParser.RedirectionTypeContext
+    ) -> RedirectionType:
         """
         Identifies the type of redirection in the shell command.
 
@@ -240,7 +295,7 @@ class Converter(ShellVisitor):
         Returns:
             tuple: A tuple containing the redirection type and the file involved.
         """
-        
+
         file = self.visit(ctx.argument())[0]
         redirection = self.visitRedirectionType(ctx.redirectionType())
 

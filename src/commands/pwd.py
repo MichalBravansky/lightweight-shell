@@ -1,6 +1,7 @@
 from .command import Command
 import os
 
+
 class PwdCommand(Command):
     """
     Represents the 'pwd' command which prints the current working directory.
@@ -10,7 +11,7 @@ class PwdCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("pwd", "print working directory")
+        super().__init__('pwd', 'print working directory')
 
     def execute(self, args, input=None):
         """

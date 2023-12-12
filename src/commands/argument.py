@@ -4,20 +4,22 @@ from utils.exceptions import (
     TooManyArgumentsError,
 )
 
+
 class Argument:
     """
     Represents a command line argument with a type, name, and optional value.
-    
+
     Attributes:
         type (int): Type of the argument (e.g., INTEGER, STRING).
         name (str): Name of the argument.
-        value (any, optional): Value of the argument, defaults to None.
+        value (any, optional): Value of the argument,
+                               defaults to None.
     """
 
     # Argument types
     INTEGER = 1
     STRING = 2
-    DECIMAL = 3 # Not implemented
+    DECIMAL = 3  # Not implemented
     FLAG = 4
     FLAG_WITH_INTEGER = 5
     FLAG_WITH_STRING = 6
@@ -30,7 +32,8 @@ class Argument:
         Args:
             arg_type (int): The type of the argument.
             arg_name (str): The name of the argument.
-            arg_value (any, optional): The initial value of the argument. Defaults to None.
+            arg_value (any, optional): The initial value of the argument.
+                                       Defaults to None.
         """
         self.type = arg_type
         self.name = arg_name
@@ -55,28 +58,38 @@ class Argument:
         i = 0
         positional_count = 0
         seen_positional_args = False
-        stop_positional_after_named_args = args_info.get("stop_positional_after_named", True)
+        stop_positional_after_named_args = args_info.get(
+            'stop_positional_after_named', True
+        )
 
         while i < len(arg_list):
             arg = arg_list[i]
-            if arg.startswith("-"):
+            if arg.startswith('-'):
                 arg_name = arg[1:]
-                if arg_name in args_info["named_args"]:
+                if arg_name in args_info['named_args']:
                     # Handle named argument and update index if needed i.e -n 10 would consume two args
-                    i = Argument.handle_named_arg(args_info, arg_name, arg_list, i)
-                elif not seen_positional_args or not stop_positional_after_named_args:
+                    i = Argument.handle_named_arg(
+                        args_info, arg_name, arg_list, i
+                    )
+                elif (
+                    not seen_positional_args
+                    or not stop_positional_after_named_args
+                ):
                     positional_count += 1
-                    Argument.handle_positional_arg(args_info, arg, positional_count)
+                    Argument.handle_positional_arg(
+                        args_info, arg, positional_count
+                    )
                 else:
                     raise UnexpectedArgumentError(arg)
             else:
                 seen_positional_args = True
-                Argument.handle_positional_arg(args_info, arg, positional_count)
+                Argument.handle_positional_arg(
+                    args_info, arg, positional_count
+                )
                 positional_count += 1
             i += 1
 
         return args_info
-
 
     @staticmethod
     def handle_named_arg(args_info, arg_name, arg_list, i):
@@ -95,16 +108,17 @@ class Argument:
         Raises:
             MissingValueError: If a required value is missing for the named argument.
         """
-        arg_obj = args_info["named_args"][arg_name]
+        arg_obj = args_info['named_args'][arg_name]
         arg_obj.value = True
         if arg_obj.type != Argument.FLAG:
             if i + 1 < len(arg_list):
-                arg_obj.value = Argument.convert_arg_value(arg_list[i + 1], arg_obj.type)
+                arg_obj.value = Argument.convert_arg_value(
+                    arg_list[i + 1], arg_obj.type
+                )
                 i += 1
             else:
                 raise MissingValueError(arg_name)
         return i
-
 
     @staticmethod
     def handle_positional_arg(args_info, arg, positional_count):
@@ -120,16 +134,18 @@ class Argument:
             UnexpectedArgumentError: If an unexpected positional argument is encountered.
             TooManyArgumentsError: If too many arguments are provided.
         """
-        if positional_count < len(args_info["positional_args"]):
-            arg_obj = args_info["positional_args"][positional_count]
+        if positional_count < len(args_info['positional_args']):
+            arg_obj = args_info['positional_args'][positional_count]
             arg_obj.value = Argument.convert_arg_value(arg, arg_obj.type)
         else:
-            if len(args_info["positional_args"]) == 0:
+            if len(args_info['positional_args']) == 0:
                 raise UnexpectedArgumentError(arg)
             else:
-                arg_obj = args_info["positional_args"][-1]
+                arg_obj = args_info['positional_args'][-1]
                 if arg_obj.type == Argument.LIST:
-                    arg_obj.value.append(Argument.convert_arg_value(arg, Argument.STRING))
+                    arg_obj.value.append(
+                        Argument.convert_arg_value(arg, Argument.STRING)
+                    )
                 else:
                     raise TooManyArgumentsError(arg)
 
@@ -152,7 +168,11 @@ class Argument:
             Argument.FLAG_WITH_INTEGER: int,
             Argument.FLAG_WITH_STRING: str,
         }
-        return converters[arg_type](arg_value) if arg_type in converters else arg_value
+        return (
+            converters[arg_type](arg_value)
+            if arg_type in converters
+            else arg_value
+        )
 
     @staticmethod
     def set_keys_to_readable(args_info):
@@ -167,6 +187,6 @@ class Argument:
         """
         return {
             arg.name: arg
-            for arg in args_info["positional_args"]
-            + list(args_info["named_args"].values())
+            for arg in args_info['positional_args']
+            + list(args_info['named_args'].values())
         }

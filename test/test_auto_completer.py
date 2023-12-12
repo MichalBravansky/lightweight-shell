@@ -3,8 +3,8 @@ import os
 import tempfile
 from src.utils.auto_completer import AutoCompleter
 
-class TestAutoCompleter(unittest.TestCase):
 
+class TestAutoCompleter(unittest.TestCase):
     def setUp(self):
         self.auto_completer = AutoCompleter()
         self.temp_dir = tempfile.TemporaryDirectory()
@@ -21,7 +21,9 @@ class TestAutoCompleter(unittest.TestCase):
             f.write('')
 
         # Test that the completer method returns the correct file
-        self.assertEqual(self.auto_completer.completer('test', 0), 'test_file.txt')
+        self.assertEqual(
+            self.auto_completer.completer('test', 0), 'test_file.txt'
+        )
 
         # Test that the completer method returns None when there are no more matches
 

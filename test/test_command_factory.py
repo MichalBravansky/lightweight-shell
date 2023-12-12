@@ -1,10 +1,9 @@
 import unittest
 from src.commands.commandFactory import CommandFactory
-from src.commands.cat import CatCommand
 from utils.exceptions import UnknownCommandError
 
-class TestCommandFactory(unittest.TestCase):
 
+class TestCommandFactory(unittest.TestCase):
     def setUp(self):
         self.command_factory = CommandFactory()
 

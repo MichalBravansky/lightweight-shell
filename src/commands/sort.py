@@ -1,5 +1,6 @@
 from .command import Command
 
+
 class SortCommand(Command):
     """
     Represents the 'sort' command which sorts lines of text.
@@ -9,7 +10,7 @@ class SortCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("sort", "sort lines")
+        super().__init__('sort', 'sort lines')
 
     def execute(self, args, input=None):
         """
@@ -32,7 +33,7 @@ class SortCommand(Command):
         lines = self._read_lines(file_path, input)
         lines.sort(reverse=reverse)
 
-        return "\n".join(lines)
+        return '\n'.join(lines)
 
     def _read_lines(self, file_path, input):
         """
@@ -54,4 +55,4 @@ class SortCommand(Command):
         elif input:
             return input.split('\n')
         else:
-            raise ValueError("sort: no input provided")
+            raise ValueError('sort: no input provided')
