@@ -246,5 +246,4 @@ class TestConverter(unittest.TestCase):
 
     def test_error_parsing(self):
         with self.assertRaises(ParsingError):
-            data = self.parse_command_line("<> file.txt")
-            self.assertIsNotNone(data)
+            self.parse_command_line("<> file.txt")

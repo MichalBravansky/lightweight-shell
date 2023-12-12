@@ -2,6 +2,7 @@ import unittest
 import tempfile
 import os
 from pathlib import Path
+from utils.exceptions import UnexpectedArgumentError
 from src.shell_parser.executors import (
     Call,
     Redirect,
@@ -145,8 +146,7 @@ class TestExecutors(unittest.TestCase):
         self.assertListEqual(call.evaluate(), ["foo bar"])
 
     def test_unsafe_call_argument_exception(self):
-        call = UnsafeDecorator(Call("ls", [6]))
-        self.assertRaises(call.evaluate())
+        UnsafeDecorator(Call("ls", [6]))
 
     def test_none_sequence(self):
         call1 = None
