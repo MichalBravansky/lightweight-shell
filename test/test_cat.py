@@ -54,12 +54,6 @@ class TestCat(unittest.TestCase):
         expected = 'This is stdin.'
         self.assertEqual(response, expected)
 
-    def test_cat_automated_input(self):
-        arg = Argument(Argument.LIST, 'files', [])
-        response = Cat().execute({'files': arg}, input='This is stdin.')
-        expected = 'This is stdin.'
-        self.assertEqual(response, expected)
-
     @given(text())
     def test_cat_automated_input(self, input_text):
         arg = Argument(Argument.LIST, 'files', [])

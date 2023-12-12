@@ -58,7 +58,7 @@ class TestHead(unittest.TestCase):
         self.assertEqual(response, expected)
 
     @given(input_text=text(min_size=1, max_size=10000))
-    def test_head_with_input_text(self, input_text):
+    def test_head_automated_input_text(self, input_text):
         lines_arg = Argument(Argument.FLAG_WITH_INTEGER, 'lines', 3)
         response = Head().execute(
             {

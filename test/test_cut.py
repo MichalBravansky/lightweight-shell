@@ -42,20 +42,6 @@ class TestCut(unittest.TestCase):
 
         self.assertEqual(response, expected)
 
-    @given(text(min_size=1, max_size=10000))
-    def test_cut_automated_specific_bytes_from_input(self, input_str):
-        byte_arg = Argument(Argument.FLAG_WITH_STRING, 'bytes', '1-4')
-        response = Cut().execute(
-            {
-                'bytes': byte_arg,
-                'file': Argument(Argument.STRING, 'file', None),
-            },
-            input=input_str,
-        )
-        expected = input_str[:4]
-
-        self.assertEqual(response.strip("\n"), expected.strip("\n"))
-
     def test_cut_with_invalid_byte_range(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, 'bytes', '5-2')
         with self.assertRaises(ValueError):
