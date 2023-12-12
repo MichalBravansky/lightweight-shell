@@ -13,7 +13,7 @@ class CatCommand(Command):
     def __init__(self):
         super().__init__('cat', 'concatenate and print files')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'cat' command with the provided arguments and optional input.
 
@@ -33,7 +33,7 @@ class CatCommand(Command):
             return self._handle_no_file_provided(input)
         return self._concatenate_files(args['files'].value)
 
-    def _handle_no_file_provided(self, input):
+    def _handle_no_file_provided(self, input: str) -> str:
         """
         Handles the case when no file is provided to the command.
 
@@ -53,7 +53,7 @@ class CatCommand(Command):
             )
         return input
 
-    def _concatenate_files(self, file_names):
+    def _concatenate_files(self, file_names: str) -> str:
         """
         Concatenates the contents of provided files.
 

@@ -12,7 +12,7 @@ class Pipe(Executor):
     """
 
     def __init__(
-        self, left_executor: [Executor], right_executor=[Executor]
+        self, left_executor: Executor, right_executor: Executor
     ) -> [str]:
         """
         Initializes a new instance of the Pipe class.

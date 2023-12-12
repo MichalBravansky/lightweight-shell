@@ -13,7 +13,7 @@ class CdCommand(Command):
     def __init__(self):
         super().__init__('cd', 'change directory')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> None:
         """
         Executes the 'cd' command with the provided arguments.
 

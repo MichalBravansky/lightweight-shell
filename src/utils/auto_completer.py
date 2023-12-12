@@ -7,7 +7,7 @@ class AutoCompleter:
     It suggests files and directories in the current working directory that start with the input string.
     """
 
-    def completer(self, text: str, state: int):
+    def completer(self, text: str, state: int) -> str:
         """
         Return the next autocomplete suggestion that starts with the input text.
 

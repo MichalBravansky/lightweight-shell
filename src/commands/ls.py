@@ -13,7 +13,7 @@ class LsCommand(Command):
     def __init__(self):
         super().__init__('ls', 'list directory contents')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'ls' command with the provided arguments.
 

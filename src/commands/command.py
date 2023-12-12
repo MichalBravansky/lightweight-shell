@@ -16,14 +16,14 @@ class Command(ABC):
     since this is an abstract method that is not meant to be directly tested.
     """
 
-    def __init__(self, command_name, command_description):
+    def __init__(self, command_name: str, command_description: str) -> None:
         self.command_name = command_name
         self.command_description = command_description
 
     # Assumes that the command has been pre-validated by the parser.
     @abstractmethod
-    def execute(self, args, input=None):  # pragma: no cover
+    def execute(self, args: dict, input: str =None) -> str:  # pragma: no cover
         raise NotImplementedError
 
-    def help(self):
+    def help(self) -> None:
         print(f'{self.command_name}: {self.command_description}')

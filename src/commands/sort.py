@@ -12,7 +12,7 @@ class SortCommand(Command):
     def __init__(self):
         super().__init__('sort', 'sort lines')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input : str = None) -> str:
         """
         Executes the 'sort' command with the provided arguments and optional input.
 
@@ -35,7 +35,7 @@ class SortCommand(Command):
 
         return '\n'.join(lines)
 
-    def _read_lines(self, file_path, input):
+    def _read_lines(self, file_path: str, input: str) -> [str]:
         """
         Reads lines from a file or input string.
 

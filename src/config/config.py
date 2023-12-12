@@ -17,12 +17,12 @@ class Config:
         """
         self._config = self._load_config(config_path)
 
-    def _load_config(self, config_path) -> dict:
+    def _load_config(self, config_path: str) -> dict:
         """
         Load the configuration from the specified file.
 
         Args:
-            config_path: The path to the configuration file.
+            config_path (str): The path to the configuration file.
 
         Returns:
             dict: The loaded configuration.
@@ -47,9 +47,28 @@ class Config:
 
         return config
 
-    def is_command(self, command_name: str):
-        return command_name in self._config
+    def is_command(self, command_name: str) -> bool:
+            """
+            Check if a command exists in the configuration.
 
-    def get(self, command_name: str):
-        if command_name in self._config:
-            return copy.deepcopy(self._config[command_name])
+            Args:
+                command_name (str): The name of the command to check.
+
+            Returns:
+                bool: True if the command exists in the configuration, False otherwise.
+            """
+            return command_name in self._config
+
+    def get(self, command_name: str) -> dict:
+            """
+            Retrieve the configuration for a given command.
+
+            Args:
+                command_name (str): The name of the command.
+
+            Returns:
+                dict: A deep copy of the configuration for the command.
+
+            """
+            if command_name in self._config:
+                return copy.deepcopy(self._config[command_name])

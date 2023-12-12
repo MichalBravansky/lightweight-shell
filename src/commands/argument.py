@@ -19,13 +19,12 @@ class Argument:
     # Argument types
     INTEGER = 1
     STRING = 2
-    DECIMAL = 3  # Not implemented
-    FLAG = 4
-    FLAG_WITH_INTEGER = 5
-    FLAG_WITH_STRING = 6
-    LIST = 7
+    FLAG = 3
+    FLAG_WITH_INTEGER = 4
+    FLAG_WITH_STRING = 5
+    LIST = 6
 
-    def __init__(self, arg_type, arg_name, arg_value=None):
+    def __init__(self, arg_type: int, arg_name: str, arg_value=None) -> None:
         """
         Initializes an Argument instance.
 
@@ -150,7 +149,7 @@ class Argument:
                     raise TooManyArgumentsError(command_name, arg)
 
     @staticmethod
-    def convert_arg_value(arg_value, arg_type):
+    def convert_arg_value(arg_value: str, arg_type: int):
         """
         Converts the argument value to its appropriate type.
 
@@ -175,7 +174,7 @@ class Argument:
         )
 
     @staticmethod
-    def set_keys_to_readable(args_info):
+    def set_keys_to_readable(args_info: dict) -> dict:
         """
         Converts argument objects in args_info to a dictionary with readable keys.
 

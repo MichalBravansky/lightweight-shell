@@ -1,7 +1,7 @@
 from .command import Command
 import os
 import re
-
+from commands.argument import Argument
 
 class GrepCommand(Command):
     """
@@ -15,7 +15,7 @@ class GrepCommand(Command):
     def __init__(self):
         super().__init__('grep', 'file pattern search')
 
-    def process_input(self, pattern, text_input, prefix=''):
+    def process_input(self, pattern: re.Pattern, text_input: str, prefix: str ='') -> [str]:
         """
         Processes the input text to find lines that match the given pattern.
 
@@ -34,7 +34,7 @@ class GrepCommand(Command):
                 output.append(prefix + line)
         return output
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str =None) -> str:
         """
         Executes the 'grep' command with the provided arguments and optional input.
 
@@ -63,7 +63,7 @@ class GrepCommand(Command):
 
         return self._process_input_files(pattern, files, prefix_file_path)
 
-    def _process_input_no_file(self, pattern, input):
+    def _process_input_no_file(self, pattern: re.Pattern, input: str) -> str:
         """
         Processes input when no file is provided.
 
@@ -81,13 +81,13 @@ class GrepCommand(Command):
             raise ValueError("grep: missing file operand\nTry 'grep --help'.")
         return '\n'.join(self.process_input(pattern, input))
 
-    def _process_input_files(self, pattern, files, prefix_file_path):
+    def _process_input_files(self, pattern: re.Pattern, files: [Argument], prefix_file_path: bool) -> str:
         """
         Processes input from files.
 
         Args:
             pattern (re.Pattern): The compiled regular expression pattern.
-            files (argparse.Namespace): The file arguments.
+            files (list(Argument)): The file arguments.
             prefix_file_path (bool): Whether to prefix file paths to output lines.
 
         Returns:
