@@ -10,6 +10,9 @@ from commands.find import FindCommand
 from commands.uniq import UniqCommand
 from commands.sort import SortCommand
 from commands.cut import CutCommand
+from commands.rm import RmCommand
+from commands.clear import ClearCommand
+from commands.mkdir import MkdirCommand
 from utils.exceptions import UnknownCommandError
 
 
@@ -28,6 +31,9 @@ class CommandFactory:
             "sort": SortCommand,
             "find": FindCommand,
             "cut": CutCommand,
+            "rm": RmCommand,
+            "clear" : ClearCommand,
+            "mkdir": MkdirCommand
         }
 
     def execute_command(self, command_name, args: list, input=None):

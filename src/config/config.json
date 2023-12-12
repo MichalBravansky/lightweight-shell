@@ -21,6 +21,45 @@
         ],
         "stop_positional_args_after_named": false
     },
+    "rm": {
+        "named_args": {
+            "r": {
+                "type": "FLAG",
+                "name": "recursive",
+                "value": false
+            }
+        },
+        "positional_args": [
+            {
+                "type": "LIST",
+                "name": "paths",
+                "value": []
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "mkdir": {
+        "named_args": {
+            "p": {
+                "type": "FLAG",
+                "name": "create_subdirectories",
+                "value": false
+            }
+        },
+        "positional_args": [
+            {
+                "type": "LIST",
+                "name": "paths",
+                "value": []
+            }
+        ],
+        "stop_positional_args_after_named": false
+    },
+    "clear": {
+        "named_args": {},
+        "positional_args": [],
+        "stop_positional_args_after_named": false
+    },
     "pwd": {
         "named_args": {},
         "positional_args": [],

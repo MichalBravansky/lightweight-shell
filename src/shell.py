@@ -27,9 +27,6 @@ def process(cmdline: str) -> str:
     parser = ShellParser(token_stream)
     parser.addErrorListener(CustomErrorListener())
 
-    # Create a listener
-    visitor = Converter()
-
     # Build the parse tree
     tree = parser.shell()
 
