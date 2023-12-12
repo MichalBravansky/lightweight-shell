@@ -1,9 +1,7 @@
 import unittest
 import tempfile
 from pathlib import Path
-from src.commands.tail import TailCommand as Tail
 from src.commands.argument import Argument
-import unittest
 from hypothesis import given
 from hypothesis.strategies import text
 from src.commands.tail import TailCommand as Tail
