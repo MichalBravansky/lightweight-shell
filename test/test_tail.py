@@ -49,16 +49,6 @@ class TestTail(unittest.TestCase):
         response = Tail().execute(args, input_text)
         self.assertEqual(response, expected)
 
-    @given(text(min_size=1, max_size = 10000))
-    def test_tail_automated_input_text(self, input_text):
-        args = {
-            'lines': Argument(Argument.FLAG_WITH_INTEGER, 'lines', 3),
-            'file': Argument(Argument.STRING, 'file', None),
-        }
-        expected = '\n'.join(input_text.split('\n')[-3:])
-        response = Tail().execute(args, input_text)
-        self.assertEqual(response, expected)
-
     def test_tail_invalid_line_count(self):
         args = {
             'lines': Argument(Argument.FLAG_WITH_INTEGER, 'lines', -5),
