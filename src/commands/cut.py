@@ -119,7 +119,8 @@ class CutCommand(Command):
                 f'cut: invalid byte range specification: {str(e)}'
                 )
 
-    def _read_lines_from_file_or_input(self, file_name: str, input: str) -> [str]:
+    def _read_lines_from_file_or_input(self, file_name: str,
+                                       input: str) -> [str]:
         """
         Reads lines from a file or input string.
 

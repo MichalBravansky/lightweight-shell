@@ -48,27 +48,28 @@ class Config:
         return config
 
     def is_command(self, command_name: str) -> bool:
-            """
-            Check if a command exists in the configuration.
+        """
+        Check if a command exists in the configuration.
 
-            Args:
-                command_name (str): The name of the command to check.
+        Args:
+            command_name (str): The name of the command to check.
 
-            Returns:
-                bool: True if the command exists in the configuration, False otherwise.
-            """
-            return command_name in self._config
+        Returns:
+            bool: True if the command exists in the configuration,
+            False otherwise.
+        """
+        return command_name in self._config
 
     def get(self, command_name: str) -> dict:
-            """
-            Retrieve the configuration for a given command.
+        """
+        Retrieve the configuration for a given command.
 
-            Args:
-                command_name (str): The name of the command.
+        Args:
+            command_name (str): The name of the command.
 
-            Returns:
-                dict: A deep copy of the configuration for the command.
+        Returns:
+            dict: A deep copy of the configuration for the command.
 
-            """
-            if command_name in self._config:
-                return copy.deepcopy(self._config[command_name])
+        """
+        if command_name in self._config:
+            return copy.deepcopy(self._config[command_name])

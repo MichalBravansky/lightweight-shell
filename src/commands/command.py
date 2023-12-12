@@ -26,7 +26,8 @@ class Command(ABC):
 
     # Assumes that the command has been pre-validated by the parser.
     @abstractmethod
-    def execute(self, args: dict, input: str =None) -> str:  # pragma: no cover
+    def execute(self, args: dict,
+                input: str = None) -> str:  # pragma: no cover
         raise NotImplementedError
 
     def help(self) -> None:
