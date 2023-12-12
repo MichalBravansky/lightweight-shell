@@ -12,7 +12,7 @@ class FindCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("find", "walk a file hierarchy")
+        super().__init__('find', 'walk a file hierarchy')
 
     def execute(self, args, input=None):
         """
@@ -32,7 +32,7 @@ class FindCommand(Command):
         directory = self._get_search_directory(args)
         pattern = self._get_search_pattern(args)
 
-        return "\n".join(self._find_files(directory, pattern)) + "\n"
+        return '\n'.join(self._find_files(directory, pattern)) + '\n'
 
     def _get_search_directory(self, args):
         """
@@ -47,9 +47,9 @@ class FindCommand(Command):
         Raises:
             ValueError: If the specified directory is invalid.
         """
-        directory = args["directory"].value or "."
+        directory = args['directory'].value or '.'
         if not os.path.isdir(directory):
-            raise ValueError(f"find: Invalid directory: {directory}")
+            raise ValueError(f'find: Invalid directory: {directory}')
         return directory
 
     def _get_search_pattern(self, args):
@@ -65,9 +65,9 @@ class FindCommand(Command):
         Raises:
             ValueError: If no search pattern is specified.
         """
-        pattern = args["name"].value
+        pattern = args['name'].value
         if pattern is None:
-            raise ValueError("find: No search pattern specified")
+            raise ValueError('find: No search pattern specified')
         return pattern
 
     def _find_files(self, directory, pattern):
@@ -84,6 +84,6 @@ class FindCommand(Command):
         found_files = []
         for root, _, files in os.walk(directory, topdown=True):
             for file in files:
-                if fnmatch.fnmatch(file, pattern) or pattern == "*":
+                if fnmatch.fnmatch(file, pattern) or pattern == '*':
                     found_files.append(os.path.join(root, file))
         return found_files

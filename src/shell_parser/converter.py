@@ -44,11 +44,11 @@ class _ConverterHelper:
 
         inner_tree = parser.shell()
         inner_output = [
-            output.strip("\n ")
+            output.strip('\n ')
             for output in Converter().visit(inner_tree).evaluate()
         ]
 
-        return " ".join(inner_output)
+        return ' '.join(inner_output)
 
 
 class Converter(ShellVisitor):
@@ -80,18 +80,20 @@ class Converter(ShellVisitor):
             Sequence: A Sequence object representing the series of commands.
         """
 
-        commands = iter([
-            self.visit(command)
-            for command in ctx.getChildren()
-            if isinstance(
-                command,
-                (
-                    ShellParser.CommandContext,
-                    ShellParser.PipeContext,
-                    ShellParser.SequenceContext,
-                ),
-            )
-        ])
+        commands = iter(
+            [
+                self.visit(command)
+                for command in ctx.getChildren()
+                if isinstance(
+                    command,
+                    (
+                        ShellParser.CommandContext,
+                        ShellParser.PipeContext,
+                        ShellParser.SequenceContext,
+                    ),
+                )
+            ]
+        )
 
         return Sequence(next(commands, None), next(commands, None))
 
@@ -108,14 +110,16 @@ class Converter(ShellVisitor):
             Pipe: A Pipe object representing the pipe operation in the shell command.
         """
 
-        commands = iter([
-            self.visit(command)
-            for command in ctx.getChildren()
-            if isinstance(
-                command,
-                (ShellParser.CommandContext, ShellParser.PipeContext),
-            )
-        ])
+        commands = iter(
+            [
+                self.visit(command)
+                for command in ctx.getChildren()
+                if isinstance(
+                    command,
+                    (ShellParser.CommandContext, ShellParser.PipeContext),
+                )
+            ]
+        )
 
         return Pipe(next(commands, None), next(commands, None))
 
@@ -164,7 +168,7 @@ class Converter(ShellVisitor):
 
         call = (
             Call(command, processed_args)
-            if command[0] != "_"
+            if command[0] != '_'
             else Call(command[1:], processed_args)
         )
         call = (
@@ -174,7 +178,7 @@ class Converter(ShellVisitor):
             Redirect(call, *input_redirection) if input_redirection else call
         )
 
-        if command[0] == "_":
+        if command[0] == '_':
             call = UnsafeDecorator(call)
 
         return call
@@ -198,7 +202,7 @@ class Converter(ShellVisitor):
         elif ctx.DOUBLE_QUOTED_ARG():
             replace_func = lambda x: _ConverterHelper.processShell(x.group(1))
             return re.sub(
-                r"`([^`\n]*)`", replace_func, text[1:-1].replace('\\"', '"')
+                r'`([^`\n]*)`', replace_func, text[1:-1].replace('\\"', '"')
             )
 
         return _ConverterHelper.processShell(text[1:-1])
@@ -247,15 +251,15 @@ class Converter(ShellVisitor):
             else:
                 argument = [arg.getText()]
 
-                if "*" in argument[0]:
+                if '*' in argument[0]:
                     globbing = True
 
             args += argument
 
         if globbing:
-            return glob("".join(args))
+            return glob(''.join(args))
 
-        return ["".join(args)]
+        return [''.join(args)]
 
     def visitRedirectionType(
         self, ctx: ShellParser.RedirectionTypeContext

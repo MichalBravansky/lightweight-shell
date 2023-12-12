@@ -12,7 +12,7 @@ class Argument:
     Attributes:
         type (int): Type of the argument (e.g., INTEGER, STRING).
         name (str): Name of the argument.
-        value (any, optional): Value of the argument, 
+        value (any, optional): Value of the argument,
                                defaults to None.
     """
 
@@ -32,7 +32,7 @@ class Argument:
         Args:
             arg_type (int): The type of the argument.
             arg_name (str): The name of the argument.
-            arg_value (any, optional): The initial value of the argument. 
+            arg_value (any, optional): The initial value of the argument.
                                        Defaults to None.
         """
         self.type = arg_type
@@ -59,14 +59,14 @@ class Argument:
         positional_count = 0
         seen_positional_args = False
         stop_positional_after_named_args = args_info.get(
-            "stop_positional_after_named", True
+            'stop_positional_after_named', True
         )
 
         while i < len(arg_list):
             arg = arg_list[i]
-            if arg.startswith("-"):
+            if arg.startswith('-'):
                 arg_name = arg[1:]
-                if arg_name in args_info["named_args"]:
+                if arg_name in args_info['named_args']:
                     # Handle named argument and update index if needed i.e -n 10 would consume two args
                     i = Argument.handle_named_arg(
                         args_info, arg_name, arg_list, i
@@ -108,7 +108,7 @@ class Argument:
         Raises:
             MissingValueError: If a required value is missing for the named argument.
         """
-        arg_obj = args_info["named_args"][arg_name]
+        arg_obj = args_info['named_args'][arg_name]
         arg_obj.value = True
         if arg_obj.type != Argument.FLAG:
             if i + 1 < len(arg_list):
@@ -134,14 +134,14 @@ class Argument:
             UnexpectedArgumentError: If an unexpected positional argument is encountered.
             TooManyArgumentsError: If too many arguments are provided.
         """
-        if positional_count < len(args_info["positional_args"]):
-            arg_obj = args_info["positional_args"][positional_count]
+        if positional_count < len(args_info['positional_args']):
+            arg_obj = args_info['positional_args'][positional_count]
             arg_obj.value = Argument.convert_arg_value(arg, arg_obj.type)
         else:
-            if len(args_info["positional_args"]) == 0:
+            if len(args_info['positional_args']) == 0:
                 raise UnexpectedArgumentError(arg)
             else:
-                arg_obj = args_info["positional_args"][-1]
+                arg_obj = args_info['positional_args'][-1]
                 if arg_obj.type == Argument.LIST:
                     arg_obj.value.append(
                         Argument.convert_arg_value(arg, Argument.STRING)
@@ -187,6 +187,6 @@ class Argument:
         """
         return {
             arg.name: arg
-            for arg in args_info["positional_args"]
-            + list(args_info["named_args"].values())
+            for arg in args_info['positional_args']
+            + list(args_info['named_args'].values())
         }

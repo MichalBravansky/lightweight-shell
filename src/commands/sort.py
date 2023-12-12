@@ -10,7 +10,7 @@ class SortCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("sort", "sort lines")
+        super().__init__('sort', 'sort lines')
 
     def execute(self, args, input=None):
         """
@@ -27,13 +27,13 @@ class SortCommand(Command):
         Raises:
             ValueError: If no file or input is provided.
         """
-        reverse = args["reverse"].value
-        file_path = args["file"].value
+        reverse = args['reverse'].value
+        file_path = args['file'].value
 
         lines = self._read_lines(file_path, input)
         lines.sort(reverse=reverse)
 
-        return "\n".join(lines)
+        return '\n'.join(lines)
 
     def _read_lines(self, file_path, input):
         """
@@ -50,9 +50,9 @@ class SortCommand(Command):
             ValueError: If neither a file nor input is provided.
         """
         if file_path:
-            with open(file_path, "r") as f:
+            with open(file_path, 'r') as f:
                 return f.read().splitlines()
         elif input:
-            return input.split("\n")
+            return input.split('\n')
         else:
-            raise ValueError("sort: no input provided")
+            raise ValueError('sort: no input provided')

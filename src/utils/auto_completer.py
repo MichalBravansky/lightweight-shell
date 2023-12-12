@@ -1,5 +1,6 @@
 import os
 
+
 class AutoCompleter:
     """
     The AutoCompleter class provides autocomplete suggestions based on a given input string.

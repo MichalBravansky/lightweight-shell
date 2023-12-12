@@ -1001,7 +1001,7 @@ def serializedATN():
 
 
 class ShellParser(Parser):
-    grammarFileName = "Shell.g4"
+    grammarFileName = 'Shell.g4'
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -1009,20 +1009,20 @@ class ShellParser(Parser):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = ["<INVALID>", "';'", "'|'", "'>'", "'>>'", "'<'"]
+    literalNames = ['<INVALID>', "';'", "'|'", "'>'", "'>>'", "'<'"]
 
     symbolicNames = [
-        "<INVALID>",
-        "<INVALID>",
-        "<INVALID>",
-        "REDIRECTION_OVERWRITE",
-        "REDIRECTION_APPEND",
-        "REDIRECTION_READ",
-        "UNQUOTED_ARG",
-        "SINGLE_QUOTED_ARG",
-        "DOUBLE_QUOTED_ARG",
-        "BACKQUOTED_ARG",
-        "WS",
+        '<INVALID>',
+        '<INVALID>',
+        '<INVALID>',
+        'REDIRECTION_OVERWRITE',
+        'REDIRECTION_APPEND',
+        'REDIRECTION_READ',
+        'UNQUOTED_ARG',
+        'SINGLE_QUOTED_ARG',
+        'DOUBLE_QUOTED_ARG',
+        'BACKQUOTED_ARG',
+        'WS',
     ]
 
     RULE_shell = 0
@@ -1036,15 +1036,15 @@ class ShellParser(Parser):
     RULE_redirectionType = 8
 
     ruleNames = [
-        "shell",
-        "sequence",
-        "pipe",
-        "command",
-        "atom",
-        "redirection",
-        "argument",
-        "quotedArg",
-        "redirectionType",
+        'shell',
+        'sequence',
+        'pipe',
+        'command',
+        'atom',
+        'redirection',
+        'argument',
+        'quotedArg',
+        'redirectionType',
     ]
 
     EOF = Token.EOF
@@ -1061,14 +1061,14 @@ class ShellParser(Parser):
 
     def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.13.1")
+        self.checkVersion('4.13.1')
         self._interp = ParserATNSimulator(
             self, self.atn, self.decisionsToDFA, self.sharedContextCache
         )
         self._predicates = None
 
     class ShellContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1095,15 +1095,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_shell
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterShell"):
+            if hasattr(listener, 'enterShell'):
                 listener.enterShell(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitShell"):
+            if hasattr(listener, 'exitShell'):
                 listener.exitShell(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitShell"):
+            if hasattr(visitor, 'visitShell'):
                 return visitor.visitShell(self)
             else:
                 return visitor.visitChildren(self)
@@ -1147,7 +1147,7 @@ class ShellParser(Parser):
         return localctx
 
     class SequenceContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1177,15 +1177,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_sequence
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSequence"):
+            if hasattr(listener, 'enterSequence'):
                 listener.enterSequence(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSequence"):
+            if hasattr(listener, 'exitSequence'):
                 listener.exitSequence(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitSequence"):
+            if hasattr(visitor, 'visitSequence'):
                 return visitor.visitSequence(self)
             else:
                 return visitor.visitChildren(self)
@@ -1237,7 +1237,7 @@ class ShellParser(Parser):
         return localctx
 
     class PipeContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1261,15 +1261,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_pipe
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterPipe"):
+            if hasattr(listener, 'enterPipe'):
                 listener.enterPipe(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitPipe"):
+            if hasattr(listener, 'exitPipe'):
                 listener.exitPipe(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitPipe"):
+            if hasattr(visitor, 'visitPipe'):
                 return visitor.visitPipe(self)
             else:
                 return visitor.visitChildren(self)
@@ -1310,7 +1310,7 @@ class ShellParser(Parser):
         return localctx
 
     class CommandContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1350,15 +1350,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_command
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterCommand"):
+            if hasattr(listener, 'enterCommand'):
                 listener.enterCommand(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitCommand"):
+            if hasattr(listener, 'exitCommand'):
                 listener.exitCommand(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitCommand"):
+            if hasattr(visitor, 'visitCommand'):
                 return visitor.visitCommand(self)
             else:
                 return visitor.visitChildren(self)
@@ -1441,7 +1441,7 @@ class ShellParser(Parser):
         return localctx
 
     class AtomContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1462,15 +1462,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_atom
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterAtom"):
+            if hasattr(listener, 'enterAtom'):
                 listener.enterAtom(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitAtom"):
+            if hasattr(listener, 'exitAtom'):
                 listener.exitAtom(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitAtom"):
+            if hasattr(visitor, 'visitAtom'):
                 return visitor.visitAtom(self)
             else:
                 return visitor.visitChildren(self)
@@ -1504,7 +1504,7 @@ class ShellParser(Parser):
         return localctx
 
     class RedirectionContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1533,15 +1533,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_redirection
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterRedirection"):
+            if hasattr(listener, 'enterRedirection'):
                 listener.enterRedirection(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitRedirection"):
+            if hasattr(listener, 'exitRedirection'):
                 listener.exitRedirection(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitRedirection"):
+            if hasattr(visitor, 'visitRedirection'):
                 return visitor.visitRedirection(self)
             else:
                 return visitor.visitChildren(self)
@@ -1575,7 +1575,7 @@ class ShellParser(Parser):
         return localctx
 
     class ArgumentContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1604,15 +1604,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_argument
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterArgument"):
+            if hasattr(listener, 'enterArgument'):
                 listener.enterArgument(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitArgument"):
+            if hasattr(listener, 'exitArgument'):
                 listener.exitArgument(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitArgument"):
+            if hasattr(visitor, 'visitArgument'):
                 return visitor.visitArgument(self)
             else:
                 return visitor.visitChildren(self)
@@ -1656,7 +1656,7 @@ class ShellParser(Parser):
         return localctx
 
     class QuotedArgContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1680,15 +1680,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_quotedArg
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterQuotedArg"):
+            if hasattr(listener, 'enterQuotedArg'):
                 listener.enterQuotedArg(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitQuotedArg"):
+            if hasattr(listener, 'exitQuotedArg'):
                 listener.exitQuotedArg(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitQuotedArg"):
+            if hasattr(visitor, 'visitQuotedArg'):
                 return visitor.visitQuotedArg(self)
             else:
                 return visitor.visitChildren(self)
@@ -1715,7 +1715,7 @@ class ShellParser(Parser):
         return localctx
 
     class RedirectionTypeContext(ParserRuleContext):
-        __slots__ = "parser"
+        __slots__ = 'parser'
 
         def __init__(
             self,
@@ -1739,15 +1739,15 @@ class ShellParser(Parser):
             return ShellParser.RULE_redirectionType
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterRedirectionType"):
+            if hasattr(listener, 'enterRedirectionType'):
                 listener.enterRedirectionType(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitRedirectionType"):
+            if hasattr(listener, 'exitRedirectionType'):
                 listener.exitRedirectionType(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitRedirectionType"):
+            if hasattr(visitor, 'visitRedirectionType'):
                 return visitor.visitRedirectionType(self)
             else:
                 return visitor.visitChildren(self)

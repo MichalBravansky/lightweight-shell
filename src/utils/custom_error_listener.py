@@ -8,7 +8,7 @@ class CustomErrorListener(ErrorListener):
     """
     The CustomErrorListener class is a custom implementation of the ErrorListener class from the ANTLR4 parsing library.
 
-    This class overrides the syntaxError method from the ErrorListener class to provide custom error handling for syntax errors. 
+    This class overrides the syntaxError method from the ErrorListener class to provide custom error handling for syntax errors.
     When a syntax error is encountered during parsing, the syntaxError method is called with the following parameters:
 
     - recognizer: The parser that detected the error.
@@ -16,7 +16,6 @@ class CustomErrorListener(ErrorListener):
 
     The syntaxError method in this class raises a ParsingError exception, which is a custom exception defined in the utils.exceptions module.
     """
-
 
     def syntaxError(
         self,

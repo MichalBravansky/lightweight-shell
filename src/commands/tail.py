@@ -4,42 +4,42 @@ from .command import Command
 
 class TailCommand(Command):
     """
-    Represents the 'tail' command which is used to display the 
+    Represents the 'tail' command which is used to display the
     last lines of a file.
 
-    This command mimics the behavior of the Unix 'tail' command. 
-    It can either take a file as an argument and print its last few lines, 
+    This command mimics the behavior of the Unix 'tail' command.
+    It can either take a file as an argument and print its last few lines,
     or it can work with an input string if no file is provided.
     """
 
     def __init__(self):
-        super().__init__("tail", "display last lines of a file")
+        super().__init__('tail', 'display last lines of a file')
 
     def execute(self, args, input=None):
         """
         Executes the 'tail' command with the provided arguments and optional input.
 
         Args:
-            args (dict): A dictionary containing command arguments. 
+            args (dict): A dictionary containing command arguments.
                          Expected keys are 'lines' for the
                          number of lines to display and 'file' for the file path.
-            input (str, optional): An optional string input to use when 
+            input (str, optional): An optional string input to use when
                                    no file is provided.
 
         Returns:
             str: The last few lines of the file or input string.
 
         Raises:
-            ValueError: If the line count is negative or if no file 
+            ValueError: If the line count is negative or if no file
                         or input is provided.
             FileNotFoundError: If the provided file path does not exist.
         """
         self._validate_args(args)
 
         lines = self._get_lines(args, input)
-        num_lines = args["lines"].value
-        return "\n".join(
-            lines[-min(num_lines, len(lines)):] if num_lines > 0 else ""
+        num_lines = args['lines'].value
+        return '\n'.join(
+            lines[-min(num_lines, len(lines)) :] if num_lines > 0 else ''
         )
 
     def _validate_args(self, args):
@@ -52,7 +52,7 @@ class TailCommand(Command):
         Raises:
             ValueError: If the line count is negative.
         """
-        if args["lines"].value < 0:
+        if args['lines'].value < 0:
             raise ValueError(
                 f"tail: illegal line count -- {args['lines'].value}"
             )
@@ -72,10 +72,10 @@ class TailCommand(Command):
             ValueError: If no file operand is provided and input is None.
             FileNotFoundError: If the file does not exist.
         """
-        if args["file"].value is None:
+        if args['file'].value is None:
             return self._get_lines_from_input(input)
         else:
-            return self._get_lines_from_file(args["file"].value)
+            return self._get_lines_from_file(args['file'].value)
 
     def _get_lines_from_input(self, input):
         """
@@ -93,7 +93,7 @@ class TailCommand(Command):
         if input is None:
             raise ValueError(
                 "tail: missing file operand\nTry 'tail --help' for more"
-                " information."
+                ' information.'
             )
         return input.splitlines()
 
@@ -112,7 +112,7 @@ class TailCommand(Command):
         """
         if not os.path.isfile(file_path):
             raise FileNotFoundError(
-                f"tail: {file_path}: No such file or directory"
+                f'tail: {file_path}: No such file or directory'
             )
-        with open(file_path, "r") as file:
+        with open(file_path, 'r') as file:
             return file.read().splitlines()

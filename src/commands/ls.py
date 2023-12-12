@@ -11,7 +11,7 @@ class LsCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("ls", "list directory contents")
+        super().__init__('ls', 'list directory contents')
 
     def execute(self, args, input=None):
         """
@@ -29,17 +29,17 @@ class LsCommand(Command):
             FileNotFoundError: If the specified directory does not exist.
             NotADirectoryError: If the specified path is not a directory.
         """
-        directory = args["directory"].value
+        directory = args['directory'].value
 
         if not directory:
-            directory = "."
+            directory = '.'
 
         if not os.path.exists(directory):
             raise FileNotFoundError(
-                f"ls: {directory}: No such file or directory"
+                f'ls: {directory}: No such file or directory'
             )
 
         if not os.path.isdir(directory):
-            raise NotADirectoryError(f"ls: {directory}: Not a directory")
+            raise NotADirectoryError(f'ls: {directory}: Not a directory')
 
-        return "\n".join(os.listdir(directory))
+        return '\n'.join(os.listdir(directory))

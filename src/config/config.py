@@ -27,22 +27,22 @@ class Config:
         Returns:
             dict: The loaded configuration.
         """
-        with open(config_path, "r") as f:
+        with open(config_path, 'r') as f:
             config = json.load(f)
 
         for key in config.keys():
-            config[key]["named_args"] = {
+            config[key]['named_args'] = {
                 key: Argument(
-                    getattr(Argument, arg["type"]), arg["name"], arg["value"]
+                    getattr(Argument, arg['type']), arg['name'], arg['value']
                 )
-                for key, arg in config[key]["named_args"].items()
+                for key, arg in config[key]['named_args'].items()
             }
 
-            config[key]["positional_args"] = [
+            config[key]['positional_args'] = [
                 Argument(
-                    getattr(Argument, el["type"]), el["name"], el["value"]
+                    getattr(Argument, el['type']), el['name'], el['value']
                 )
-                for el in config[key]["positional_args"]
+                for el in config[key]['positional_args']
             ]
 
         return config

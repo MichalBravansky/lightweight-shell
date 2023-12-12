@@ -762,42 +762,42 @@ class ShellLexer(Lexer):
     BACKQUOTED_ARG = 9
     WS = 10
 
-    channelNames = ["DEFAULT_TOKEN_CHANNEL", "HIDDEN"]
+    channelNames = ['DEFAULT_TOKEN_CHANNEL', 'HIDDEN']
 
-    modeNames = ["DEFAULT_MODE"]
+    modeNames = ['DEFAULT_MODE']
 
-    literalNames = ["<INVALID>", "';'", "'|'", "'>'", "'>>'", "'<'"]
+    literalNames = ['<INVALID>', "';'", "'|'", "'>'", "'>>'", "'<'"]
 
     symbolicNames = [
-        "<INVALID>",
-        "REDIRECTION_OVERWRITE",
-        "REDIRECTION_APPEND",
-        "REDIRECTION_READ",
-        "UNQUOTED_ARG",
-        "SINGLE_QUOTED_ARG",
-        "DOUBLE_QUOTED_ARG",
-        "BACKQUOTED_ARG",
-        "WS",
+        '<INVALID>',
+        'REDIRECTION_OVERWRITE',
+        'REDIRECTION_APPEND',
+        'REDIRECTION_READ',
+        'UNQUOTED_ARG',
+        'SINGLE_QUOTED_ARG',
+        'DOUBLE_QUOTED_ARG',
+        'BACKQUOTED_ARG',
+        'WS',
     ]
 
     ruleNames = [
-        "T__0",
-        "T__1",
-        "REDIRECTION_OVERWRITE",
-        "REDIRECTION_APPEND",
-        "REDIRECTION_READ",
-        "UNQUOTED_ARG",
-        "SINGLE_QUOTED_ARG",
-        "DOUBLE_QUOTED_ARG",
-        "BACKQUOTED_ARG",
-        "WS",
+        'T__0',
+        'T__1',
+        'REDIRECTION_OVERWRITE',
+        'REDIRECTION_APPEND',
+        'REDIRECTION_READ',
+        'UNQUOTED_ARG',
+        'SINGLE_QUOTED_ARG',
+        'DOUBLE_QUOTED_ARG',
+        'BACKQUOTED_ARG',
+        'WS',
     ]
 
-    grammarFileName = "Shell.g4"
+    grammarFileName = 'Shell.g4'
 
     def __init__(self, input=None, output: TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.13.1")
+        self.checkVersion('4.13.1')
         self._interp = LexerATNSimulator(
             self, self.atn, self.decisionsToDFA, PredictionContextCache()
         )

@@ -27,6 +27,7 @@ The script also handles exceptions that may be raised during the execution of a 
 such as ParsingError and UnknownCommandError.
 """
 
+
 def process(cmdline: str) -> str:
     input_stream = InputStream(cmdline)
 
@@ -49,9 +50,9 @@ def process(cmdline: str) -> str:
     root = tree.accept(visitor)
 
     if root:
-        return "\n".join(root.evaluate())
+        return '\n'.join(root.evaluate())
 
-    return ""
+    return ''
 
 
 def eval(user_input: str) -> str:
@@ -64,26 +65,26 @@ def eval(user_input: str) -> str:
 
 
 def main():
-    readline.parse_and_bind("tab: complete")
+    readline.parse_and_bind('tab: complete')
     readline.set_completer(AutoCompleter().completer)
 
     args_num = len(sys.argv) - 1
 
     if args_num == 0:
         while True:
-            user_input = input(os.getcwd() + "> ")
+            user_input = input(os.getcwd() + '> ')
 
             output = eval(user_input)
 
             if output:
-                print(output, end="\n")
+                print(output, end='\n')
     else:
         command = sys.argv[2]
 
         output = eval(command)
 
-        print(output, end="\n")
+        print(output, end='\n')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

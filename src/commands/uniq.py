@@ -11,7 +11,7 @@ class UniqCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("uniq", "remove duplicate lines")
+        super().__init__('uniq', 'remove duplicate lines')
 
     def execute(self, args, input=None):
         """
@@ -28,11 +28,11 @@ class UniqCommand(Command):
         Raises:
             ValueError: If no file or input is provided.
         """
-        ignore_case = args["ignore_case"].value
-        file_path = args["file"].value
+        ignore_case = args['ignore_case'].value
+        file_path = args['file'].value
 
         lines = self._read_lines(file_path, input)
-        return "\n".join(self._remove_duplicates(lines, ignore_case))
+        return '\n'.join(self._remove_duplicates(lines, ignore_case))
 
     def _read_lines(self, file_path, input):
         """
@@ -49,14 +49,14 @@ class UniqCommand(Command):
             ValueError: If neither a file nor input is provided.
         """
         if file_path:
-            with open(file_path, "r") as f:
+            with open(file_path, 'r') as f:
                 return f.read().splitlines()
         elif input is not None:
             return input.splitlines()
         else:
             raise ValueError(
                 "uniq: missing file operand\nTry 'uniq --help' for more"
-                " information."
+                ' information.'
             )
 
     def _remove_duplicates(self, lines, ignore_case):

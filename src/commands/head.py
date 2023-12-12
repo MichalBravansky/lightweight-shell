@@ -11,7 +11,7 @@ class HeadCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("head", "display first lines of a file")
+        super().__init__('head', 'display first lines of a file')
 
     def execute(self, args, input=None):
         """
@@ -32,7 +32,7 @@ class HeadCommand(Command):
         self._validate_args(args)
 
         lines = self._get_lines(args, input)
-        return "\n".join(lines[: min(args["lines"].value, len(lines))])
+        return '\n'.join(lines[: min(args['lines'].value, len(lines))])
 
     def _validate_args(self, args):
         """
@@ -44,7 +44,7 @@ class HeadCommand(Command):
         Raises:
             ValueError: If the line count is negative.
         """
-        if args["lines"].value < 0:
+        if args['lines'].value < 0:
             raise ValueError(
                 f"head: illegal line count -- {args['lines'].value}"
             )
@@ -64,10 +64,10 @@ class HeadCommand(Command):
             ValueError: If no file operand is provided and input is None.
             FileNotFoundError: If the file does not exist.
         """
-        if args["file"].value is None:
+        if args['file'].value is None:
             return self._get_lines_from_input(input)
         else:
-            return self._get_lines_from_file(args["file"].value)
+            return self._get_lines_from_file(args['file'].value)
 
     def _get_lines_from_input(self, input):
         """
@@ -85,9 +85,9 @@ class HeadCommand(Command):
         if input is None:
             raise ValueError(
                 "head: missing file operand\nTry 'head --help' for more"
-                " information."
+                ' information.'
             )
-        return input.split("\n")
+        return input.split('\n')
 
     def _get_lines_from_file(self, file_path):
         """
@@ -104,7 +104,7 @@ class HeadCommand(Command):
         """
         if not os.path.isfile(file_path):
             raise FileNotFoundError(
-                f"head: {file_path}: No such file or directory"
+                f'head: {file_path}: No such file or directory'
             )
-        with open(file_path, "r") as file:
-            return file.read().split("\n")
+        with open(file_path, 'r') as file:
+            return file.read().split('\n')
