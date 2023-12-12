@@ -13,7 +13,7 @@ class SortCommand(Command):
     def __init__(self):
         super().__init__('sort', 'sort lines')
 
-    def execute(self, args: dict, input : str = None) -> str:
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'sort' command with the provided arguments and optional
         input.
