@@ -3,6 +3,8 @@ import tempfile
 from pathlib import Path
 from src.commands.grep import GrepCommand as Grep
 from src.commands.argument import Argument
+from hypothesis import given
+from hypothesis.strategies import text
 
 
 class TestGrep(unittest.TestCase):
@@ -56,6 +58,19 @@ class TestGrep(unittest.TestCase):
             input=input_text,
         )
         expected = 'Sample Line 1\nSample Line 2'
+        self.assertEqual(response, expected)
+
+    @given(text())
+    def test_grep_automated_no_file_with_input(self, input_text):
+        pattern_arg = Argument(Argument.STRING, 'pattern', 'Sample')
+        response = Grep().execute(
+            {
+                'pattern': pattern_arg,
+                'files': Argument(Argument.LIST, 'files', []),
+            },
+            input=input_text,
+        )
+        expected = '\n'.join(line for line in input_text.split('\n') if 'Sample' in line)
         self.assertEqual(response, expected)
 
     def test_grep_nonexistent_file(self):

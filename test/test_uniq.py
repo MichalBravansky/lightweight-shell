@@ -3,6 +3,8 @@ import tempfile
 from pathlib import Path
 from src.commands.uniq import UniqCommand as Uniq
 from src.commands.argument import Argument
+from hypothesis import given
+from hypothesis.strategies import text
 
 
 class TestUniq(unittest.TestCase):

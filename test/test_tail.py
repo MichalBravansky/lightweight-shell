@@ -1,8 +1,10 @@
 import unittest
 import tempfile
 from pathlib import Path
-from src.commands.tail import TailCommand as Tail
 from src.commands.argument import Argument
+from hypothesis import given
+from hypothesis.strategies import text
+from src.commands.tail import TailCommand as Tail
 
 
 class TestTail(unittest.TestCase):
