@@ -5,7 +5,7 @@ import copy
 
 class Config:
     """
-    Class representing the configuration settings.
+    Class representing the command configuration options.
     """
 
     def __init__(self, config_path: str) -> None:
