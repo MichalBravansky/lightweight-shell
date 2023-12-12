@@ -1,53 +1,123 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=12445604)
 # COMP0010 Shell
 
-COMP0010 Shell is a [shell](https://en.wikipedia.org/wiki/Shell_(computing)) created for educational purposes. 
-Similarly to other shells, it provides a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), an interactive environment that allows users to execute commands. COMP0010 Shell has a simple language for specifying commands that resembles [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). This language allows, for example, calling applications and connecting the output of one application to the input of another application through a [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix)). COMP0010 Shell also provides its own implementations of widely-used UNIX applications for file system and text manipulation: [echo](https://en.wikipedia.org/wiki/Echo_(command)), [ls](https://en.wikipedia.org/wiki/Ls), [cat](https://en.wikipedia.org/wiki/Cat_(Unix)), etc. 
+Meet COMP0010 Shell, a learning-focused shell offering an interactive [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93print_loop) interface. It uses a straightforward language akin to [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) for command execution. You can call applications and connect their output using pipelines.
 
-## Executing & Testing Shell
+## Features
 
-COMP0010 Shell can be executed in a Docker container. To build a container image (let's call it `shell`), run
+In addition to the basic required functionality (described in [Applications](#applications)), COMP0010 Shell has been enhanced with the following features:
 
+- **Autocomplete**: The shell provides an autocomplete feature that suggests possible completions for your command when the tab key is pressed. This feature is implemented in the [`AutoCompleter`](src/utils/auto_completer.py) class.
+
+- **Command History**: You can navigate through your command history using the up and down arrow keys. This allows you to easily access and repeat previously executed commands without retyping them.
+
+- **Command Help**: The shell supports the `--help` option, which provides help and usage information for a specific command. This feature is useful for understanding the available options and arguments for each command.
+
+- **Helpful Commands**: There several helpful commands included that are commonly used for file system manipulation and quality of life. These commands include `mkdir` for creating directories, `rm` for removing files and directories, and `clear` for clearing the shell's output.
+
+## Implementation Details
+
+COMP0010 Shell is a Python-based project that provides a simple and interactive command-line interface. The shell is designed to mimic the behavior of a Unix-like shell, with a focus on simplicity and usability.
+
+The project is structured as follows:
+
+- The [`src`](src/) directory contains the main source code of the shell. This includes the implementation of the shell itself, as well as various utility classes and functions.
+
+- The [`commands`](src/commands/) subdirectory contains the implementation of the built-in commands that the shell supports.
+
+- The [`utils`](src/utils/) subdirectory contains utility classes and functions that are used throughout the project, such as the [`AutoCompleter`](src/utils/auto_completer.py),[ArgumentHandler](src/utils/argument_handler.py), and [Exceptions](src/utils/exceptions.py).
+
+- The [`test`](test/) directory contains unit tests as well as prop tests for the various components of the shell.
+
+- The [`system_test`](system_test/) directory contains system tests that test the shell as a whole.
+
+The shell is packaged as a Docker container for easy distribution and execution. The Dockerfile for building the container image is located at the root of the project directory.
+
+The project uses GitHub Actions for continuous integration, which runs the unit tests and system tests on every push to the repository.
+
+### Modules used
+Some of the notable (built in) Python modules used in COMP0010 Shell include:
+
+- *readline*: Used for handling user input. This provides features like command history and line editing, enhancing the user experience in the interactive shell environment.
+
+- *os and sys*: Used for interacting with the operating system. They provide functions for file and directory manipulation, process management, and reading from and writing to the standard input, output, and error streams.
+
+- *unittest*: Used for running unit tests. It provides a rich set of assertions and a test discovery mechanism that makes it easy to define and run tests.
+
+- *json*: Used for parsing and generating JSON data. It is used for handling configuration files and for communicating with external tools.
+
+*Extra modules in [requirements.txt](requirements.txt)*
+
+## Running COMP0010 Shell in Docker
+
+To run COMP0010 Shell in a Docker container, follow these steps:
+
+1. Build the container image (let's call it `shell`):
+
+    ```
     docker build -t shell .
+    ```
 
-To execute the shell in interactive mode, run
+2. Run the shell in interactive mode:
 
+    ```
     docker run -it --rm shell /comp0010/sh
+    ```
 
-To execute the shell in non-interactive mode (to evaluate a specific command such as `echo foo`), run
+3. Run the shell in non-interactive mode to evaluate a specific command (e.g., `echo foo`):
 
+    ```
     docker run --rm shell /comp0010/sh -c 'echo foo'
+    ```
 
-To execute unit tests, run
+## Running Tests and Analysis
 
+To execute unit tests, code analysis, and test coverage, use the following commands:
+
+1. Run unit tests:
+
+    ```
     docker run -p 80:8000 -ti --rm shell /comp0010/tools/test
+    ```
 
-Then, the results of unit testing will be available at [http://localhost](http://localhost)
+    The results will be available at [http://localhost](http://localhost).
 
-To execute code analysis, run
+2. Run code analysis:
 
+    ```
     docker run -p 80:8000 -ti --rm shell /comp0010/tools/analysis
+    ```
 
-Then, the results of code analysis will be available at [http://localhost](http://localhost)
+    The results will be available at [http://localhost](http://localhost).
 
-To execute test coverage, run
+3. Run test coverage:
 
+    ```
     docker run -p 80:8000 -ti --rm shell /comp0010/tools/coverage
-    
+    ```
 
-Then, the results of coverage computation will be available at [http://localhost](http://localhost)
+    The results of coverage computation will be available at [http://localhost](http://localhost).
 
-To execute system tests, your first need to build a Docker image named `comp0010-system-test`:
+## Running System Tests
 
+To execute system tests, follow these steps:
+
+1. Build a Docker image named `comp0010-system-test`:
+
+    ```
     docker build -t comp0010-system-test .
+    ```
 
-Then, execute system tests using the following command (Python 3.7 or higher is required):
+2. Execute system tests using the following command (Python 3.7 or higher is required):
 
+    ```
     python system_test/tests.py -v
+    ```
 
-Individual system tests (e.g. `test_cat`) can be executed as
+    Individual system tests (e.g., `test_cat`) can be executed as:
 
+    ```
     python system_test/tests.py -v TestShell.test_cat
+    ```
     
 # Language
 
