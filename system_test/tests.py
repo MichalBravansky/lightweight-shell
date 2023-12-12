@@ -1,4 +1,3 @@
-import sys
 import unittest
 import subprocess
 import re
@@ -29,7 +28,9 @@ class TestShell(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        dockerfile = ("FROM " + cls.SHELL_IMAGE + "\nWORKDIR " + cls.TEST_DIR).encode()
+        dockerfile = (
+            "FROM " + cls.SHELL_IMAGE + "\nWORKDIR " + cls.TEST_DIR
+        ).encode()
         args = ["docker", "build", "-t", cls.TEST_IMAGE, "-"]
         p = subprocess.run(args, input=dockerfile, stdout=subprocess.DEVNULL)
         if p.returncode != 0:
@@ -39,7 +40,8 @@ class TestShell(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         p = subprocess.run(
-            ["docker", "image", "rm", cls.TEST_IMAGE], stdout=subprocess.DEVNULL
+            ["docker", "image", "rm", cls.TEST_IMAGE],
+            stdout=subprocess.DEVNULL,
         )
         if p.returncode != 0:
             print("error: failed to remove test image")
@@ -47,32 +49,32 @@ class TestShell(unittest.TestCase):
 
     def setUp(self):
         p = subprocess.run(
-            ["docker", "volume", "create", self.TEST_VOLUME], stdout=subprocess.DEVNULL
+            ["docker", "volume", "create", self.TEST_VOLUME],
+            stdout=subprocess.DEVNULL,
         )
         if p.returncode != 0:
             print("error: failed to create test volume")
             exit(1)
-        filesystem_setup = ";".join(
-            [
-                "echo \"''\" > test.txt",
-                "mkdir dir1",
-                "mkdir -p dir2/subdir",
-                "echo AAA > dir1/file1.txt",
-                "echo BBB >> dir1/file1.txt",
-                "echo AAA >> dir1/file1.txt",
-                "echo CCC > dir1/file2.txt",
-                "for i in {1..20}; do echo $i >> dir1/longfile.txt; done",
-                "echo AAA > dir2/subdir/file.txt",
-                "echo aaa >> dir2/subdir/file.txt",
-                "echo AAA >> dir2/subdir/file.txt",
-                "touch dir1/subdir/.hidden",
-            ]
-        )
+        filesystem_setup = ";".join([
+            "echo \"''\" > test.txt",
+            "mkdir dir1",
+            "mkdir -p dir2/subdir",
+            "echo AAA > dir1/file1.txt",
+            "echo BBB >> dir1/file1.txt",
+            "echo AAA >> dir1/file1.txt",
+            "echo CCC > dir1/file2.txt",
+            "for i in {1..20}; do echo $i >> dir1/longfile.txt; done",
+            "echo AAA > dir2/subdir/file.txt",
+            "echo aaa >> dir2/subdir/file.txt",
+            "echo AAA >> dir2/subdir/file.txt",
+            "touch dir1/subdir/.hidden",
+        ])
         self.eval(filesystem_setup, shell="/bin/bash")
 
     def tearDown(self):
         p = subprocess.run(
-            ["docker", "volume", "rm", self.TEST_VOLUME], stdout=subprocess.DEVNULL
+            ["docker", "volume", "rm", self.TEST_VOLUME],
+            stdout=subprocess.DEVNULL,
         )
         if p.returncode != 0:
             print("error: failed to remove test volume")
@@ -470,7 +472,8 @@ class TestShell(unittest.TestCase):
 
     def test_pipe_uniq(self):
         cmdline = (
-            "echo aaa > dir1/file2.txt; cat dir1/file1.txt dir1/file2.txt | uniq -i"
+            "echo aaa > dir1/file2.txt; cat dir1/file1.txt dir1/file2.txt |"
+            " uniq -i"
         )
         stdout = self.eval(cmdline)
         result = stdout.strip().split("\n")

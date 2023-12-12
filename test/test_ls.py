@@ -19,7 +19,9 @@ class TestLs(unittest.TestCase):
         os.chdir(self.temp_path)
 
     def tearDown(self):
-        os.chdir(self.original_cwd)  # Restore original current working directory
+        os.chdir(
+            self.original_cwd
+        )  # Restore original current working directory
         self.test_dir.cleanup()
 
     def test_ls_specified_directory(self):
@@ -42,7 +44,7 @@ class TestLs(unittest.TestCase):
         expected = ""
         self.assertEqual(response, expected)
         empty_dir.cleanup()
-    
+
     def test_ls_non_existent_directory(self):
         non_existent_dir = "/path/to/non/existent/directory"
         dir_arg = Argument(Argument.STRING, "directory", non_existent_dir)

@@ -4,6 +4,7 @@ from pathlib import Path
 from src.commands.cat import CatCommand as Cat
 from src.commands.argument import Argument
 
+
 class TestCat(unittest.TestCase):
     def setUp(self):
         self.test_dir = tempfile.TemporaryDirectory()
@@ -24,10 +25,14 @@ class TestCat(unittest.TestCase):
         self.assertEqual(response, expected)
 
     def test_cat_multiple_files(self):
-        arg = Argument(Argument.LIST, "files", [f"{self.temp_path}/file1.txt", f"{self.temp_path}/file2.txt"])
+        arg = Argument(
+            Argument.LIST,
+            "files",
+            [f"{self.temp_path}/file1.txt", f"{self.temp_path}/file2.txt"],
+        )
         response = Cat().execute({"files": arg})
         expected = "This is file 1.\nSecond line.\nFile 2 content."
-        
+
         self.assertEqual(response, expected)
 
     def test_cat_nonexistent_file(self):
@@ -39,7 +44,7 @@ class TestCat(unittest.TestCase):
         with self.assertRaises(ValueError):
             arg = Argument(Argument.LIST, "files", [])
             Cat().execute({"files": arg})
-    
+
     def test_cat_stdin(self):
         arg = Argument(Argument.LIST, "files", [])
         response = Cat().execute({"files": arg}, input="This is stdin.")

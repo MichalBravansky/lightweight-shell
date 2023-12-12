@@ -1,6 +1,7 @@
 import os
 from .command import Command
 
+
 class CatCommand(Command):
     """
     Represents the 'cat' command which concatenates and prints files.
@@ -47,7 +48,8 @@ class CatCommand(Command):
         """
         if input is None:
             raise ValueError(
-                "cat: missing file operand\nTry 'cat --help' for more information."
+                "cat: missing file operand\nTry 'cat --help' for more"
+                " information."
             )
         return input
 

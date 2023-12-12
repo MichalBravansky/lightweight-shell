@@ -1,6 +1,7 @@
 from .command import Command
 import os
 
+
 class LsCommand(Command):
     """
     Represents the 'ls' command which lists the contents of a directory.
@@ -32,9 +33,11 @@ class LsCommand(Command):
 
         if not directory:
             directory = "."
-            
+
         if not os.path.exists(directory):
-            raise FileNotFoundError(f"ls: {directory}: No such file or directory")
+            raise FileNotFoundError(
+                f"ls: {directory}: No such file or directory"
+            )
 
         if not os.path.isdir(directory):
             raise NotADirectoryError(f"ls: {directory}: Not a directory")

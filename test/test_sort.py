@@ -1,9 +1,9 @@
 import unittest
-import os
 import tempfile
 from pathlib import Path
 from src.commands.sort import SortCommand as Sort
 from src.commands.argument import Argument
+
 
 class TestSort(unittest.TestCase):
     def setUp(self):
@@ -18,7 +18,9 @@ class TestSort(unittest.TestCase):
     def test_sort_with_file(self):
         args = {
             "reverse": Argument(Argument.FLAG, "reverse", False),
-            "file": Argument(Argument.STRING, "file", str(self.temp_path / "test_file.txt"))
+            "file": Argument(
+                Argument.STRING, "file", str(self.temp_path / "test_file.txt")
+            ),
         }
         expected = "apple\nbanana\norange"
         response = Sort().execute(args)
@@ -27,7 +29,7 @@ class TestSort(unittest.TestCase):
     def test_sort_with_input(self):
         args = {
             "reverse": Argument(Argument.FLAG, "reverse", True),
-            "file": Argument(Argument.STRING, "file", None)
+            "file": Argument(Argument.STRING, "file", None),
         }
         input_text = "3\n1\n2"
         expected = "3\n2\n1"
@@ -37,7 +39,7 @@ class TestSort(unittest.TestCase):
     def test_sort_no_input(self):
         args = {
             "reverse": Argument(Argument.FLAG, "reverse", False),
-            "file": Argument(Argument.STRING, "file", None)
+            "file": Argument(Argument.STRING, "file", None),
         }
         with self.assertRaises(ValueError):
             Sort().execute(args)

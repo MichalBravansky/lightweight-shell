@@ -1,6 +1,5 @@
 from shell_parser.executors.executor import Executor
 from commands.commandFactory import CommandFactory
-from config import config
 from utils.argument_handler import ArgumentHandler
 
 
@@ -44,4 +43,9 @@ class Call(Executor):
 
         args = ArgumentHandler.assign_arguments(self._command, self._args)
 
-        return [*filter(lambda x: x, [CommandFactory().execute_command(self._command, args, input)])]
+        return [
+            *filter(
+                lambda x: x,
+                [CommandFactory().execute_command(self._command, args, input)],
+            )
+        ]

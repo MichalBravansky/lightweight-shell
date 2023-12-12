@@ -1,1 +1,1 @@
-from .shell import eval
+from .shell import eval  # noqa: F401

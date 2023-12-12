@@ -1,5 +1,4 @@
 from shell_parser.executors.executor import Executor
-from shell_parser.executors.call import Call
 from itertools import chain
 
 
@@ -11,8 +10,10 @@ class Sequence(Executor):
     It inherits from the Executor class and overrides the evaluate method
     to implement sequential execution of commands.
     """
-        
-    def __init__(self, left_executor: Executor, right_executor: Executor) -> None:
+
+    def __init__(
+        self, left_executor: Executor, right_executor: Executor
+    ) -> None:
         """
         Initializes a new instance of the Sequence class.
 
@@ -20,10 +21,9 @@ class Sequence(Executor):
             left_executor (Executor): The first executor in the sequence.
             right_executor (Executor): The second executor in the sequence.
         """
-                
+
         self._left_executor = left_executor
         self._right_executor = right_executor
-
 
     def _process_executor(self, executor: Executor, output: [str]) -> [str]:
         """
@@ -38,7 +38,7 @@ class Sequence(Executor):
         Returns:
             [str]: The updated list of output lines after processing the given executor.
         """
-                
+
         if executor:
             response = executor.evaluate()
 
@@ -55,7 +55,7 @@ class Sequence(Executor):
         Returns:
             [str]: The combined output from both executors in the sequence, with empty lines filtered out.
         """
-                
+
         output = []
 
         output = self._process_executor(self._left_executor, output)

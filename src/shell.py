@@ -5,13 +5,11 @@ from shell_parser.converter import Converter
 from utils.custom_error_listener import CustomErrorListener
 import sys
 import os
-from utils.exceptions import (
-    ParsingError,
-    UnknownCommandError
-)
+from utils.exceptions import ParsingError, UnknownCommandError
 
 import readline
 from utils.auto_completer import AutoCompleter
+
 
 def process(cmdline: str) -> str:
     input_stream = InputStream(cmdline)
@@ -27,44 +25,35 @@ def process(cmdline: str) -> str:
     parser = ShellParser(token_stream)
     parser.addErrorListener(CustomErrorListener())
 
-    # Create a listener
-    visitor = Converter()
-
     # Build the parse tree
     tree = parser.shell()
 
     # Use the visitor to visit the parse tree
     visitor = Converter()
-    root = tree.accept(Converter())
+    root = tree.accept(visitor)
 
     if root:
-        return "\n".join(root.evaluate()) 
+        return "\n".join(root.evaluate())
 
     return ""
 
 
 def eval(user_input: str) -> str:
-
     try:
-        return process(user_input) 
-    except (
-        ParsingError,
-        UnknownCommandError
-    ) as error:
+        return process(user_input)
+    except (ParsingError, UnknownCommandError) as error:
         return str(error)
     except Exception as error:
         sys.exit(str(error))
 
 
 def main():
-
     readline.parse_and_bind("tab: complete")
     readline.set_completer(AutoCompleter().completer)
 
     args_num = len(sys.argv) - 1
 
     if args_num == 0:
-
         while True:
             user_input = input(os.getcwd() + "> ")
 

@@ -11,7 +11,9 @@ class TestEcho(unittest.TestCase):
         self.assertEqual(response, expected)
 
     def test_echo_multiple_text(self):
-        echo_text_arg = Argument(Argument.LIST, "echo_text", ["Hello", "World!"])
+        echo_text_arg = Argument(
+            Argument.LIST, "echo_text", ["Hello", "World!"]
+        )
         response = Echo().execute({"echo_text": echo_text_arg})
         expected = "Hello World!"
         self.assertEqual(response, expected)

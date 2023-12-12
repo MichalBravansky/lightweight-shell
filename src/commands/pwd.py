@@ -1,6 +1,7 @@
 from .command import Command
 import os
 
+
 class PwdCommand(Command):
     """
     Represents the 'pwd' command which prints the current working directory.

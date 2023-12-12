@@ -2,6 +2,7 @@ from .command import Command
 import os
 import fnmatch
 
+
 class FindCommand(Command):
     """
     Represents the 'find' command which walks a file hierarchy.
