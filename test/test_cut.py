@@ -43,7 +43,7 @@ class TestCut(unittest.TestCase):
         self.assertEqual(response, expected)
 
     @given(text(min_size=1, max_size=10000))
-    def test_cut_hypothesis_specific_bytes_from_input(self, input_str):
+    def test_cut_automated_specific_bytes_from_input(self, input_str):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, 'bytes', '1-4')
         response = Cut().execute(
             {
