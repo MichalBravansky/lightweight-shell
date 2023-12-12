@@ -97,7 +97,7 @@ class TailCommand(Command):
                 ' information.'
             )
         return input.splitlines()
-    
+
     def _get_lines_from_file(self, file_path: str) -> [str]:
         """
         Reads lines from a file.
