@@ -24,7 +24,7 @@ The project is structured as follows:
 
 - The [`commands`](src/commands/) subdirectory contains the implementation of the built-in commands that the shell supports.
 
-- The [`utils`](src/utils/) subdirectory contains utility classes and functions that are used throughout the project, such as the [`AutoCompleter`](src/utils/auto_completer.py) class for the autocomplete feature.
+- The [`utils`](src/utils/) subdirectory contains utility classes and functions that are used throughout the project, such as the [`AutoCompleter`](src/utils/auto_completer.py),[ArgumentHandler](src/utils/argument_handler.py), and [Exceptions](src/utils/exceptions.py).
 
 - The [`test`](test/) directory contains unit tests as well as prop tests for the various components of the shell.
 
