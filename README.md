@@ -10,6 +10,8 @@ In addition to the basic required functionality (described in [Applications](#ap
 
 - **Command History**: You can navigate through your command history using the up and down arrow keys. This allows you to easily access and repeat previously executed commands without retyping them.
 
+- **Current Working Directory**: COMP0010 Shell will show the current directory you are in at all times without having to run the `pwd` command (although this is still available).
+
 - **Command Help**: The shell supports the `--help` option, which provides help and usage information for a specific command. This feature is useful for understanding the available options and arguments for each command.
 
 - **Helpful Commands**: There are several helpful commands included that are commonly used for file system manipulation and quality of life. These commands include `mkdir` for creating directories, `rm` for removing files and directories, and `clear` for clearing the shell's output.
