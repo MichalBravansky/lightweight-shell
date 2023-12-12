@@ -33,25 +33,26 @@ of a command, such as ParsingError and UnknownCommandError.
 
 
 def process(cmdline: str) -> str:
-    input_stream = InputStream(cmdline)
+    """
+    Process the given command line and return the result as a string.
 
-    # Create the lexer
+    Args:
+        cmdline (str): The command line to process.
+
+    Returns:
+        str: The result of processing the command line.
+    """
+
+    input_stream = InputStream(cmdline)
     lexer = ShellLexer(input_stream)
     lexer.addErrorListener(CustomErrorListener())
-
-    # Create a stream of tokens
     token_stream = CommonTokenStream(lexer)
-
-    # Create the parser
     parser = ShellParser(token_stream)
     parser.addErrorListener(CustomErrorListener())
 
-    # Build the parse tree
     tree = parser.shell()
 
-    # Use the visitor to visit the parse tree
-    visitor = Converter()
-    root = tree.accept(visitor)
+    root = tree.accept(Converter())
 
     if root:
         return '\n'.join(root.evaluate())
@@ -60,6 +61,19 @@ def process(cmdline: str) -> str:
 
 
 def eval(user_input: str) -> str:
+    """
+    Evaluates the user input and returns the result.
+
+    Args:
+        user_input (str): The input provided by the user.
+
+    Returns:
+        str: The result of processing the user input.
+
+    Raises:
+        ParsingError: If there is an error in parsing the user input.
+        UnknownCommandError: If the user input contains an unknown command.
+    """
     try:
         return process(user_input)
     except (ParsingError, UnknownCommandError) as error:
