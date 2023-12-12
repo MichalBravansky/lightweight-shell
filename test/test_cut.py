@@ -51,8 +51,8 @@ class TestCut(unittest.TestCase):
                 'file': Argument(Argument.STRING, 'file', None),
             },
             input=input_str,
-        ).strip("\n")
-        expected = input_str[:4].strip("\n")
+        )
+        expected = input_str[:4]
 
         self.assertEqual(response, expected)
 
