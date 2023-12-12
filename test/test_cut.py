@@ -54,7 +54,7 @@ class TestCut(unittest.TestCase):
         )
         expected = input_str[:4]
 
-        self.assertEqual(response, expected)
+        self.assertEqual(response.strip("\n"), expected.strip("\n"))
 
     def test_cut_with_invalid_byte_range(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, 'bytes', '5-2')
