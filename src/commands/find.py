@@ -14,7 +14,7 @@ class FindCommand(Command):
     def __init__(self):
         super().__init__('find', 'walk a file hierarchy')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'find' command with the provided arguments.
 
@@ -36,7 +36,7 @@ class FindCommand(Command):
 
         return '\n'.join(self._find_files(directory, pattern)) + '\n'
 
-    def _get_search_directory(self, args):
+    def _get_search_directory(self, args: dict) -> str:
         """
         Retrieves the search directory from the arguments.
 
@@ -54,7 +54,7 @@ class FindCommand(Command):
             raise ValueError(f'find: Invalid directory: {directory}')
         return directory
 
-    def _get_search_pattern(self, args):
+    def _get_search_pattern(self, args: dict) -> str:
         """
         Retrieves the search pattern from the arguments.
 
@@ -72,7 +72,7 @@ class FindCommand(Command):
             raise ValueError('find: No search pattern specified')
         return pattern
 
-    def _find_files(self, directory, pattern):
+    def _find_files(self, directory: str, pattern: str) -> [str]:
         """
         Finds files matching the pattern starting from the specified directory.
 

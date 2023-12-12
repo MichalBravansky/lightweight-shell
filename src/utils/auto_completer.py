@@ -8,7 +8,7 @@ class AutoCompleter:
     directory that start with the input string.
     """
 
-    def completer(self, text: str, state: int):
+    def completer(self, text: str, state: int) -> str:
         """
         Return the next autocomplete suggestion that starts with the input
         text.

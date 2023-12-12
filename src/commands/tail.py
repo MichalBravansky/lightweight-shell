@@ -15,7 +15,7 @@ class TailCommand(Command):
     def __init__(self):
         super().__init__('tail', 'display last lines of a file')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'tail' command with the provided arguments and
         optional input.
@@ -43,7 +43,7 @@ class TailCommand(Command):
             lines[-min(num_lines, len(lines)):] if num_lines > 0 else ''
         )
 
-    def _validate_args(self, args):
+    def _validate_args(self, args: dict):
         """
         Validates the command arguments.
 
@@ -58,7 +58,7 @@ class TailCommand(Command):
                 f"tail: illegal line count -- {args['lines'].value}"
             )
 
-    def _get_lines(self, args, input):
+    def _get_lines(self, args: dict, input: str) -> [str]:
         """
         Gets the lines from the file or input string.
 
@@ -78,7 +78,7 @@ class TailCommand(Command):
         else:
             return self._get_lines_from_file(args['file'].value)
 
-    def _get_lines_from_input(self, input):
+    def _get_lines_from_input(self, input: str) -> [str]:
         """
         Gets lines from the input string.
 
@@ -98,7 +98,7 @@ class TailCommand(Command):
             )
         return input.splitlines()
 
-    def _get_lines_from_file(self, file_path):
+    def _get_lines_from_file(self, file_path: str) -> [str]:
         """
         Reads lines from a file.
 

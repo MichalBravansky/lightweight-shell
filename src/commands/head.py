@@ -15,7 +15,7 @@ class HeadCommand(Command):
     def __init__(self):
         super().__init__('head', 'display first lines of a file')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'head' command with the provided arguments and
         optional input.
@@ -40,7 +40,7 @@ class HeadCommand(Command):
         lines = self._get_lines(args, input)
         return '\n'.join(lines[: min(args['lines'].value, len(lines))])
 
-    def _validate_args(self, args):
+    def _validate_args(self, args: dict) -> str:
         """
         Validates the command arguments.
 
@@ -55,7 +55,7 @@ class HeadCommand(Command):
                 f"head: illegal line count -- {args['lines'].value}"
             )
 
-    def _get_lines(self, args, input):
+    def _get_lines(self, args: dict, input: str) -> [str]:
         """
         Gets the lines from the file or input string.
 
@@ -75,7 +75,7 @@ class HeadCommand(Command):
         else:
             return self._get_lines_from_file(args['file'].value)
 
-    def _get_lines_from_input(self, input):
+    def _get_lines_from_input(self, input: str) -> [str]:
         """
         Gets lines from the input string.
 
@@ -95,7 +95,7 @@ class HeadCommand(Command):
             )
         return input.split('\n')
 
-    def _get_lines_from_file(self, file_path):
+    def _get_lines_from_file(self, file_path: str) -> [str]:
         """
         Reads lines from a file.
 

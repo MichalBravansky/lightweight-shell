@@ -14,7 +14,7 @@ class UniqCommand(Command):
     def __init__(self):
         super().__init__('uniq', 'remove duplicate lines')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'uniq' command with the provided arguments and optional
         input.
@@ -38,7 +38,7 @@ class UniqCommand(Command):
         lines = self._read_lines(file_path, input)
         return '\n'.join(self._remove_duplicates(lines, ignore_case))
 
-    def _read_lines(self, file_path, input):
+    def _read_lines(self, file_path: str, input: str) -> [str]:
         """
         Reads lines from a file or input string.
 
@@ -63,7 +63,7 @@ class UniqCommand(Command):
                 ' information.'
             )
 
-    def _remove_duplicates(self, lines, ignore_case):
+    def _remove_duplicates(self, lines: [str], ignore_case: bool) -> [str]:
         """
         Removes duplicate consecutive lines from the list of lines.
 

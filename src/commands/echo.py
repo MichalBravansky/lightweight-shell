@@ -13,7 +13,7 @@ class EchoCommand(Command):
     def __init__(self):
         super().__init__('echo', 'output text to stdout')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'echo' command with the provided arguments.
 

@@ -51,7 +51,19 @@ class CommandFactory:
             "mkdir": MkdirCommand
         }
 
-    def execute_command(self, command_name, args: list, input=None):
+    def execute_command(self, command_name: str, args: list, input: str = None) -> str:
+        """
+        Executes the specified command with the given arguments and input.
+
+        Args:
+            command_name (str): The name of the command to execute.
+            args (list): The arguments to pass to the command.
+            input (str, optional): The input to provide to the command. Defaults to None.
+
+        Returns:
+            str: the result of executing the command.
+        """
+
         command_class = self.classes.get(command_name.lower())
         if command_class is None:
             raise UnknownCommandError(command_name)

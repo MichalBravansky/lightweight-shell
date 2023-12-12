@@ -13,7 +13,7 @@ class PwdCommand(Command):
     def __init__(self):
         super().__init__('pwd', 'print working directory')
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'pwd' command.
 

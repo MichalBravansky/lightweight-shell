@@ -16,7 +16,7 @@ class CutCommand(Command):
             'cut', 'cut out selected portions of each line of a file'
         )
 
-    def parse_byte_ranges(self, byte_range_str):
+    def parse_byte_ranges(self, byte_range_str: str) -> list:
         """
         Parses a string representing byte ranges and returns a list of tuples.
 
@@ -44,7 +44,7 @@ class CutCommand(Command):
                 ranges.append((byte, byte + 1))
         return ranges
 
-    def cut_bytes_from_line(self, line, byte_ranges):
+    def cut_bytes_from_line(self, line: str, byte_ranges: [tuple]) -> str:
         """
         Extracts bytes from a line based on the specified byte ranges.
 
@@ -64,7 +64,7 @@ class CutCommand(Command):
                     break
         return ''.join(result)
 
-    def execute(self, args, input=None):
+    def execute(self, args: dict, input: str = None) -> str:
         """
         Executes the 'cut' command with the provided arguments and
         optional input.
@@ -99,7 +99,7 @@ class CutCommand(Command):
         lines = self._read_lines_from_file_or_input(file_name, input)
         return self._cut_bytes_from_lines(lines, byte_ranges)
 
-    def _parse_and_validate_byte_ranges(self, byte_range_str):
+    def _parse_and_validate_byte_ranges(self, byte_range_str: str) -> [tuple]:
         """
         Parses and validates the byte range string.
 
@@ -119,7 +119,7 @@ class CutCommand(Command):
                 f'cut: invalid byte range specification: {str(e)}'
                 )
 
-    def _read_lines_from_file_or_input(self, file_name, input):
+    def _read_lines_from_file_or_input(self, file_name: str, input: str) -> [str]:
         """
         Reads lines from a file or input string.
 
@@ -148,7 +148,7 @@ class CutCommand(Command):
                     )
         return input.split('\n')
 
-    def _cut_bytes_from_lines(self, lines, byte_ranges):
+    def _cut_bytes_from_lines(self, lines: [str], byte_ranges: [tuple]) -> str:
         """
         Cuts bytes from each line based on the byte ranges.
 
