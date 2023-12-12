@@ -11,7 +11,7 @@ class CatCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("cat", "concatenate and print files")
+        super().__init__('cat', 'concatenate and print files')
 
     def execute(self, args, input=None):
         """
@@ -29,9 +29,9 @@ class CatCommand(Command):
             ValueError: If no file or input is provided.
             FileNotFoundError: If any of the provided file paths does not exist.
         """
-        if not args["files"].value:
+        if not args['files'].value:
             return self._handle_no_file_provided(input)
-        return self._concatenate_files(args["files"].value)
+        return self._concatenate_files(args['files'].value)
 
     def _handle_no_file_provided(self, input):
         """
@@ -49,7 +49,7 @@ class CatCommand(Command):
         if input is None:
             raise ValueError(
                 "cat: missing file operand\nTry 'cat --help' for more"
-                " information."
+                ' information.'
             )
         return input
 
@@ -69,11 +69,11 @@ class CatCommand(Command):
         all_lines = []
         for file_name in file_names:
             if os.path.exists(file_name):
-                with open(file_name, "r") as file:
-                    lines = file.read().strip().split("\n")
+                with open(file_name, 'r') as file:
+                    lines = file.read().strip().split('\n')
                     all_lines += lines
             else:
                 raise FileNotFoundError(
-                    f"cat: {file_name}: No such file or directory"
+                    f'cat: {file_name}: No such file or directory'
                 )
-        return "\n".join(all_lines)
+        return '\n'.join(all_lines)

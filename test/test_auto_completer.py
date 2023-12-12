@@ -17,16 +17,16 @@ class TestAutoCompleter(unittest.TestCase):
 
     def test_completer(self):
         # Create a dummy file for testing
-        with open("test_file.txt", "w") as f:
-            f.write("")
+        with open('test_file.txt', 'w') as f:
+            f.write('')
 
         # Test that the completer method returns the correct file
         self.assertEqual(
-            self.auto_completer.completer("test", 0), "test_file.txt"
+            self.auto_completer.completer('test', 0), 'test_file.txt'
         )
 
         # Test that the completer method returns None when there are no more matches
 
     def test_completer_no_match(self):
         # Test that the completer method returns None when there are no matches
-        self.assertIsNone(self.auto_completer.completer("no_match", 0))
+        self.assertIsNone(self.auto_completer.completer('no_match', 0))

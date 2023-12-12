@@ -41,9 +41,9 @@ class Pipe(Executor):
         """
 
         if self._left_executor:
-            input = "".join(self._left_executor.evaluate(input))
+            input = ''.join(self._left_executor.evaluate(input))
 
         if self._right_executor:
-            input = "".join(self._right_executor.evaluate(input))
+            input = ''.join(self._right_executor.evaluate(input))
 
         return [input]

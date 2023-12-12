@@ -46,204 +46,204 @@ class TestConverter(unittest.TestCase):
         self.assertEqual(redirection.file_name, expected_file_name)
 
     def test_empty(self):
-        call = self.parse_command_line("")
+        call = self.parse_command_line('')
         self.assertIsNone(call)
 
     def test_semicon(self):
-        call = self.parse_command_line(";")
+        call = self.parse_command_line(';')
         self.assertIsNone(call)
 
     def test_call_empty(self):
-        call = self.parse_command_line("pwd")
-        self.assertCallEqual(call, "pwd", [])
+        call = self.parse_command_line('pwd')
+        self.assertCallEqual(call, 'pwd', [])
 
     def test_call_default(self):
-        call = self.parse_command_line("ls")
-        self.assertCallEqual(call, "ls", [])
+        call = self.parse_command_line('ls')
+        self.assertCallEqual(call, 'ls', [])
 
     def test_call_semicon(self):
-        call = self.parse_command_line("ls;")
-        self.assertCallEqual(call, "ls", [])
+        call = self.parse_command_line('ls;')
+        self.assertCallEqual(call, 'ls', [])
 
     def test_call_whitespace(self):
-        call = self.parse_command_line("   ls   ")
-        self.assertCallEqual(call, "ls", [])
+        call = self.parse_command_line('   ls   ')
+        self.assertCallEqual(call, 'ls', [])
 
     def test_call_non_quoted(self):
-        call = self.parse_command_line("echo -n foo")
-        self.assertCallEqual(call, "echo", ["-n", "foo"])
+        call = self.parse_command_line('echo -n foo')
+        self.assertCallEqual(call, 'echo', ['-n', 'foo'])
 
     def test_call_single_quoted(self):
         call = self.parse_command_line("echo ' foo '")
-        self.assertCallEqual(call, "echo", [" foo "])
+        self.assertCallEqual(call, 'echo', [' foo '])
 
     def test_call_double_quoted(self):
         call = self.parse_command_line('echo " foo "')
-        self.assertCallEqual(call, "echo", [" foo "])
+        self.assertCallEqual(call, 'echo', [' foo '])
 
     def test_call_quoted_inside_double_quoted(self):
         call = self.parse_command_line('echo " foo \' bar "')
-        self.assertCallEqual(call, "echo", [" foo ' bar "])
+        self.assertCallEqual(call, 'echo', [" foo ' bar "])
 
     def test_call_quoted_inside_non_quoted(self):
         call = self.parse_command_line("echo foo'bar'baz")
-        self.assertCallEqual(call, "echo", ["foobarbaz"])
+        self.assertCallEqual(call, 'echo', ['foobarbaz'])
 
     def test_call_substitution(self):
-        call = self.parse_command_line("echo `echo foo`")
-        self.assertCallEqual(call, "echo", ["foo"])
+        call = self.parse_command_line('echo `echo foo`')
+        self.assertCallEqual(call, 'echo', ['foo'])
 
     def test_call_substitution_inside_double_quoted(self):
         call = self.parse_command_line('echo "foo `echo bar`"')
-        self.assertCallEqual(call, "echo", ["foo bar"])
+        self.assertCallEqual(call, 'echo', ['foo bar'])
 
     def test_call_nested_double_quoted(self):
         call = self.parse_command_line('echo "foo `echo "bar"`"')
-        self.assertCallEqual(call, "echo", ["foo bar"])
+        self.assertCallEqual(call, 'echo', ['foo bar'])
 
     def test_call_substitution_split(self):
-        call = self.parse_command_line("echo `echo foo  bar`")
-        self.assertCallEqual(call, "echo", ["foo bar"])
+        call = self.parse_command_line('echo `echo foo  bar`')
+        self.assertCallEqual(call, 'echo', ['foo bar'])
 
     def test_call_substitution_inside_non_quoted(self):
-        call = self.parse_command_line("echo foo`echo bar`baz")
-        self.assertCallEqual(call, "echo", ["foobarbaz"])
+        call = self.parse_command_line('echo foo`echo bar`baz')
+        self.assertCallEqual(call, 'echo', ['foobarbaz'])
 
     def test_call_substitution_command(self):
-        call = self.parse_command_line("`echo echo` foo")
-        self.assertCallEqual(call, "echo", ["foo"])
+        call = self.parse_command_line('`echo echo` foo')
+        self.assertCallEqual(call, 'echo', ['foo'])
 
     def test_call_substitution_sequence(self):
-        call = self.parse_command_line("echo `echo foo; echo bar`")
-        self.assertCallEqual(call, "echo", ["foo bar"])
+        call = self.parse_command_line('echo `echo foo; echo bar`')
+        self.assertCallEqual(call, 'echo', ['foo bar'])
 
     def test_call_substitution_pipe(self):
-        call = self.parse_command_line("echo `echo foo | echo bar`")
-        self.assertCallEqual(call, "echo", ["bar"])
+        call = self.parse_command_line('echo `echo foo | echo bar`')
+        self.assertCallEqual(call, 'echo', ['bar'])
 
     def test_redirection_read(self):
-        redirection = self.parse_command_line("echo < foo.txt")
+        redirection = self.parse_command_line('echo < foo.txt')
         self.assertRedirectionEqual(
-            redirection, RedirectionType.READ, "foo.txt"
+            redirection, RedirectionType.READ, 'foo.txt'
         )
-        self.assertCallEqual(redirection.call, "echo", [])
+        self.assertCallEqual(redirection.call, 'echo', [])
 
     def test_redirection_overwrite(self):
-        redirection = self.parse_command_line("echo > foo.txt")
+        redirection = self.parse_command_line('echo > foo.txt')
         self.assertRedirectionEqual(
-            redirection, RedirectionType.OVERWRITE, "foo.txt"
+            redirection, RedirectionType.OVERWRITE, 'foo.txt'
         )
-        self.assertCallEqual(redirection.call, "echo", [])
+        self.assertCallEqual(redirection.call, 'echo', [])
 
     def test_redirection_append(self):
-        redirection = self.parse_command_line("echo >> foo.txt")
+        redirection = self.parse_command_line('echo >> foo.txt')
         self.assertRedirectionEqual(
-            redirection, RedirectionType.APPEND, "foo.txt"
+            redirection, RedirectionType.APPEND, 'foo.txt'
         )
-        self.assertCallEqual(redirection.call, "echo", [])
+        self.assertCallEqual(redirection.call, 'echo', [])
 
     def test_redirection_red_overwrite(self):
-        redirection = self.parse_command_line("echo < foo.txt > bar.txt")
+        redirection = self.parse_command_line('echo < foo.txt > bar.txt')
         self.assertRedirectionEqual(
-            redirection, RedirectionType.READ, "foo.txt"
+            redirection, RedirectionType.READ, 'foo.txt'
         )
         self.assertRedirectionEqual(
-            redirection.call, RedirectionType.OVERWRITE, "bar.txt"
+            redirection.call, RedirectionType.OVERWRITE, 'bar.txt'
         )
-        self.assertCallEqual(redirection.call.call, "echo", [])
+        self.assertCallEqual(redirection.call.call, 'echo', [])
 
     def test_redirection_in_front(self):
-        redirection = self.parse_command_line("< foo.txt echo")
+        redirection = self.parse_command_line('< foo.txt echo')
         self.assertRedirectionEqual(
-            redirection, RedirectionType.READ, "foo.txt"
+            redirection, RedirectionType.READ, 'foo.txt'
         )
-        self.assertCallEqual(redirection.call, "echo", [])
+        self.assertCallEqual(redirection.call, 'echo', [])
 
     def test_redirection_single_quoted(self):
-        redirection = self.parse_command_line("echo < foo.txt")
+        redirection = self.parse_command_line('echo < foo.txt')
         self.assertRedirectionEqual(
-            redirection, RedirectionType.READ, "foo.txt"
+            redirection, RedirectionType.READ, 'foo.txt'
         )
-        self.assertCallEqual(redirection.call, "echo", [])
+        self.assertCallEqual(redirection.call, 'echo', [])
 
     def test_redirection_no_whitespace(self):
-        redirection = self.parse_command_line("echo<foo.txt")
+        redirection = self.parse_command_line('echo<foo.txt')
         self.assertRedirectionEqual(
-            redirection, RedirectionType.READ, "foo.txt"
+            redirection, RedirectionType.READ, 'foo.txt'
         )
-        self.assertCallEqual(redirection.call, "echo", [])
+        self.assertCallEqual(redirection.call, 'echo', [])
 
     def test_pipe_single(self):
-        pipe = self.parse_command_line("echo foo | echo bar")
-        self.assertCallEqual(pipe._left_executor, "echo", ["foo"])
-        self.assertCallEqual(pipe._right_executor, "echo", ["bar"])
+        pipe = self.parse_command_line('echo foo | echo bar')
+        self.assertCallEqual(pipe._left_executor, 'echo', ['foo'])
+        self.assertCallEqual(pipe._right_executor, 'echo', ['bar'])
 
     def test_pipe_multiple(self):
-        pipe = self.parse_command_line("echo | echo | echo")
-        self.assertCallEqual(pipe._left_executor, "echo", [])
-        self.assertCallEqual(pipe._right_executor._left_executor, "echo", [])
-        self.assertCallEqual(pipe._right_executor._right_executor, "echo", [])
+        pipe = self.parse_command_line('echo | echo | echo')
+        self.assertCallEqual(pipe._left_executor, 'echo', [])
+        self.assertCallEqual(pipe._right_executor._left_executor, 'echo', [])
+        self.assertCallEqual(pipe._right_executor._right_executor, 'echo', [])
 
     def test_pipe_multiple_arguments(self):
         pipe = self.parse_command_line('echo foo"bar" | echo | echo baz')
-        self.assertCallEqual(pipe._left_executor, "echo", ["foobar"])
-        self.assertCallEqual(pipe._right_executor._left_executor, "echo", [])
+        self.assertCallEqual(pipe._left_executor, 'echo', ['foobar'])
+        self.assertCallEqual(pipe._right_executor._left_executor, 'echo', [])
         self.assertCallEqual(
-            pipe._right_executor._right_executor, "echo", ["baz"]
+            pipe._right_executor._right_executor, 'echo', ['baz']
         )
 
     def test_sequence(self):
-        sequence = self.parse_command_line("echo foo; echo bar")
-        self.assertCallEqual(sequence._left_executor, "echo", ["foo"])
-        self.assertCallEqual(sequence._right_executor, "echo", ["bar"])
+        sequence = self.parse_command_line('echo foo; echo bar')
+        self.assertCallEqual(sequence._left_executor, 'echo', ['foo'])
+        self.assertCallEqual(sequence._right_executor, 'echo', ['bar'])
 
     def test_sequence_multiple(self):
-        sequence = self.parse_command_line("echo; echo; echo")
-        self.assertCallEqual(sequence._left_executor, "echo", [])
+        sequence = self.parse_command_line('echo; echo; echo')
+        self.assertCallEqual(sequence._left_executor, 'echo', [])
         self.assertCallEqual(
-            sequence._right_executor._left_executor, "echo", []
+            sequence._right_executor._left_executor, 'echo', []
         )
         self.assertCallEqual(
-            sequence._right_executor._right_executor, "echo", []
+            sequence._right_executor._right_executor, 'echo', []
         )
 
     def test_sequence_multiple_arguments(self):
         sequence = self.parse_command_line('echo foo"bar"; echo; echo baz')
-        self.assertCallEqual(sequence._left_executor, "echo", ["foobar"])
+        self.assertCallEqual(sequence._left_executor, 'echo', ['foobar'])
         self.assertCallEqual(
-            sequence._right_executor._left_executor, "echo", []
+            sequence._right_executor._left_executor, 'echo', []
         )
         self.assertCallEqual(
-            sequence._right_executor._right_executor, "echo", ["baz"]
+            sequence._right_executor._right_executor, 'echo', ['baz']
         )
 
     def test_sequence_pipe(self):
-        sequence = self.parse_command_line("echo foo | echo bar; echo baz")
+        sequence = self.parse_command_line('echo foo | echo bar; echo baz')
         self.assertCallEqual(
-            sequence._left_executor._left_executor, "echo", ["foo"]
+            sequence._left_executor._left_executor, 'echo', ['foo']
         )
         self.assertCallEqual(
-            sequence._left_executor._right_executor, "echo", ["bar"]
+            sequence._left_executor._right_executor, 'echo', ['bar']
         )
-        self.assertCallEqual(sequence._right_executor, "echo", ["baz"])
+        self.assertCallEqual(sequence._right_executor, 'echo', ['baz'])
 
     def test_globbing(self):
         with tempfile.TemporaryDirectory() as test_dir:
-            test_file = os.path.join(test_dir, "test.txt")
+            test_file = os.path.join(test_dir, 'test.txt')
 
-            with open(test_file, "w"):
+            with open(test_file, 'w'):
                 pass
 
-            call = self.parse_command_line(f"echo {test_dir}/*.txt")
+            call = self.parse_command_line(f'echo {test_dir}/*.txt')
 
             self.assertCallEqual(
-                call, "echo", [os.path.join(test_dir, "test.txt")]
+                call, 'echo', [os.path.join(test_dir, 'test.txt')]
             )
 
     def test_unsafe_call(self):
-        call = self.parse_command_line("_echo foo")
+        call = self.parse_command_line('_echo foo')
         self.assertIsInstance(call, UnsafeDecorator)
 
     def test_error_parsing(self):
         with self.assertRaises(ParsingError):
-            self.parse_command_line("<> file.txt")
+            self.parse_command_line('<> file.txt')

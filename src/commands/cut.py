@@ -11,7 +11,7 @@ class CutCommand(Command):
 
     def __init__(self):
         super().__init__(
-            "cut", "cut out selected portions of each line of a file"
+            'cut', 'cut out selected portions of each line of a file'
         )
 
     def parse_byte_ranges(self, byte_range_str):
@@ -30,9 +30,9 @@ class CutCommand(Command):
             ValueError: If there's an error in parsing the byte range string.
         """
         ranges = []
-        for part in byte_range_str.split(","):
-            if "-" in part:
-                start, end = part.split("-")
+        for part in byte_range_str.split(','):
+            if '-' in part:
+                start, end = part.split('-')
                 start = int(start) - 1 if start else 0
                 end = int(end) if end else None
                 ranges.append((start, end))
@@ -59,7 +59,7 @@ class CutCommand(Command):
                 if start <= i < end:
                     result.append(line[i])
                     break
-        return "".join(result)
+        return ''.join(result)
 
     def execute(self, args, input=None):
         """
@@ -78,13 +78,13 @@ class CutCommand(Command):
             FileNotFoundError: If the provided file path does not exist.
             IOError: If there's an error reading the file.
         """
-        byte_range_str = args["bytes"].value
-        file_name = args["file"].value
+        byte_range_str = args['bytes'].value
+        file_name = args['file'].value
 
         if not file_name and not input:
             raise ValueError(
                 "cut: missing file operand\nTry 'cut --help' for more"
-                " information."
+                ' information.'
             )
 
         byte_ranges = self._parse_and_validate_byte_ranges(byte_range_str)
@@ -108,7 +108,7 @@ class CutCommand(Command):
         try:
             return self.parse_byte_ranges(byte_range_str)
         except ValueError as e:
-            raise ValueError(f"Invalid byte range specification: {str(e)}")
+            raise ValueError(f'Invalid byte range specification: {str(e)}')
 
     def _read_lines_from_file_or_input(self, file_name, input):
         """
@@ -127,13 +127,13 @@ class CutCommand(Command):
         """
         if file_name:
             try:
-                with open(file_name, "r") as file:
+                with open(file_name, 'r') as file:
                     return file.read().splitlines()
             except FileNotFoundError:
                 raise FileNotFoundError(f"File '{file_name}' does not exist.")
             except IOError as e:
                 raise IOError(f"Error reading file '{file_name}': {str(e)}")
-        return input.split("\n")
+        return input.split('\n')
 
     def _cut_bytes_from_lines(self, lines, byte_ranges):
         """
@@ -149,4 +149,4 @@ class CutCommand(Command):
         result = [
             self.cut_bytes_from_line(line, byte_ranges) for line in lines
         ]
-        return "\n".join(result)
+        return '\n'.join(result)

@@ -1,7 +1,7 @@
 # Generated from Shell.g4 by ANTLR 4.13.1
 from antlr4 import *
 
-if "." in __name__:
+if '.' in __name__:
     from .ShellParser import ShellParser
 else:
     from ShellParser import ShellParser
