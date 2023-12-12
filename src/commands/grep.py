@@ -36,7 +36,8 @@ class GrepCommand(Command):
 
     def execute(self, args, input=None):
         """
-        Executes the 'grep' command with the provided arguments and optional input.
+        Executes the 'grep' command with the provided arguments
+        and optional input.
 
         Args:
             args (dict): A dictionary containing command arguments.
@@ -88,7 +89,8 @@ class GrepCommand(Command):
         Args:
             pattern (re.Pattern): The compiled regular expression pattern.
             files (argparse.Namespace): The file arguments.
-            prefix_file_path (bool): Whether to prefix file paths to output lines.
+            prefix_file_path (bool): Whether to prefix file paths to
+            output lines.
 
         Returns:
             str: The concatenated matching lines from all files.

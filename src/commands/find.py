@@ -7,8 +7,8 @@ class FindCommand(Command):
     """
     Represents the 'find' command which walks a file hierarchy.
 
-    This command mimics the behavior of the Unix 'find' command. It searches for files that match a
-    given pattern starting from a specified directory.
+    This command mimics the behavior of the Unix 'find' command. It searches
+    for files that match a given pattern starting from a specified directory.
     """
 
     def __init__(self):
@@ -19,15 +19,17 @@ class FindCommand(Command):
         Executes the 'find' command with the provided arguments.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected keys are 'directory' for the
-                         starting directory and 'name' for the search pattern.
+            args (dict): A dictionary containing command arguments. Expected
+                         keys are 'directory' for the starting directory and
+                         'name' for the search pattern.
             input (str, optional): Not used in this command.
 
         Returns:
             str: The newline-separated list of found files.
 
         Raises:
-            ValueError: If the specified directory is invalid or no search pattern is specified.
+            ValueError: If the specified directory is invalid or no search
+            pattern is specified.
         """
         directory = self._get_search_directory(args)
         pattern = self._get_search_pattern(args)

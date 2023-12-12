@@ -6,8 +6,9 @@ class CatCommand(Command):
     """
     Represents the 'cat' command which concatenates and prints files.
 
-    This command mimics the Unix 'cat' command. It concatenates the contents of one or more files
-    and prints them. If no file is provided, it can return an input string.
+    This command mimics the Unix 'cat' command. It concatenates the contents
+    of one or more files and prints them. If no file is provided, it can
+    return an input string.
     """
 
     def __init__(self):
@@ -15,19 +16,22 @@ class CatCommand(Command):
 
     def execute(self, args, input=None):
         """
-        Executes the 'cat' command with the provided arguments and optional input.
+        Executes the 'cat' command with the provided arguments and optional
+        input.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected key is 'files' for the
-                         list of files to concatenate.
-            input (str, optional): An optional string input to use when no file is provided.
+            args (dict): A dictionary containing command arguments. Expected
+                         key is 'files' for the list of files to concatenate.
+            input (str, optional): An optional string input to use when no
+                                   file is provided.
 
         Returns:
             str: The concatenated contents of the files or the input string.
 
         Raises:
             ValueError: If no file or input is provided.
-            FileNotFoundError: If any of the provided file paths does not exist.
+            FileNotFoundError: If any of the provided file paths does not
+                               exist.
         """
         if not args['files'].value:
             return self._handle_no_file_provided(input)

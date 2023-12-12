@@ -3,11 +3,12 @@ from .command import Command
 
 class UniqCommand(Command):
     """
-    Represents the 'uniq' command which removes duplicate consecutive lines from text.
+    Represents the 'uniq' command which removes duplicate consecutive lines
+    from text.
 
-    This command mimics the behavior of the Unix 'uniq' command. It can process lines from a file or
-    from provided input text, and outputs unique lines. It has an option to ignore case while
-    comparing lines.
+    This command mimics the behavior of the Unix 'uniq' command. It can process
+    lines from a file or from provided input text, and outputs unique lines.
+    It has an option to ignore case while comparing lines.
     """
 
     def __init__(self):
@@ -15,12 +16,15 @@ class UniqCommand(Command):
 
     def execute(self, args, input=None):
         """
-        Executes the 'uniq' command with the provided arguments and optional input.
+        Executes the 'uniq' command with the provided arguments and optional
+        input.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected keys are 'ignore_case' to
-                         indicate whether to ignore case in comparisons, and 'file' for the file path.
-            input (str, optional): An optional string input to use when no file is provided.
+            args (dict): A dictionary containing command arguments. Expected
+                         keys are 'ignore_case' to indicate whether to ignore
+                         case in comparisons, and 'file' for the file path.
+            input (str, optional): An optional string input to use when no
+                                   file is provided.
 
         Returns:
             str: The unique lines, concatenated into a single string.

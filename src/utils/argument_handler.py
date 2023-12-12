@@ -5,15 +5,19 @@ from commands.argument import Argument
 
 class ArgumentHandler:
     """
-    The ArgumentHandler class is responsible for assigning arguments to a specific command.
+    The ArgumentHandler class is responsible for assigning arguments to a
+    specific command.
 
-    The assign_arguments class method takes a command name and a list of arguments as input.
-    It returns a dictionary where the keys are the argument names and the values are the argument values.
+    The assign_arguments class method takes a command name and a list of
+    arguments as input. It returns a dictionary where the keys are the
+    argument names and the values are the argument values.
 
-    The ArgumentHandler uses the Argument class to represent individual arguments.
-    Each Argument object has a name and a value, which are set when the Argument object is created.
+    The ArgumentHandler uses the Argument class to represent individual
+    arguments. Each Argument object has a name and a value, which are set
+    when the Argument object is created.
 
-    If the command name is not recognized, the assign_arguments method raises an UnknownCommandError.
+    If the command name is not recognized, the assign_arguments method raises
+    an UnknownCommandError.
     """
 
     @classmethod
@@ -29,7 +33,8 @@ class ArgumentHandler:
             dict: The assigned arguments.
 
         Raises:
-            UnknownCommandError: If the command is not found in the configuration.
+            UnknownCommandError: If the command is not found in the
+            configuration.
         """
         if not config.is_command(command_name):
             raise UnknownCommandError(command_name)

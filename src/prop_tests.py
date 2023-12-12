@@ -4,11 +4,17 @@ from shell import eval
 import os
 import pytest
 
-# This script contains property-based tests for a shell environment using the Hypothesis library.
-# Property-based testing is a technique where tests are designed to verify certain properties of the code
-# by generating a wide range of input values and checking if the properties hold.
-# These tests are useful in identifying edge cases and ensuring the robustness of the shell functionality.
-# They are complemented by unit tests and system tests which are used to ensure the entire application is well-tested.
+"""
+This script contains property-based tests for a shell environment using the
+Hypothesis library.
+Property-based testing is a technique where tests are designed to verify
+certain properties of the code by generating a wide range of input values
+and checking if the properties hold.
+These tests are useful in identifying edge cases and ensuring the robustness
+of the shell functionality.
+They are complemented by unit tests and system tests which are used to ensure
+the entire application is well-tested.
+"""
 
 
 @pytest.fixture(autouse=True)

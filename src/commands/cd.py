@@ -6,8 +6,9 @@ class CdCommand(Command):
     """
     Represents the 'cd' command which changes the current working directory.
 
-    This command mimics the behavior of the Unix 'cd' command. It changes the current working
-    directory of the running Python process. Note that this affects the entire process.
+    This command mimics the behavior of the Unix 'cd' command. It changes the
+    current working directory of the running Python process. Note that this
+    affects the entire process.
     """
 
     def __init__(self):
@@ -18,12 +19,13 @@ class CdCommand(Command):
         Executes the 'cd' command with the provided arguments.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected key is 'cd_path' for the
-                         directory path to change to.
+            args (dict): A dictionary containing command arguments. Expected
+                         key is 'cd_path' for the directory path to change to.
             input (str, optional): Not used in this command.
 
         Raises:
-            NotADirectoryError: If the specified directory does not exist or is not a directory.
+            NotADirectoryError: If the specified directory does not exist or
+                                is not a directory.
         """
         cd_path = args['cd_path'].value
         self._change_directory(cd_path)
@@ -36,7 +38,8 @@ class CdCommand(Command):
             cd_path (str): The path of the directory to change to.
 
         Raises:
-            NotADirectoryError: If the specified directory does not exist or is not a directory.
+            NotADirectoryError: If the specified directory does not exist or
+                                is not a directory.
         """
         if os.path.exists(cd_path) and os.path.isdir(cd_path):
             os.chdir(cd_path)
