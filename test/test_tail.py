@@ -3,6 +3,10 @@ import tempfile
 from pathlib import Path
 from src.commands.tail import TailCommand as Tail
 from src.commands.argument import Argument
+import unittest
+from hypothesis import given
+from hypothesis.strategies import text
+from src.commands.tail import TailCommand as Tail
 
 
 class TestTail(unittest.TestCase):
@@ -44,6 +48,16 @@ class TestTail(unittest.TestCase):
         }
         input_text = '\n'.join(f'Line {i}' for i in range(1, 21))
         expected = '\n'.join(f'Line {i}' for i in range(18, 21))
+        response = Tail().execute(args, input_text)
+        self.assertEqual(response, expected)
+
+    @given(text(min_size=1, max_size = 10000))
+    def test_tail_automated_input_text(self, input_text):
+        args = {
+            'lines': Argument(Argument.FLAG_WITH_INTEGER, 'lines', 3),
+            'file': Argument(Argument.STRING, 'file', None),
+        }
+        expected = '\n'.join(input_text.split('\n')[-3:])
         response = Tail().execute(args, input_text)
         self.assertEqual(response, expected)
 

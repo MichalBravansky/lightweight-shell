@@ -3,6 +3,9 @@ import tempfile
 from pathlib import Path
 from src.commands.cat import CatCommand as Cat
 from src.commands.argument import Argument
+import unittest
+from hypothesis import given
+from hypothesis.strategies import text
 
 
 class TestCat(unittest.TestCase):
@@ -50,3 +53,15 @@ class TestCat(unittest.TestCase):
         response = Cat().execute({'files': arg}, input='This is stdin.')
         expected = 'This is stdin.'
         self.assertEqual(response, expected)
+
+    def test_cat_automated_input(self):
+        arg = Argument(Argument.LIST, 'files', [])
+        response = Cat().execute({'files': arg}, input='This is stdin.')
+        expected = 'This is stdin.'
+        self.assertEqual(response, expected)
+
+    @given(text())
+    def test_cat_automated_input(self, input_text):
+        arg = Argument(Argument.LIST, 'files', [])
+        response = Cat().execute({'files': arg}, input=input_text)
+        self.assertEqual(response, input_text)

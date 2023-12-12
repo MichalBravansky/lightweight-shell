@@ -4,6 +4,8 @@ import tempfile
 from pathlib import Path
 from src.commands.cut import CutCommand as Cut
 from src.commands.argument import Argument
+from hypothesis import given
+from hypothesis.strategies import text
 
 
 class TestCut(unittest.TestCase):
@@ -37,6 +39,20 @@ class TestCut(unittest.TestCase):
             input=input_str,
         )
         expected = 'Test\nTest\nTest'
+
+        self.assertEqual(response, expected)
+
+    @given(text(min_size=1, max_size=10000))
+    def test_cut_hypothesis_specific_bytes_from_input(self, input_str):
+        byte_arg = Argument(Argument.FLAG_WITH_STRING, 'bytes', '1-4')
+        response = Cut().execute(
+            {
+                'bytes': byte_arg,
+                'file': Argument(Argument.STRING, 'file', None),
+            },
+            input=input_str,
+        ).strip("\n")
+        expected = input_str[:4]
 
         self.assertEqual(response, expected)
 

@@ -96,7 +96,7 @@ class TailCommand(Command):
                 "tail: missing file operand\nTry 'tail --help' for more"
                 ' information.'
             )
-        return input.splitlines()
+        return input.split("\n")
 
     def _get_lines_from_file(self, file_path: str) -> [str]:
         """

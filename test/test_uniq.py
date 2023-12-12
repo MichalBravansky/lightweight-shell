@@ -3,6 +3,11 @@ import tempfile
 from pathlib import Path
 from src.commands.uniq import UniqCommand as Uniq
 from src.commands.argument import Argument
+import unittest
+from hypothesis import given
+from hypothesis.strategies import text
+from src.commands.uniq import UniqCommand as Uniq
+from src.commands.argument import Argument
 
 
 class TestUniq(unittest.TestCase):
@@ -54,3 +59,13 @@ class TestUniq(unittest.TestCase):
         }
         with self.assertRaises(ValueError):
             Uniq().execute(args)
+
+    @given(input_text=text())
+    def test_uniq_automated_no_file(self, input_text):
+        args = {
+            'ignore_case': Argument(Argument.FLAG, 'ignore_case', False),
+            'file': Argument(Argument.STRING, 'file', None),
+        }
+        expected = input_text
+        response = Uniq().execute(args, input_text)
+        self.assertEqual(response, expected)
