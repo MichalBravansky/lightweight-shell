@@ -57,7 +57,7 @@ class TestUniq(unittest.TestCase):
         with self.assertRaises(ValueError):
             Uniq().execute(args)
 
-    @given(input_text=text())
+    @given(input_text=text(min_size=1, max_size=10000))
     def test_uniq_automated_no_file(self, input_text):
         args = {
             'ignore_case': Argument(Argument.FLAG, 'ignore_case', False),

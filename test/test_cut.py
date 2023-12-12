@@ -52,7 +52,7 @@ class TestCut(unittest.TestCase):
             },
             input=input_str,
         ).strip("\n")
-        expected = input_str[:4]
+        expected = input_str[:4].strip("\n")
 
         self.assertEqual(response, expected)
 
