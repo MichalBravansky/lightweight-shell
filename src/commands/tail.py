@@ -17,12 +17,13 @@ class TailCommand(Command):
 
     def execute(self, args: dict, input: str = None) -> str:
         """
-        Executes the 'tail' command with the provided arguments and optional input.
+        Executes the 'tail' command with the provided arguments and
+        optional input.
 
         Args:
             args (dict): A dictionary containing command arguments.
-                         Expected keys are 'lines' for the
-                         number of lines to display and 'file' for the file path.
+                         Expected keys are 'lines' for the number of
+                         lines to display and 'file' for the file path.
             input (str, optional): An optional string input to use when
                                    no file is provided.
 
@@ -39,7 +40,7 @@ class TailCommand(Command):
         lines = self._get_lines(args, input)
         num_lines = args['lines'].value
         return '\n'.join(
-            lines[-min(num_lines, len(lines)) :] if num_lines > 0 else ''
+            lines[-min(num_lines, len(lines)):] if num_lines > 0 else ''
         )
 
     def _validate_args(self, args: dict):

@@ -3,10 +3,12 @@ from .command import Command
 
 class CutCommand(Command):
     """
-    Represents the 'cut' command which cuts out selected portions of each line of a file.
+    Represents the 'cut' command which cuts out selected portions of each
+    line of a file.
 
-    This command mimics the behavior of the Unix 'cut' command. It is used to extract specified byte
-    or character ranges from each line of a file or a given input string.
+    This command mimics the behavior of the Unix 'cut' command. It is used to
+    extract specified byte or character ranges from each line of a file or a
+    given input string.
     """
 
     def __init__(self):
@@ -21,7 +23,8 @@ class CutCommand(Command):
         The function adjusts for one-based indexing used in command-line tools.
 
         Args:
-            byte_range_str (str): String representing byte ranges, e.g., "1-3,5".
+            byte_range_str (str): String representing byte ranges
+            e.g., "1-3,5".
 
         Returns:
             list: A list of tuples representing the byte ranges.
@@ -63,18 +66,22 @@ class CutCommand(Command):
 
     def execute(self, args: dict, input: str = None) -> str:
         """
-        Executes the 'cut' command with the provided arguments and optional input.
+        Executes the 'cut' command with the provided arguments and
+        optional input.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected keys are 'bytes' for the
-                         byte ranges to cut and 'file' for the file path.
-            input (str, optional): An optional string input to use when no file is provided.
+            args (dict): A dictionary containing command arguments. Expected
+                         keys are 'bytes' for the byte ranges to cut and
+                         'file' for the file path.
+            input (str, optional): An optional string input to use when no
+                                   file is provided.
 
         Returns:
             str: The lines with the specified byte ranges cut out.
 
         Raises:
-            ValueError: If no file or input is provided, or if byte ranges are invalid.
+            ValueError: If no file or input is provided, or if byte ranges
+                        are invalid.
             FileNotFoundError: If the provided file path does not exist.
             IOError: If there's an error reading the file.
         """
@@ -108,7 +115,9 @@ class CutCommand(Command):
         try:
             return self.parse_byte_ranges(byte_range_str)
         except ValueError as e:
-            raise ValueError(f'cut: invalid byte range specification: {str(e)}')
+            raise ValueError(
+                f'cut: invalid byte range specification: {str(e)}'
+                )
 
     def _read_lines_from_file_or_input(self, file_name: str, input: str) -> [str]:
         """
@@ -130,9 +139,13 @@ class CutCommand(Command):
                 with open(file_name, 'r') as file:
                     return file.read().splitlines()
             except FileNotFoundError:
-                raise FileNotFoundError(f"cut: file '{file_name}' does not exist.")
+                raise FileNotFoundError(
+                    f"cut: file '{file_name}' does not exist."
+                    )
             except IOError as e:
-                raise IOError(f"cut: error reading file '{file_name}': {str(e)}")
+                raise IOError(
+                    f"cut: error reading file '{file_name}': {str(e)}"
+                    )
         return input.split('\n')
 
     def _cut_bytes_from_lines(self, lines: [str], byte_ranges: [tuple]) -> str:

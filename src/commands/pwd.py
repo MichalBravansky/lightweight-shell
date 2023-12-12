@@ -6,8 +6,8 @@ class PwdCommand(Command):
     """
     Represents the 'pwd' command which prints the current working directory.
 
-    This command mimics the behavior of the Unix 'pwd' command. It displays the path of the
-    current working directory.
+    This command mimics the behavior of the Unix 'pwd' command. It displays
+    the path of the current working directory.
     """
 
     def __init__(self):

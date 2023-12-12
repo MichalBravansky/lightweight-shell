@@ -36,7 +36,8 @@ class GrepCommand(Command):
 
     def execute(self, args: dict, input: str =None) -> str:
         """
-        Executes the 'grep' command with the provided arguments and optional input.
+        Executes the 'grep' command with the provided arguments
+        and optional input.
 
         Args:
             args (dict): A dictionary containing command arguments.

@@ -5,8 +5,9 @@ class SortCommand(Command):
     """
     Represents the 'sort' command which sorts lines of text.
 
-    This command mimics the behavior of the Unix 'sort' command. It can sort the lines in a file or
-    provided input text, in ascending or descending order.
+    This command mimics the behavior of the Unix 'sort' command. It can sort
+    the lines in a file or provided input text, in ascending or descending
+    order.
     """
 
     def __init__(self):
@@ -14,12 +15,15 @@ class SortCommand(Command):
 
     def execute(self, args: dict, input : str = None) -> str:
         """
-        Executes the 'sort' command with the provided arguments and optional input.
+        Executes the 'sort' command with the provided arguments and optional
+        input.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected keys are 'reverse' for
-                         sorting order and 'file' for the file path.
-            input (str, optional): An optional string input to use when no file is provided.
+            args (dict): A dictionary containing command arguments. Expected
+                         keys are 'reverse' for sorting order and 'file' for
+                         the file path.
+            input (str, optional): An optional string input to use when no
+                                   file is provided.
 
         Returns:
             str: The sorted lines, concatenated into a single string.

@@ -39,9 +39,11 @@ class Argument:
         self.value = arg_value
 
     @staticmethod
-    def populate_args(command_name: str, args_info: dict, arg_list: [str]) -> dict:
+    def populate_args(command_name: str, args_info: dict,
+                      arg_list: [str]) -> dict:
         """
-        Populates arguments based on the provided list of command line arguments.
+        Populates arguments based on the provided list of command line
+        arguments.
 
         Args:
             args_info (dict): Information about expected arguments.
@@ -66,7 +68,8 @@ class Argument:
             if arg.startswith('-'):
                 arg_name = arg[1:]
                 if arg_name in args_info['named_args']:
-                    # Handle named argument and update index if needed i.e -n 10 would consume two args
+                    # Handle named argument and update index if needed
+                    # i.e -n 10 would consume two args
                     i = Argument.handle_named_arg(
                         command_name, args_info, arg_name, arg_list, i
                     )
@@ -91,7 +94,8 @@ class Argument:
         return args_info
 
     @staticmethod
-    def handle_named_arg(command_name: str, args_info: dict, arg_name: str, arg_list: [str], i: int) -> int:
+    def handle_named_arg(command_name: str, args_info: dict, arg_name: str,
+                         arg_list: [str], i: int) -> int:
         """
         Handles a named argument and updates its value in args_info.
 
@@ -105,7 +109,8 @@ class Argument:
             int: Updated index after processing the named argument.
 
         Raises:
-            MissingValueError: If a required value is missing for the named argument.
+            MissingValueError: If a required value is missing for the
+            named argument.
         """
         arg_obj = args_info['named_args'][arg_name]
         arg_obj.value = True
@@ -120,17 +125,20 @@ class Argument:
         return i
 
     @staticmethod
-    def handle_positional_arg(command_name: str, args_info: dict, arg: str, positional_count: int) -> None:
+    def handle_positional_arg(command_name: str, args_info: dict, arg: str,
+                              positional_count: int) -> None:
         """
         Handles a positional argument and updates its value in args_info.
 
         Args:
             args_info (dict): Information about expected arguments.
             arg (str): The current argument to handle.
-            positional_count (int): Count of positional arguments processed so far.
+            positional_count (int): Count of positional arguments processed
+            so far.
 
         Raises:
-            UnexpectedArgumentError: If an unexpected positional argument is encountered.
+            UnexpectedArgumentError: If an unexpected positional argument is
+            encountered.
             TooManyArgumentsError: If too many arguments are provided.
         """
         if positional_count < len(args_info['positional_args']):
@@ -176,13 +184,15 @@ class Argument:
     @staticmethod
     def set_keys_to_readable(args_info: dict) -> dict:
         """
-        Converts argument objects in args_info to a dictionary with readable keys.
+        Converts argument objects in args_info to a dictionary with
+        readable keys.
 
         Args:
             args_info (dict): Information about expected arguments.
 
         Returns:
-            dict: Dictionary with arguments as keys and their details as values.
+            dict: Dictionary with arguments as keys and their details as
+            values.
         """
         return {
             arg.name: arg

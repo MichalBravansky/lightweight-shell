@@ -6,8 +6,8 @@ class LsCommand(Command):
     """
     Represents the 'ls' command which lists the contents of a directory.
 
-    This command mimics the behavior of the Unix 'ls' command. It lists the files and directories
-    within the specified directory.
+    This command mimics the behavior of the Unix 'ls' command. It lists
+    the files and directories within the specified directory.
     """
 
     def __init__(self):
@@ -18,12 +18,14 @@ class LsCommand(Command):
         Executes the 'ls' command with the provided arguments.
 
         Args:
-            args (dict): A dictionary containing command arguments. The expected key is 'directory' for
-                         the directory whose contents are to be listed.
+            args (dict): A dictionary containing command arguments. The
+                         expected key is 'directory' for the directory whose
+                         contents are to be listed.
             input (str, optional): Not used in this command.
 
         Returns:
-            str: A newline-separated list of the contents of the specified directory.
+            str: A newline-separated list of the contents of the
+                 specified directory.
 
         Raises:
             FileNotFoundError: If the specified directory does not exist.
