@@ -1,8 +1,4 @@
-import unittest
 import tempfile
-from pathlib import Path
-from src.commands.head import HeadCommand as Head
-from src.commands.argument import Argument
 import unittest
 from hypothesis import given
 from hypothesis.strategies import text

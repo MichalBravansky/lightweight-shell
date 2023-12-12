@@ -3,11 +3,6 @@ import tempfile
 from pathlib import Path
 from src.commands.grep import GrepCommand as Grep
 from src.commands.argument import Argument
-import unittest
-import tempfile
-from pathlib import Path
-from src.commands.grep import GrepCommand as Grep
-from src.commands.argument import Argument
 from hypothesis import given
 from hypothesis.strategies import text
 
