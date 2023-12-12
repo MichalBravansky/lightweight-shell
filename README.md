@@ -1,6 +1,6 @@
 # COMP0010 Shell
 
-Meet COMP0010 Shell, a learning-focused shell offering an interactive [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93print_loop) interface. It uses a straightforward language akin to [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) for command execution. You can call applications and connect their output using pipelines.
+Meet COMP0010 Shell, a lightweight shell built in Python offering an interactive [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93print_loop) interface. It uses a straightforward language akin to [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) for command execution. You can call applications and connect their output using pipelines. You can also run multiple commands one after another using ; to sequence commands.
 
 ## Features
 
