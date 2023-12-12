@@ -4,10 +4,12 @@ import os
 
 class HeadCommand(Command):
     """
-    Represents the 'head' command which is used to display the first lines of a file.
+    Represents the 'head' command which is used to display the first lines of
+    a file.
 
-    The command mimics the behavior of the Unix 'head' command. It can either take a file as an
-    argument and print its first few lines, or it can work with an input string if no file is provided.
+    The command mimics the behavior of the Unix 'head' command. It can either
+    take a file as an argument and print its first few lines, or it can work
+    with an input string if no file is provided.
     """
 
     def __init__(self):
@@ -15,18 +17,22 @@ class HeadCommand(Command):
 
     def execute(self, args, input=None):
         """
-        Executes the 'head' command with the provided arguments and optional input.
+        Executes the 'head' command with the provided arguments and
+        optional input.
 
         Args:
-            args (dict): A dictionary containing command arguments. Expected keys are 'lines' for the
-                         number of lines to display and 'file' for the file path.
-            input (str, optional): An optional string input to use when no file is provided.
+            args (dict): A dictionary containing command arguments. Expected
+                         keys are 'lines' for the number of lines to display
+                         and 'file' for the file path.
+            input (str, optional): An optional string input to use when no
+                                   file is provided.
 
         Returns:
             str: The first few lines of the file or input string.
 
         Raises:
-            ValueError: If the line count is negative or if no file or input is provided.
+            ValueError: If the line count is negative or if no file or input
+                        is provided.
             FileNotFoundError: If the provided file path does not exist.
         """
         self._validate_args(args)

@@ -1,6 +1,7 @@
 from .command import Command
 import os
 
+
 class ClearCommand(Command):
     """
     Represents a command that clears the terminal screen.
