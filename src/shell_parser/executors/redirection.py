@@ -10,7 +10,7 @@ class RedirectionType(Enum):
     APPEND = 3
 
 
-class Redirect(Executor):
+class Redirection(Executor):
     """
     This class represents a redirection in shell command execution,
     handling the redirection of a command's output to a file or using a file's contents as input.
@@ -61,8 +61,9 @@ class Redirect(Executor):
                 with open(self.file_name, 'r') as file:
                     file_contents = file.read()
             else:
+                command = self.call.command if self.call.command else 'unknown'
                 raise FileNotFoundError(
-                    f'No such file or directory: {self.file_name}'
+                    f'{command}: No such file or directory: {self.file_name}'
                 )
 
         call_input = input or file_contents or None

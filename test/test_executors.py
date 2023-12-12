@@ -5,7 +5,7 @@ from pathlib import Path
 from utils.exceptions import UnexpectedArgumentError
 from src.shell_parser.executors import (
     Call,
-    Redirect,
+    Redirection,
     RedirectionType,
     Pipe,
     Sequence,
@@ -37,7 +37,7 @@ class TestExecutors(unittest.TestCase):
 
     def test_redirection_read(self):
         call = Call('cat', [])
-        redirection = Redirect(
+        redirection = Redirection(
             call, RedirectionType.READ, self.temp_path / 'file1.txt'
         )
         self.assertListEqual(
@@ -47,7 +47,7 @@ class TestExecutors(unittest.TestCase):
 
     def test_redirection_append(self):
         call = Call('cat', [])
-        redirection = Redirect(
+        redirection = Redirection(
             call, RedirectionType.APPEND, self.temp_path / 'file1.txt'
         )
         redirection.evaluate('Test Line 4')
@@ -59,7 +59,7 @@ class TestExecutors(unittest.TestCase):
 
     def test_redirection_overwrite(self):
         call = Call('cat', [])
-        redirection = Redirect(
+        redirection = Redirection(
             call, RedirectionType.OVERWRITE, self.temp_path / 'file1.txt'
         )
         redirection.evaluate('Test Line 4')
@@ -68,7 +68,7 @@ class TestExecutors(unittest.TestCase):
 
     def test_redirection_read_nonexistent(self):
         call = Call('cat', [])
-        redirection = Redirect(
+        redirection = Redirection(
             call, RedirectionType.READ, self.temp_path / 'file3.txt'
         )
         self.assertRaises(FileNotFoundError, redirection.evaluate)
@@ -100,7 +100,7 @@ class TestExecutors(unittest.TestCase):
             call1,
             Pipe(
                 call2,
-                Redirect(
+                Redirection(
                     call3,
                     RedirectionType.APPEND,
                     self.temp_path / 'file3.txt',
@@ -129,7 +129,7 @@ class TestExecutors(unittest.TestCase):
         call2 = Call('echo', ['bar'])
         sequence = Sequence(
             call1,
-            Redirect(
+            Redirection(
                 call2, RedirectionType.OVERWRITE, self.temp_path / 'file3.txt'
             ),
         )

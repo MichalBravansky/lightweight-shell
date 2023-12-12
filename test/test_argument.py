@@ -13,7 +13,7 @@ class TestArgument(unittest.TestCase):
             'positional_args': [Argument(Argument.INTEGER, 'number')],
             'named_args': {},
         }
-        result = Argument.populate_args(args_info, ['123'])
+        result = Argument.populate_args("test", args_info, ['123'])
         self.assertEqual(result['positional_args'][0].value, 123)
 
     def test_string_argument(self):
@@ -21,7 +21,7 @@ class TestArgument(unittest.TestCase):
             'positional_args': [Argument(Argument.STRING, 'text')],
             'named_args': {},
         }
-        result = Argument.populate_args(args_info, ['hello'])
+        result = Argument.populate_args("test", args_info, ['hello'])
         self.assertEqual(result['positional_args'][0].value, 'hello')
 
     def test_flag_argument(self):
@@ -29,7 +29,7 @@ class TestArgument(unittest.TestCase):
             'positional_args': [],
             'named_args': {'v': Argument(Argument.FLAG, 'verbose')},
         }
-        result = Argument.populate_args(args_info, ['-v'])
+        result = Argument.populate_args("test", args_info, ['-v'])
         self.assertTrue(result['named_args']['v'].value)
 
     def test_missing_value_error(self):
@@ -40,12 +40,12 @@ class TestArgument(unittest.TestCase):
             },
         }
         with self.assertRaises(MissingValueError):
-            Argument.populate_args(args_info, ['-n'])
+            Argument.populate_args("test", args_info, ['-n'])
 
     def test_unexpected_argument_error(self):
         args_info = {'positional_args': [], 'named_args': {}}
         with self.assertRaises(UnexpectedArgumentError):
-            Argument.populate_args(args_info, ['unexpected'])
+            Argument.populate_args("test", args_info, ['unexpected'])
 
     def test_too_many_arguments_error(self):
         args_info = {
@@ -53,7 +53,7 @@ class TestArgument(unittest.TestCase):
             'named_args': {},
         }
         with self.assertRaises(TooManyArgumentsError):
-            Argument.populate_args(args_info, ['hello', 'extra'])
+            Argument.populate_args("test", args_info, ['hello', 'extra'])
 
     def test_flag_with_value(self):
         args_info = {
@@ -62,7 +62,7 @@ class TestArgument(unittest.TestCase):
                 'limit': Argument(Argument.FLAG_WITH_INTEGER, 'limit')
             },
         }
-        result = Argument.populate_args(args_info, ['-limit', '10'])
+        result = Argument.populate_args("test", args_info, ['-limit', '10'])
         self.assertEqual(result['named_args']['limit'].value, 10)
 
     def test_list_argument(self):
@@ -70,7 +70,7 @@ class TestArgument(unittest.TestCase):
             'positional_args': [Argument(Argument.LIST, 'items')],
             'named_args': {},
         }
-        result = Argument.populate_args(args_info, ['item1', 'item2', 'item3'])
+        result = Argument.populate_args("test", args_info, ['item1', 'item2', 'item3'])
         self.assertEqual(
             result['positional_args'][0].value, ['item1', 'item2', 'item3']
         )
@@ -83,7 +83,7 @@ class TestArgument(unittest.TestCase):
             ],
             'named_args': {'verbose': Argument(Argument.FLAG, 'verbose')},
         }
-        result = Argument.populate_args(args_info, ['John', '30', '-verbose'])
+        result = Argument.populate_args("test", args_info, ['John', '30', '-verbose'])
         self.assertEqual(result['positional_args'][0].value, 'John')
         self.assertEqual(result['positional_args'][1].value, 30)
         self.assertTrue(result['named_args']['verbose'].value)
@@ -94,14 +94,14 @@ class TestArgument(unittest.TestCase):
             'named_args': {},
         }
         with self.assertRaises(ValueError):
-            Argument.populate_args(args_info, ['abc'])
+            Argument.populate_args("test", args_info, ['abc'])
 
     def test_named_argument_followed_by_positional(self):
         args_info = {
             'positional_args': [Argument(Argument.STRING, 'text')],
             'named_args': {'v': Argument(Argument.FLAG, 'verbose')},
         }
-        result = Argument.populate_args(args_info, ['-v', 'message'])
+        result = Argument.populate_args("test", args_info, ['-v', 'message'])
         self.assertTrue(result['named_args']['v'].value)
         self.assertEqual(result['positional_args'][0].value, 'message')
 
@@ -112,7 +112,7 @@ class TestArgument(unittest.TestCase):
             'stop_positional_after_named': False,
         }
         with self.assertRaises(UnexpectedArgumentError):
-            Argument.populate_args(args_info, ['-unknown'])
+            Argument.populate_args("test", args_info, ['-unknown'])
 
     def test_only_positional_arguments(self):
         args_info = {
@@ -122,7 +122,7 @@ class TestArgument(unittest.TestCase):
             ],
             'named_args': {},
         }
-        result = Argument.populate_args(args_info, ['hello', '123'])
+        result = Argument.populate_args("test", args_info, ['hello', '123'])
         self.assertEqual(result['positional_args'][0].value, 'hello')
         self.assertEqual(result['positional_args'][1].value, 123)
 
@@ -131,7 +131,7 @@ class TestArgument(unittest.TestCase):
             'positional_args': [Argument(Argument.STRING, 'first')],
             'named_args': {'v': Argument(Argument.FLAG, 'verbose')},
         }
-        result = Argument.populate_args(args_info, ['-v', 'hello'])
+        result = Argument.populate_args("test", args_info, ['-v', 'hello'])
         self.assertTrue(result['named_args']['v'].value)
         self.assertEqual(result['positional_args'][0].value, 'hello')
 
@@ -142,7 +142,7 @@ class TestArgument(unittest.TestCase):
             'stop_positional_after_named': False,
         }
         with self.assertRaises(TooManyArgumentsError):
-            Argument.populate_args(args_info, ['hello', '-unknown'])
+            Argument.populate_args("test", args_info, ['hello', '-unknown'])
 
     def test_positional_arguments_continued_after_named(self):
         args_info = {
@@ -153,7 +153,7 @@ class TestArgument(unittest.TestCase):
             'named_args': {'v': Argument(Argument.FLAG, 'verbose')},
             'stop_positional_after_named': False,
         }
-        result = Argument.populate_args(args_info, ['hello', '-v', '123'])
+        result = Argument.populate_args("test", args_info, ['hello', '-v', '123'])
         self.assertTrue(result['named_args']['v'].value)
         self.assertEqual(result['positional_args'][0].value, 'hello')
         self.assertEqual(result['positional_args'][1].value, 123)
@@ -183,4 +183,4 @@ class TestArgument(unittest.TestCase):
             'stop_positional_after_named': True,
         }
         with self.assertRaises(UnexpectedArgumentError):
-            Argument.populate_args(args_info, ['hello', '-v', '-invalid'])
+            Argument.populate_args("test", args_info, ['hello', '-v', '-invalid'])
