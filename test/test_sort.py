@@ -3,7 +3,8 @@ import tempfile
 from pathlib import Path
 from src.commands.sort import SortCommand as Sort
 from src.commands.argument import Argument
-
+from hypothesis import given
+from hypothesis.strategies import text
 
 class TestSort(unittest.TestCase):
     def setUp(self):
@@ -43,3 +44,23 @@ class TestSort(unittest.TestCase):
         }
         with self.assertRaises(ValueError):
             Sort().execute(args)
+
+    @given(text(max_size=100, min_size=1))
+    def test_sort_with_short_input(self, input_text):
+        args = {
+            'reverse': Argument(Argument.FLAG, 'reverse', False),
+            'file': Argument(Argument.STRING, 'file', None),
+        }
+        expected = '\n'.join(sorted(input_text.split('\n')))
+        response = Sort().execute(args, input_text)
+        self.assertEqual(response, expected)
+
+    @given(text(max_size=100, min_size=1))
+    def test_sort_with_short_input_reverse(self, input_text):
+        args = {
+            'reverse': Argument(Argument.FLAG, 'reverse', True),
+            'file': Argument(Argument.STRING, 'file', None),
+        }
+        expected = '\n'.join(sorted(input_text.split('\n'), reverse=True))
+        response = Sort().execute(args, input_text)
+        self.assertEqual(response, expected)
