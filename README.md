@@ -6,7 +6,7 @@ Meet COMP0010 Shell, a lightweight shell built in Python offering an interactive
 
 In addition to the basic required functionality (described in [Applications](#applications)), COMP0010 Shell has been enhanced with the following features:
 
-- **Autocomplete**: The shell provides an autocomplete feature that suggests possible completions for your command when the tab key is pressed. This feature is implemented in the [`AutoCompleter`](src/utils/auto_completer.py) class.
+- **Autocomplete**: The shell provides an autocomplete feature that suggests possible completions for file names / directories when you press tab. This feature is implemented in the [`AutoCompleter`](src/utils/auto_completer.py) class.
 
 - **Command History**: You can navigate through your command history using the up and down arrow keys. This allows you to easily access and repeat previously executed commands without retyping them.
 
