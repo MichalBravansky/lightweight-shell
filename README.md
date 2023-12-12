@@ -12,7 +12,7 @@ In addition to the basic required functionality (described in [Applications](#ap
 
 - **Command Help**: The shell supports the `--help` option, which provides help and usage information for a specific command. This feature is useful for understanding the available options and arguments for each command.
 
-- **Helpful Commands**: There several helpful commands included that are commonly used for file system manipulation and quality of life. These commands include `mkdir` for creating directories, `rm` for removing files and directories, and `clear` for clearing the shell's output.
+- **Helpful Commands**: There are several helpful commands included that are commonly used for file system manipulation and quality of life. These commands include `mkdir` for creating directories, `rm` for removing files and directories, and `clear` for clearing the shell's output.
 
 ## Implementation Details
 
@@ -32,7 +32,7 @@ The project is structured as follows:
 
 The shell is packaged as a Docker container for easy distribution and execution. The Dockerfile for building the container image is located at the root of the project directory.
 
-The project uses GitHub Actions for continuous integration, which runs the unit tests and system tests on every push to the repository.
+The project uses GitHub Actions for continuous integration, which runs the unit tests, property tests, and system tests on every push to the repository.
 
 ### Modules used
 Some of the notable (built in) Python modules used in COMP0010 Shell include:
