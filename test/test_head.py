@@ -4,7 +4,7 @@ from hypothesis import given
 from hypothesis.strategies import text
 from src.commands.head import HeadCommand as Head
 from src.commands.argument import Argument
-
+from pathlib import Path
 
 class TestHead(unittest.TestCase):
     def setUp(self):
