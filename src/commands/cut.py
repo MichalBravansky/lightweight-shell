@@ -1,5 +1,6 @@
 from .command import Command
 
+
 class CutCommand(Command):
     """
     Represents the 'cut' command which cuts out selected portions of each line of a file.
@@ -9,7 +10,9 @@ class CutCommand(Command):
     """
 
     def __init__(self):
-        super().__init__("cut", "cut out selected portions of each line of a file")
+        super().__init__(
+            "cut", "cut out selected portions of each line of a file"
+        )
 
     def parse_byte_ranges(self, byte_range_str):
         """
@@ -80,7 +83,8 @@ class CutCommand(Command):
 
         if not file_name and not input:
             raise ValueError(
-                "cut: missing file operand\nTry 'cut --help' for more information."
+                "cut: missing file operand\nTry 'cut --help' for more"
+                " information."
             )
 
         byte_ranges = self._parse_and_validate_byte_ranges(byte_range_str)
@@ -142,5 +146,7 @@ class CutCommand(Command):
         Returns:
             str: Concatenated string of all lines with bytes cut out.
         """
-        result = [self.cut_bytes_from_line(line, byte_ranges) for line in lines]
+        result = [
+            self.cut_bytes_from_line(line, byte_ranges) for line in lines
+        ]
         return "\n".join(result)

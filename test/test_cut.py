@@ -5,6 +5,7 @@ from pathlib import Path
 from src.commands.cut import CutCommand as Cut
 from src.commands.argument import Argument
 
+
 class TestCut(unittest.TestCase):
     def setUp(self):
         self.test_dir = tempfile.TemporaryDirectory()
@@ -17,7 +18,9 @@ class TestCut(unittest.TestCase):
 
     def test_cut_specific_bytes_from_file(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "1-4")
-        file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
+        file_arg = Argument(
+            Argument.STRING, "file", f"{self.temp_path}/test_file.txt"
+        )
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
         expected = "Line\nLine\nLine"
 
@@ -26,7 +29,13 @@ class TestCut(unittest.TestCase):
     def test_cut_specific_bytes_from_input(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "1-4")
         input_str = "TestLine1\nTestLine2\nTestLine3"
-        response = Cut().execute({"bytes": byte_arg, "file": Argument(Argument.STRING, "file", None)}, input=input_str)
+        response = Cut().execute(
+            {
+                "bytes": byte_arg,
+                "file": Argument(Argument.STRING, "file", None),
+            },
+            input=input_str,
+        )
         expected = "Test\nTest\nTest"
 
         self.assertEqual(response, expected)
@@ -34,12 +43,18 @@ class TestCut(unittest.TestCase):
     def test_cut_with_invalid_byte_range(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "5-2")
         with self.assertRaises(ValueError):
-            Cut().execute({"bytes": byte_arg, "file": Argument(Argument.STRING, "file", None)})
+            Cut().execute({
+                "bytes": byte_arg,
+                "file": Argument(Argument.STRING, "file", None),
+            })
 
     def test_cut_without_byte_range(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "")
         with self.assertRaises(ValueError):
-            Cut().execute({"bytes": byte_arg, "file": Argument(Argument.STRING, "file", None)})
+            Cut().execute({
+                "bytes": byte_arg,
+                "file": Argument(Argument.STRING, "file", None),
+            })
 
     def test_cut_nonexistent_file(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "1-4")
@@ -49,15 +64,19 @@ class TestCut(unittest.TestCase):
 
     def test_cut_single_byte_range(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "3")
-        file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
+        file_arg = Argument(
+            Argument.STRING, "file", f"{self.temp_path}/test_file.txt"
+        )
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
         expected = "n\nn\nn"  # Assuming the file has "Line1\nLine2\nLine3"
 
         self.assertEqual(response, expected)
-    
+
     def test_cut_start_is_none(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "-4")
-        file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
+        file_arg = Argument(
+            Argument.STRING, "file", f"{self.temp_path}/test_file.txt"
+        )
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
         expected = "Line\nLine\nLine"
 
@@ -65,7 +84,9 @@ class TestCut(unittest.TestCase):
 
     def test_cut_entire_line(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "-")
-        file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
+        file_arg = Argument(
+            Argument.STRING, "file", f"{self.temp_path}/test_file.txt"
+        )
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
         expected = "Line1\nLine2\nLine3"
 
@@ -73,7 +94,9 @@ class TestCut(unittest.TestCase):
 
     def test_cut_same_start_end_byte_range(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "2-2")
-        file_arg = Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")
+        file_arg = Argument(
+            Argument.STRING, "file", f"{self.temp_path}/test_file.txt"
+        )
         response = Cut().execute({"bytes": byte_arg, "file": file_arg})
         expected = "i\ni\ni"  # Assuming the file has "Line1\nLine2\nLine3"
 
@@ -82,7 +105,14 @@ class TestCut(unittest.TestCase):
     def test_cut_invalid_byte_range(self):
         byte_arg = Argument(Argument.FLAG_WITH_STRING, "bytes", "a")
         with self.assertRaises(ValueError):
-            Cut().execute({"bytes": byte_arg, "file": Argument(Argument.STRING, "file", f"{self.temp_path}/test_file.txt")})
+            Cut().execute({
+                "bytes": byte_arg,
+                "file": Argument(
+                    Argument.STRING,
+                    "file",
+                    f"{self.temp_path}/test_file.txt",
+                ),
+            })
 
     @patch("builtins.open", side_effect=IOError("mocked error"))
     def test_cut_file_io_error(self, mock_open):

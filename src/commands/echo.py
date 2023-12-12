@@ -1,5 +1,6 @@
 from .command import Command
 
+
 class EchoCommand(Command):
     """
     Represents the 'echo' command which outputs text to stdout.

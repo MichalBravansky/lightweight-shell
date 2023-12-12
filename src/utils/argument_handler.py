@@ -2,8 +2,8 @@ from config import config
 from utils.exceptions import UnknownCommandError
 from commands.argument import Argument
 
-class ArgumentHandler:
 
+class ArgumentHandler:
     @classmethod
     def assign_arguments(cls, command_name: str, args: list) -> dict:
         """
@@ -15,7 +15,7 @@ class ArgumentHandler:
 
         Returns:
             dict: The assigned arguments.
-        
+
         Raises:
             UnknownCommandError: If the command is not found in the configuration.
         """

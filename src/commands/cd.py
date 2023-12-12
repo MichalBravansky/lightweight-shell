@@ -1,6 +1,7 @@
 from .command import Command
 import os
 
+
 class CdCommand(Command):
     """
     Represents the 'cd' command which changes the current working directory.

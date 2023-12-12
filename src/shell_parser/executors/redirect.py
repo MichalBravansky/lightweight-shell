@@ -17,8 +17,10 @@ class Redirect(Executor):
 
     It inherits from the Executor class and overrides the evaluate method to implement redirection.
     """
-        
-    def __init__(self, call: Call, redirect_type: RedirectionType, file_name: str) -> None:
+
+    def __init__(
+        self, call: Call, redirect_type: RedirectionType, file_name: str
+    ) -> None:
         """
         Initializes a new instance of the Redirect class.
 
@@ -66,13 +68,17 @@ class Redirect(Executor):
         call_input = input or file_contents or None
         call_output = "".join(self.call.evaluate(call_input))
 
-        if self.redirect_type in (RedirectionType.OVERWRITE, RedirectionType.APPEND):
-            
-            mode = "w" if self.redirect_type == RedirectionType.OVERWRITE else "a"
+        if self.redirect_type in (
+            RedirectionType.OVERWRITE,
+            RedirectionType.APPEND,
+        ):
+            mode = (
+                "w" if self.redirect_type == RedirectionType.OVERWRITE else "a"
+            )
             with open(self.file_name, mode) as file:
                 file.write(call_output)
 
             return [""]
-        
+
         else:
             return [call_output]

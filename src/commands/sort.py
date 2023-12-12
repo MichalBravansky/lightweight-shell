@@ -1,5 +1,6 @@
 from .command import Command
 
+
 class SortCommand(Command):
     """
     Represents the 'sort' command which sorts lines of text.
@@ -26,8 +27,8 @@ class SortCommand(Command):
         Raises:
             ValueError: If no file or input is provided.
         """
-        reverse = args['reverse'].value
-        file_path = args['file'].value
+        reverse = args["reverse"].value
+        file_path = args["file"].value
 
         lines = self._read_lines(file_path, input)
         lines.sort(reverse=reverse)
@@ -49,9 +50,9 @@ class SortCommand(Command):
             ValueError: If neither a file nor input is provided.
         """
         if file_path:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 return f.read().splitlines()
         elif input:
-            return input.split('\n')
+            return input.split("\n")
         else:
             raise ValueError("sort: no input provided")

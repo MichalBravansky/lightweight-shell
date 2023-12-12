@@ -5,6 +5,7 @@ from pathlib import Path
 from src.commands.find import FindCommand as Find
 from src.commands.argument import Argument
 
+
 class TestFind(unittest.TestCase):
     def setUp(self):
         self.test_dir = tempfile.TemporaryDirectory()
@@ -25,7 +26,9 @@ class TestFind(unittest.TestCase):
         name_arg = Argument(Argument.FLAG_WITH_STRING, "name", "*.txt")
         response = Find().execute({"directory": dir_arg, "name": name_arg})
         expected_files = ["file2.txt", "file1.txt", "subdir/file3.txt"]
-        expected = "\n".join(str(self.temp_path / f) for f in expected_files) + "\n"
+        expected = (
+            "\n".join(str(self.temp_path / f) for f in expected_files) + "\n"
+        )
         self.assertCountEqual(response, expected)
 
     def test_find_invalid_directory(self):
@@ -39,7 +42,6 @@ class TestFind(unittest.TestCase):
         name_arg = Argument(Argument.FLAG_WITH_STRING, "name", None)
         with self.assertRaises(ValueError):
             Find().execute({"directory": dir_arg, "name": name_arg})
-    
 
     def test_find_no_files_found(self):
         dir_arg = Argument(Argument.STRING, "directory", str(self.temp_path))
@@ -47,4 +49,3 @@ class TestFind(unittest.TestCase):
         response = Find().execute({"directory": dir_arg, "name": name_arg})
         expected = "\n"
         self.assertEqual(response, expected)
-

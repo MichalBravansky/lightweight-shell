@@ -19,7 +19,10 @@ class TooManyArgumentsError(Exception):
 class ParsingError(Exception):
     def __init__(self, message):
         self.message = message
-        super().__init__(f"Unable to parse the provided command. Error: {message}")
+        super().__init__(
+            f"Unable to parse the provided command. Error: {message}"
+        )
+
 
 class UnknownCommandError(Exception):
     def __init__(self, message):

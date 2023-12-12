@@ -8,7 +8,7 @@ class Command(ABC):
 
     # Assumes that the command has been pre-validated by the parser.
     @abstractmethod
-    def execute(self, args, input=None): # pragma: no cover
+    def execute(self, args, input=None):  # pragma: no cover
         raise NotImplementedError
 
     def help(self):

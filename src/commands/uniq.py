@@ -1,5 +1,6 @@
 from .command import Command
 
+
 class UniqCommand(Command):
     """
     Represents the 'uniq' command which removes duplicate consecutive lines from text.
@@ -54,7 +55,8 @@ class UniqCommand(Command):
             return input.splitlines()
         else:
             raise ValueError(
-                "uniq: missing file operand\nTry 'uniq --help' for more information."
+                "uniq: missing file operand\nTry 'uniq --help' for more"
+                " information."
             )
 
     def _remove_duplicates(self, lines, ignore_case):

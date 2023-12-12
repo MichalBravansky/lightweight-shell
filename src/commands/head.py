@@ -84,7 +84,8 @@ class HeadCommand(Command):
         """
         if input is None:
             raise ValueError(
-                "head: missing file operand\nTry 'head --help' for more information."
+                "head: missing file operand\nTry 'head --help' for more"
+                " information."
             )
         return input.split("\n")
 
